@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id" x-data="{ mobileMenu: false }" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foto Bercerita — YALI Papua</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{primary:{50:'#f0fdf4',100:'#dcfce7',200:'#bbf7d0',300:'#86efac',400:'#4ade80',500:'#22c55e',600:'#16a34a',700:'#15803d',800:'#166534',900:'#14532d',950:'#052e16'},secondary:{50:'#f0f9ff',100:'#e0f2fe',200:'#bae6fd',300:'#7dd3fc',400:'#38bdf8',500:'#0ea5e9',600:'#0284c7',700:'#0369a1',800:'#075985',900:'#0c4a6e',950:'#082f49'}},fontFamily:{sans:['Inter','system-ui','sans-serif']}}}}</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" href="images/logo-yali-papua.png" type="image/png" />
+  <style>[x-cloak]{display:none!important}</style>
+</head>
+<body class="font-sans text-gray-800 bg-white antialiased">
+  <div class="bg-primary-900 text-white text-sm"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-col sm:flex-row justify-between items-center gap-2"><div class="flex items-center gap-4"><span><i class="fa-solid fa-envelope mr-1"></i> info@yalipapua.or.id</span><span><i class="fa-solid fa-phone mr-1"></i> +62 823-1221-1707</span></div><div class="flex items-center gap-4"><div class="hidden sm:flex items-center gap-3 text-xs"><a href="donasi.html" class="hover:text-primary-300 transition font-medium">Donasi</a><span class="text-white/30">|</span><a href="cendera-mata.html" class="hover:text-primary-300 transition font-medium">Cendera Mata</a><span class="text-white/30">|</span><a href="faq.html" class="hover:text-primary-300 transition font-medium">FAQ</a></div><div class="flex items-center gap-3 sm:ml-4 sm:pl-4 sm:border-l sm:border-white/20"><a href="#" class="hover:text-primary-300 transition"><i class="fa-brands fa-facebook-f"></i></a><a href="#" class="hover:text-primary-300 transition"><i class="fa-brands fa-instagram"></i></a><a href="#" class="hover:text-primary-300 transition"><i class="fa-brands fa-x-twitter"></i></a><a href="#" class="hover:text-primary-300 transition"><i class="fa-brands fa-youtube"></i></a></div></div></div></div>
+  <nav class="bg-white shadow-md sticky top-0 z-50"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex justify-between items-center h-20"><a href="index.html" class="flex items-center gap-3"><img src="images/logo-yali-papua.png" alt="YALI Papua" class="h-12 w-auto" /><div><span class="text-xl font-bold text-primary-800 leading-tight block">YALI Papua</span><span class="text-xs text-gray-500">Yayasan Lingkungan Hidup Papua</span></div></a><div class="hidden lg:flex items-center gap-1"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Beranda</a><a href="tentang.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Tentang Kami</a><a href="program.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Yang Kami Lakukan</a><a href="mitra.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Mitra</a><a href="artikel.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary-700 bg-primary-50">Artikel</a><a href="galeri.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Galeri</a><a href="kontak.html" class="ml-3 px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold rounded-full transition shadow-md"><i class="fa-solid fa-envelope mr-1"></i> Kontak</a></div><button @click="mobileMenu=!mobileMenu" class="lg:hidden text-gray-700 text-2xl"><i :class="mobileMenu?'fa-solid fa-xmark':'fa-solid fa-bars'"></i></button></div></div><div x-show="mobileMenu" x-cloak x-transition class="lg:hidden bg-white border-t shadow-lg"><div class="px-4 py-4 space-y-1"><a @click="mobileMenu=false" href="index.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Beranda</a><a @click="mobileMenu=false" href="tentang.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Tentang Kami</a><a @click="mobileMenu=false" href="program.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Yang Kami Lakukan</a><a @click="mobileMenu=false" href="mitra.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Mitra</a><a @click="mobileMenu=false" href="artikel.html" class="block px-3 py-2.5 rounded-md text-primary-700 bg-primary-50 font-medium">Artikel</a><a @click="mobileMenu=false" href="galeri.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Galeri</a><a @click="mobileMenu=false" href="kontak.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Kontak</a><div class="border-t border-gray-100 mt-2 pt-2 space-y-1"><a @click="mobileMenu=false" href="donasi.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium"><i class="fa-solid fa-heart mr-2 text-primary-600"></i>Donasi</a><a @click="mobileMenu=false" href="cendera-mata.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium"><i class="fa-solid fa-gift mr-2 text-primary-600"></i>Cendera Mata</a><a @click="mobileMenu=false" href="faq.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium"><i class="fa-solid fa-circle-question mr-2 text-primary-600"></i>FAQ</a></div></div></div></nav>
+
+  <!-- BREADCRUMB HEADER -->
+  <section class="relative bg-gradient-to-br from-primary-800 via-primary-900 to-secondary-900 py-16 overflow-hidden">
+    <div class="absolute inset-0 opacity-10"><div class="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+      <nav class="flex items-center gap-2 text-sm text-gray-300 mb-4">
+        <a href="index.html" class="hover:text-white transition">Beranda</a><i class="fa-solid fa-chevron-right text-xs"></i>
+        <a href="galeri.html" class="hover:text-white transition">Foto Bercerita</a><i class="fa-solid fa-chevron-right text-xs"></i>
+        <span class="text-white font-semibold">Album</span>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ALBUM DETAIL -->
+  <section class="py-12 bg-gray-50" x-data="albumDetail()">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Album Header -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 mb-8">
+        <div class="flex items-center gap-3 mb-3 text-sm text-gray-400">
+          <span><i class="fa-solid fa-calendar mr-1"></i> <span x-text="album.date"></span></span>
+          <span><i class="fa-solid fa-images mr-1"></i> <span x-text="album.photos.length"></span> Foto</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 mb-4" x-text="album.title"></h1>
+        <p class="text-gray-600 leading-relaxed" x-text="album.description"></p>
+      </div>
+
+      <!-- Photo Story -->
+      <div class="space-y-8">
+        <template x-for="(photo, i) in album.photos" :key="i">
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <!-- Photo Placeholder -->
+            <div class="h-64 sm:h-80 lg:h-96 relative overflow-hidden">
+              <template x-if="photo.image">
+                <img :src="photo.image" :alt="photo.caption" class="w-full h-full object-cover" />
+              </template>
+              <template x-if="!photo.image">
+                <div class="w-full h-full bg-gradient-to-br flex items-center justify-center" :class="photo.gradient">
+                  <i :class="'fa-solid ' + photo.icon + ' text-7xl text-white/25'"></i>
+                </div>
+              </template>
+              <div class="absolute top-4 left-4 bg-black/40 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-full font-semibold">
+                Foto <span x-text="i + 1"></span> / <span x-text="album.photos.length"></span>
+              </div>
+            </div>
+            <!-- Photo Caption / Story -->
+            <div class="p-6 sm:p-8">
+              <h3 class="text-lg font-bold text-gray-900 mb-3" x-text="photo.caption"></h3>
+              <p class="text-gray-600 leading-relaxed" x-text="photo.story"></p>
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <!-- Share & Navigation -->
+      <div class="mt-8 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <span class="text-sm font-semibold text-gray-700"><i class="fa-solid fa-share-nodes mr-1"></i> Bagikan:</span>
+          <a href="#" class="w-9 h-9 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center justify-center transition text-sm"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="w-9 h-9 bg-sky-500 hover:bg-sky-600 text-white rounded-lg flex items-center justify-center transition text-sm"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="w-9 h-9 bg-green-600 hover:bg-green-700 text-white rounded-lg flex items-center justify-center transition text-sm"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+        <a href="galeri.html" class="inline-flex items-center px-6 py-2.5 border-2 border-primary-600 text-primary-600 font-semibold rounded-full hover:bg-primary-600 hover:text-white transition text-sm">
+          <i class="fa-solid fa-arrow-left mr-2"></i> Kembali ke Galeri
+        </a>
+      </div>
+    </div>
+  </section>
+
+    <footer class="bg-primary-950 text-gray-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <img src="images/logo-yali-papua.png" alt="YALI Papua" class="h-10 w-auto brightness-0 invert" />
+            <span class="text-xl font-bold text-white">YALI Papua</span>
+          </div>
+          <p class="text-sm leading-relaxed mb-6">Yayasan Lingkungan Hidup Papua — berdedikasi untuk pelestarian alam dan pemberdayaan masyarakat adat di tanah Papua.</p>
+          <p class="text-sm text-gray-400 mb-6"><i class="fa-solid fa-phone mr-2"></i> +62 823-1221-1707</p>
+          <div class="flex gap-3">
+            <a href="#" class="w-9 h-9 bg-white/10 hover:bg-primary-600 rounded-lg flex items-center justify-center transition"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-white/10 hover:bg-primary-600 rounded-lg flex items-center justify-center transition"><i class="fa-brands fa-instagram text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-white/10 hover:bg-primary-600 rounded-lg flex items-center justify-center transition"><i class="fa-brands fa-x-twitter text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-white/10 hover:bg-primary-600 rounded-lg flex items-center justify-center transition"><i class="fa-brands fa-youtube text-sm"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4">Navigasi</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="index.html" class="hover:text-primary-400 transition">Beranda</a></li>
+            <li><a href="tentang.html" class="hover:text-primary-400 transition">Tentang Kami</a></li>
+            <li><a href="program.html" class="hover:text-primary-400 transition">Yang Kami Lakukan</a></li>
+            <li><a href="mitra.html" class="hover:text-primary-400 transition">Mitra</a></li>
+            <li><a href="artikel.html" class="hover:text-primary-400 transition">Artikel</a></li>
+            <li><a href="galeri.html" class="hover:text-primary-400 transition">Galeri</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4">Lainnya</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="donasi.html" class="hover:text-primary-400 transition">Donasi</a></li>
+            <li><a href="cendera-mata.html" class="hover:text-primary-400 transition">Cendera Mata</a></li>
+            <li><a href="faq.html" class="hover:text-primary-400 transition">FAQ</a></li>
+            <li><a href="peta-situs.html" class="hover:text-primary-400 transition">Peta Situs</a></li>
+            <li><a href="kontak.html" class="hover:text-primary-400 transition">Kontak</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4">Dukung Gerakan Kami</h4>
+          <p class="text-sm mb-4">Setiap kontribusi Anda membantu menjaga alam Papua dan menguatkan masyarakat adat.</p>
+          <a href="donasi.html" class="inline-flex items-center px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-full transition text-sm shadow-md">
+            <i class="fa-solid fa-heart mr-2"></i> Donasi Sekarang
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-sm text-gray-400">&copy; 2026 YALI Papua. Hak Cipta Dilindungi.</p>
+        <p class="text-sm text-gray-400">Powered by <a href="https://nokensoft.com" target="_blank" class="text-primary-400 hover:text-primary-300 transition">Nokensoft.com</a></p>
+      </div>
+    </div>
+  </footer>
+  <a href="https://wa.me/6282312211707?text=Halo%20YALI%20Papua%2C%20saya%20ingin%20bertanya." target="_blank" rel="noopener noreferrer" aria-label="Chat CS WhatsApp" class="fixed bottom-24 right-6 w-12 h-12 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg flex items-center justify-center transition z-50"><i class="fa-brands fa-whatsapp text-2xl"></i></a>
+  <div x-data="{show:false}" @scroll.window="show=window.scrollY>500"><button x-show="show" x-transition @click="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-lg flex items-center justify-center transition z-50"><i class="fa-solid fa-arrow-up"></i></button></div>
+
+  <script>
+    function albumDetail() {
+      const albums = {
+        1: {
+          title: 'Pelestarian Hutan',
+          date: 'Maret 2026',
+          description: 'Dokumentasi kegiatan pelestarian hutan bersama masyarakat adat Papua untuk menjaga kawasan hutan tetap lestari dan berkelanjutan.',
+          photos: [
+            { caption: 'Pelestarian Hutan Papua', image: 'images/tentang/Penanaman%20Pohon.jpeg', icon: 'fa-sun', gradient: 'from-primary-500 to-primary-700', story: 'Kegiatan pelestarian hutan dilakukan bersama masyarakat adat untuk menjaga sumber pangan, air, dan kehidupan satwa endemik Papua.' },
+            { caption: 'Persiapan Bibit Mangrove', icon: 'fa-seedling', gradient: 'from-primary-600 to-secondary-600', story: 'Sebanyak 10.000 bibit mangrove jenis Rhizophora telah disiapkan di pembibitan kampung selama 3 bulan terakhir. Mama-mama kampung dengan telaten merawat bibit-bibit ini hingga siap ditanam di area pesisir yang telah ditentukan.' },
+            { caption: 'Gotong Royong Menanam', icon: 'fa-people-group', gradient: 'from-secondary-500 to-primary-600', story: 'Masyarakat dari lima kampung bergotong royong menanam bibit mangrove di sepanjang garis pantai. Anak-anak, remaja, hingga tetua kampung ikut turun ke lumpur pesisir, menunjukkan semangat kolektif untuk memulihkan ekosistem mereka.' },
+            { caption: 'Pembelajaran di Alam Terbuka', icon: 'fa-graduation-cap', gradient: 'from-primary-500 to-secondary-500', story: 'Di sela-sela kegiatan penanaman, tim edukasi YALI Papua memberikan penjelasan kepada anak-anak tentang pentingnya mangrove bagi ekosistem pesisir. Mereka belajar langsung bahwa setiap pohon mangrove melindungi pantai mereka dari abrasi dan gelombang.' },
+            { caption: 'Harapan untuk Masa Depan', icon: 'fa-heart', gradient: 'from-secondary-600 to-primary-700', story: 'Menjelang sore, 10.000 bibit mangrove telah tertanam rapi di sepanjang pesisir. Masyarakat menatap barisan bibit mangrove yang baru ditanam dengan penuh harapan — bahwa dalam beberapa tahun, pesisir mereka akan kembali hijau dan laut mereka kembali subur.' }
+          ]
+        },
+        2: {
+          title: 'Konservasi Laut',
+          date: 'Februari 2026',
+          description: 'Dokumentasi upaya konservasi laut di wilayah pesisir Papua untuk melindungi terumbu karang dan keanekaragaman hayati laut.',
+          photos: [
+            { caption: 'Konservasi Laut Papua', image: 'images/tentang/Konservasi%20Laut.jpeg', icon: 'fa-ship', gradient: 'from-secondary-500 to-secondary-700', story: 'Kegiatan konservasi laut melibatkan komunitas pesisir untuk menjaga terumbu karang, lamun, dan habitat biota laut Papua.' },
+            { caption: 'Menyelam di Surga Bawah Laut', icon: 'fa-water', gradient: 'from-secondary-600 to-primary-600', story: 'Di kedalaman 5-15 meter, tim penyelam menemukan hamparan terumbu karang yang menakjubkan. Warna-warni karang keras dan lunak membentuk taman bawah laut yang menjadi rumah bagi ribuan spesies ikan.' },
+            { caption: 'Dokumentasi dan Pengukuran', icon: 'fa-camera', gradient: 'from-primary-500 to-secondary-500', story: 'Setiap titik penyelaman didokumentasikan secara detail. Tim mengukur tutupan karang, mencatat spesies ikan yang ditemui, dan membandingkan data dengan hasil survei tahun sebelumnya untuk mendeteksi perubahan.' },
+            { caption: 'Ikan Pari Manta yang Anggun', icon: 'fa-fish', gradient: 'from-secondary-700 to-primary-600', story: 'Di salah satu titik, tim beruntung bertemu dengan sekawanan pari manta yang sedang mencari makan. Pemandangan yang spektakuler ini mengingatkan betapa kayanya perairan Raja Ampat dan pentingnya menjaga ekosistem ini.' },
+            { caption: 'Diskusi dengan Nelayan Lokal', icon: 'fa-comments', gradient: 'from-primary-600 to-secondary-600', story: 'Setelah penyelaman, tim berdiskusi dengan nelayan lokal tentang perubahan yang mereka rasakan di laut. Para nelayan melaporkan perubahan pola ikan dan cuaca yang semakin sulit diprediksi — tanda nyata dampak perubahan iklim.' }
+          ]
+        },
+        3: {
+          title: 'Edukasi Lingkungan',
+          date: 'Januari 2026',
+          description: 'Dokumentasi kegiatan edukasi lingkungan untuk meningkatkan kesadaran masyarakat dan generasi muda terhadap pentingnya menjaga alam Papua.',
+          photos: [
+            { caption: 'Edukasi Lingkungan di Papua', image: 'images/tentang/Edukasi%20Lingkungan.jpeg', icon: 'fa-chalkboard-user', gradient: 'from-primary-600 to-secondary-600', story: 'Kegiatan edukasi lingkungan mendorong masyarakat untuk memahami pentingnya menjaga hutan, sungai, dan laut untuk masa depan Papua.' },
+            { caption: 'Pelatihan Penggunaan GPS', icon: 'fa-location-dot', gradient: 'from-secondary-500 to-primary-500', story: 'Peserta belajar menggunakan perangkat GPS untuk menandai titik-titik batas wilayah adat. Meskipun banyak yang baru pertama kali memegang GPS, mereka cepat memahami cara kerjanya dengan bimbingan fasilitator.' },
+            { caption: 'Praktik Lapangan', icon: 'fa-map', gradient: 'from-primary-500 to-primary-700', story: 'Hari kedua diisi dengan praktik lapangan. Peserta turun ke lapangan untuk memetakan batas-batas wilayah adat menggunakan GPS. Mereka berjalan menyusuri sungai, hutan, dan perbukitan sambil merekam koordinat.' },
+            { caption: 'Pembuatan Peta Digital', icon: 'fa-desktop', gradient: 'from-secondary-600 to-secondary-700', story: 'Data GPS yang dikumpulkan kemudian diolah menjadi peta digital. Peserta belajar menggunakan software pemetaan sederhana untuk menghasilkan peta wilayah adat mereka yang dapat digunakan untuk advokasi.' },
+            { caption: 'Penyerahan Sertifikat', icon: 'fa-award', gradient: 'from-primary-600 to-secondary-500', story: 'Workshop ditutup dengan penyerahan sertifikat kepada seluruh peserta. Setiap peserta pulang membawa keahlian baru dan peta wilayah adat digital pertama untuk kampung mereka — langkah penting dalam perjuangan pengakuan hak adat.' }
+          ]
+        }
+      };
+
+      // Generate generic albums for IDs 4-8
+      for (let id = 4; id <= 8; id++) {
+        const titles = { 4: 'Pemberdayaan Masyarakat', 5: 'Festival Budaya dan Lingkungan Sentani', 6: 'Penanaman Pohon di Pegunungan Arfak', 7: 'Kehidupan di Hutan Sagu Merauke', 8: 'Instalasi Panel Surya di Kampung Terpencil' };
+        const dates = { 4: 'Desember 2025', 5: 'November 2025', 6: 'Oktober 2025', 7: 'September 2025', 8: 'Agustus 2025' };
+        const descs = {
+          4: 'Dokumentasi program pemberdayaan masyarakat adat untuk memperkuat kapasitas komunitas lokal dalam pengelolaan lingkungan berkelanjutan.',
+          5: 'Perayaan kearifan lokal masyarakat Sentani yang memadukan seni budaya dengan kampanye pelestarian lingkungan.',
+          6: 'Aksi reboisasi bersama masyarakat adat Arfak untuk memulihkan kawasan hutan lindung yang terdegradasi.',
+          7: 'Potret keseharian masyarakat Marind yang hidup berdampingan dan bergantung pada hutan sagu.',
+          8: 'Proses instalasi panel surya untuk memberikan akses listrik bersih ke kampung-kampung terpencil di pedalaman Papua.'
+        };
+        const icons = { 4: ['fa-child','fa-fish','fa-water','fa-book-open','fa-sun'], 5: ['fa-music','fa-palette','fa-people-group','fa-tree','fa-campfire'], 6: ['fa-mountain','fa-seedling','fa-people-group','fa-tree','fa-cloud-sun'], 7: ['fa-leaf','fa-people-group','fa-utensils','fa-water','fa-sun'], 8: ['fa-solar-panel','fa-screwdriver-wrench','fa-bolt','fa-lightbulb','fa-people-group'] };
+        const captions = {
+          4: ['Pemberdayaan Masyarakat Papua','Mengenal Biota Laut','Snorkeling Bersama','Kelas di Bawah Pohon','Senyum Anak-Anak Papua'],
+          5: ['Tarian Adat Sentani','Lukisan Kulit Kayu','Pawai Lingkungan','Pentas Seni Anak','Deklarasi Hijau'],
+          6: ['Pendakian ke Lokasi','Menyiapkan Bibit','Menanam Bersama','Doa untuk Hutan','Panorama dari Puncak'],
+          7: ['Pagi di Dusun Sagu','Menebang Pohon Sagu','Mengolah Tepung Sagu','Mama-Mama Bekerja','Senja di Hutan Sagu'],
+          8: ['Tiba di Kampung','Pemasangan Panel','Pelatihan Warga','Lampu Pertama Menyala','Kebahagiaan Warga']
+        };
+        const stories = {
+          4: ['Hari dimulai dengan berkumpul di pantai. Anak-anak Sauwandarek sudah siap dengan semangat untuk belajar tentang laut mereka.','Fasilitator mengajak anak-anak mengenal berbagai biota laut yang hidup di perairan dangkal sekitar kampung.','Dengan pengawasan ketat, anak-anak snorkeling untuk melihat langsung terumbu karang dan ikan-ikan yang mereka pelajari.','Di bawah pohon besar tepi pantai, kelas berlanjut dengan cerita tentang pentingnya menjaga ekosistem laut.','Senyum dan tawa mengiringi akhir kegiatan. Anak-anak pulang dengan pengetahuan baru tentang laut yang mengelilingi kampung mereka.'],
+          5: ['Tarian adat Sentani membuka rangkaian festival dengan gerakan yang melambangkan hubungan manusia dengan Danau Sentani.','Seniman lokal memamerkan lukisan kulit kayu tradisional yang menggambarkan flora dan fauna endemik Papua.','Ratusan warga bergabung dalam pawai lingkungan mengelilingi Danau Sentani sambil membawa pesan pelestarian alam.','Anak-anak sekolah menampilkan pentas drama bertema lingkungan yang menghibur sekaligus mengedukasi penonton.','Festival ditutup dengan deklarasi bersama untuk menjaga kelestarian Danau Sentani dan lingkungan sekitarnya.'],
+          6: ['Tim dan masyarakat adat Arfak mendaki menuju lokasi penanaman di ketinggian 1.500 meter di atas permukaan laut.','Bibit pohon endemik disiapkan dari pembibitan masyarakat. Setiap bibit dipilih yang paling kuat untuk bertahan di kondisi pegunungan.','Bersama-sama menanam ratusan bibit pohon di area yang sebelumnya terdegradasi akibat pembukaan lahan.','Tetua adat memimpin doa adat untuk keberkahan tanaman dan kelestarian hutan Arfak bagi generasi mendatang.','Dari puncak, terlihat hamparan hutan Arfak yang masih hijau — pemandangan yang harus terus kita jaga bersama.'],
+          7: ['Kabut pagi menyelimuti dusun sagu masyarakat Marind. Suasana tenang dan damai menyambut hari baru di hutan sagu.','Dengan keahlian turun-temurun, masyarakat menebang pohon sagu yang sudah matang. Hanya pohon yang sudah siap panen yang ditebang.','Proses pengolahan batang sagu menjadi tepung sagu dilakukan secara tradisional oleh para mama menggunakan alat sederhana.','Mama-mama bekerja bersama mengolah sagu sambil bernyanyi dan bercerita — tradisi yang menjaga ikatan sosial dan budaya.','Senja mewarnai langit di atas hutan sagu. Momen yang mengingatkan betapa pentingnya hutan ini bagi kehidupan masyarakat Marind.'],
+          8: ['Tim YALI Papua tiba di kampung terpencil yang belum memiliki akses listrik. Antusiasme warga menyambut kedatangan panel surya.','Teknisi bersama warga lokal memasang panel surya di atap balai kampung. Warga dilatih langsung selama proses pemasangan.','Warga diberikan pelatihan dasar tentang cara merawat dan memelihara sistem panel surya agar tetap berfungsi optimal.','Momen bersejarah — lampu pertama menyala di kampung yang sebelumnya gelap gulita setelah matahari terbenam.','Warga merayakan listrik pertama mereka. Anak-anak kini bisa belajar di malam hari, dan kehidupan kampung berubah selamanya.']
+        };
+        albums[id] = {
+          title: titles[id], date: dates[id], description: descs[id],
+          photos: [0,1,2,3,4].map(i => ({
+            caption: captions[id][i], icon: icons[id][i],
+            gradient: i % 2 === 0 ? 'from-primary-500 to-secondary-600' : 'from-secondary-500 to-primary-600',
+            story: stories[id][i]
+          }))
+        };
+      }
+
+      if (albums[4] && albums[4].photos[0]) {
+        albums[4].photos[0].image = 'images/tentang/Pemberdayaan%20Masyarakat.jpeg';
+      }
+
+      const id = parseInt(new URLSearchParams(window.location.search).get('id')) || 1;
+      const album = albums[id] || albums[1];
+
+      return {
+        album,
+        init() { document.title = this.album.title + ' — Foto Bercerita — YALI Papua'; }
+      };
+    }
+  </script>
+
+  <div id="prototype-disclaimer-modal" class="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 sm:p-8">
+      <div class="flex items-start justify-between gap-4 mb-4">
+        <div class="flex items-center gap-3">
+          <img src="images/logo-nokensoft.png" alt="Nokensoft" class="h-10 w-auto" />
+          <div>
+            <h3 class="text-lg sm:text-xl font-extrabold text-gray-900">Disclaimer Prototype</h3>
+            <p class="text-xs text-gray-500">Dokumen Audit & Penawaran Nokensoft</p>
+          </div>
+        </div>
+        <button type="button" onclick="document.getElementById('prototype-disclaimer-modal').style.display='none'" class="text-gray-400 hover:text-gray-600 text-xl leading-none" aria-label="Tutup disclaimer">&times;</button>
+      </div>
+      <p class="text-sm sm:text-base text-gray-600 leading-relaxed mb-4">Website ini masih dalam tahap perancangan prototype awal sebagai penawaran desian baru. Semua informasi diambil gunakan metode pencarian di internet dan gambar dengan AI.</p>
+      <p class="text-sm sm:text-base text-gray-600 leading-relaxed">Dirancang dan dibuat oleh <strong>Tim Nokensoft.com</strong>, PIC: <strong>082199558191 (Janzen)</strong>.</p>
+      <div class="mt-6 grid sm:grid-cols-2 gap-3">
+        <a href="downloads/Nokensoft.com%20-%20Laporan_Audit_Digital_YALI_PAPUA_v.1.0.docx%20%281%29.pdf" download target="_blank" class="inline-flex items-center justify-center px-4 py-2.5 border border-primary-200 bg-primary-50 hover:bg-primary-100 text-primary-700 text-sm font-semibold rounded-xl transition text-center">
+          <i class="fa-solid fa-file-arrow-down mr-2"></i> Laporan Audit Website Yali Papua Saat Ini
+        </a>
+        <a href="downloads/Nokensoft.com_Penawaran_Jasa_Profesional_YALI_PAPUA_v.1.0.docx.pdf" download target="_blank" class="inline-flex items-center justify-center px-4 py-2.5 border border-secondary-200 bg-secondary-50 hover:bg-secondary-100 text-secondary-700 text-sm font-semibold rounded-xl transition text-center">
+          <i class="fa-solid fa-file-arrow-down mr-2"></i> Penawaran Jasa Pembuatan dan Pengembangan Website Baru
+        </a>
+      </div>
+      <div class="mt-6 text-right">
+        <button type="button" onclick="document.getElementById('prototype-disclaimer-modal').style.display='none'" class="inline-flex items-center px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold rounded-full transition">Saya Mengerti</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

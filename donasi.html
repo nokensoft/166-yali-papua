@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id" x-data="{ mobileMenu: false }" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donasi — YALI Papua</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{primary:{50:'#f0fdf4',100:'#dcfce7',200:'#bbf7d0',300:'#86efac',400:'#4ade80',500:'#22c55e',600:'#16a34a',700:'#15803d',800:'#166534',900:'#14532d',950:'#052e16'},secondary:{50:'#f0f9ff',100:'#e0f2fe',200:'#bae6fd',300:'#7dd3fc',400:'#38bdf8',500:'#0ea5e9',600:'#0284c7',700:'#0369a1',800:'#075985',900:'#0c4a6e',950:'#082f49'}},fontFamily:{sans:['Inter','system-ui','sans-serif']}}}}</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" href="images/logo-yali-papua.png" type="image/png" />
+  <style>[x-cloak]{display:none!important}</style>
+</head>
+<body class="font-sans text-gray-800 bg-white antialiased">
+  <div class="bg-primary-900 text-white text-sm"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-col sm:flex-row justify-between items-center gap-2"><div class="flex items-center gap-4"><span><i class="fa-solid fa-envelope mr-1"></i> info@yalipapua.or.id</span><span><i class="fa-solid fa-phone mr-1"></i> +62 823-1221-1707</span></div><div class="flex items-center gap-4"><div class="hidden sm:flex items-center gap-3 text-xs"><a href="donasi.html" class="hover:text-primary-300 transition font-medium">Donasi</a><span class="text-white/30">|</span><a href="cendera-mata.html" class="hover:text-primary-300 transition font-medium">Cendera Mata</a><span class="text-white/30">|</span><a href="faq.html" class="hover:text-primary-300 transition font-medium">FAQ</a></div><div class="flex items-center gap-3 sm:ml-4 sm:pl-4 sm:border-l sm:border-white/20"><a href="#" class="hover:text-primary-300 transition"><i class="fa-brands fa-facebook-f"></i></a><a href="#" class="hover:text-primary-300 transition"><i class="fa-brands fa-instagram"></i></a><a href="#" class="hover:text-primary-300 transition"><i class="fa-brands fa-x-twitter"></i></a><a href="#" class="hover:text-primary-300 transition"><i class="fa-brands fa-youtube"></i></a></div></div></div></div>
+  <nav class="bg-white shadow-md sticky top-0 z-50"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex justify-between items-center h-20"><a href="index.html" class="flex items-center gap-3"><img src="images/logo-yali-papua.png" alt="YALI Papua" class="h-12 w-auto" /><div><span class="text-xl font-bold text-primary-800 leading-tight block">YALI Papua</span><span class="text-xs text-gray-500">Yayasan Lingkungan Hidup Papua</span></div></a><div class="hidden lg:flex items-center gap-1"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Beranda</a><a href="tentang.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Tentang Kami</a><a href="program.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Yang Kami Lakukan</a><a href="mitra.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Mitra</a><a href="artikel.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Artikel</a><a href="galeri.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Galeri</a><a href="kontak.html" class="ml-3 px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold rounded-full transition shadow-md"><i class="fa-solid fa-envelope mr-1"></i> Kontak</a></div><button @click="mobileMenu=!mobileMenu" class="lg:hidden text-gray-700 text-2xl"><i :class="mobileMenu?'fa-solid fa-xmark':'fa-solid fa-bars'"></i></button></div></div><div x-show="mobileMenu" x-cloak x-transition class="lg:hidden bg-white border-t shadow-lg"><div class="px-4 py-4 space-y-1"><a @click="mobileMenu=false" href="index.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Beranda</a><a @click="mobileMenu=false" href="tentang.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Tentang Kami</a><a @click="mobileMenu=false" href="program.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Yang Kami Lakukan</a><a @click="mobileMenu=false" href="mitra.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Mitra</a><a @click="mobileMenu=false" href="artikel.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Artikel</a><a @click="mobileMenu=false" href="galeri.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Galeri</a><a @click="mobileMenu=false" href="kontak.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Kontak</a><div class="border-t border-gray-100 mt-2 pt-2 space-y-1"><a @click="mobileMenu=false" href="donasi.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium"><i class="fa-solid fa-heart mr-2 text-primary-600"></i>Donasi</a><a @click="mobileMenu=false" href="cendera-mata.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium"><i class="fa-solid fa-gift mr-2 text-primary-600"></i>Cendera Mata</a><a @click="mobileMenu=false" href="faq.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium"><i class="fa-solid fa-circle-question mr-2 text-primary-600"></i>FAQ</a></div></div></div></nav>
+
+  <section class="relative bg-gradient-to-br from-primary-800 via-primary-900 to-secondary-900 py-20 overflow-hidden">
+    <div class="absolute inset-0 opacity-10"><div class="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div><div class="absolute bottom-10 right-10 w-80 h-80 bg-secondary-400 rounded-full blur-3xl"></div></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+      <span class="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-sm rounded-full text-sm font-medium mb-4 border border-white/20"><i class="fa-solid fa-heart mr-1"></i> Donasi</span>
+      <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Bantu Kami Menjaga Papua</h1>
+      <p class="text-gray-300 max-w-2xl mx-auto">Setiap kontribusi Anda berarti untuk keberlangsungan alam dan masyarakat Papua.</p>
+      <nav class="mt-6 flex items-center justify-center gap-2 text-sm text-gray-300"><a href="index.html" class="hover:text-white transition">Beranda</a><i class="fa-solid fa-chevron-right text-xs"></i><span class="text-white font-semibold">Donasi</span></nav>
+    </div>
+  </section>
+
+  <!-- DONASI -->
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Pilih Donasi Anda</h2>
+        <p class="text-gray-500">Pilih nominal atau masukkan jumlah sesuai kemampuan Anda.</p>
+      </div>
+
+      <div x-data="{ selected: 1, custom: '' }">
+        <div class="grid sm:grid-cols-3 gap-6 mb-8">
+          <button @click="selected=0;custom=''" :class="selected===0?'border-primary-600 bg-primary-50 ring-2 ring-primary-200':'border-gray-200 hover:border-primary-300'" class="p-6 rounded-2xl border-2 transition text-center">
+            <div class="text-3xl font-extrabold text-primary-700 mb-1">Rp 50rb</div>
+            <p class="text-xs text-gray-500">Bibit pohon mangrove untuk pesisir Papua</p>
+          </button>
+          <button @click="selected=1;custom=''" :class="selected===1?'border-primary-600 bg-primary-50 ring-2 ring-primary-200':'border-gray-200 hover:border-primary-300'" class="p-6 rounded-2xl border-2 transition text-center relative">
+            <span class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-primary-600 text-white text-xs font-bold rounded-full">Populer</span>
+            <div class="text-3xl font-extrabold text-primary-700 mb-1">Rp 150rb</div>
+            <p class="text-xs text-gray-500">Pelatihan lingkungan untuk satu pemuda Papua</p>
+          </button>
+          <button @click="selected=2;custom=''" :class="selected===2?'border-primary-600 bg-primary-50 ring-2 ring-primary-200':'border-gray-200 hover:border-primary-300'" class="p-6 rounded-2xl border-2 transition text-center">
+            <div class="text-3xl font-extrabold text-primary-700 mb-1">Rp 500rb</div>
+            <p class="text-xs text-gray-500">Pemetaan wilayah adat satu kampung</p>
+          </button>
+        </div>
+
+        <div class="mb-8">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Atau masukkan nominal lainnya:</label>
+          <div class="relative">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-semibold">Rp</span>
+            <input type="text" x-model="custom" @focus="selected=-1" placeholder="Masukkan nominal" class="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition text-sm" />
+          </div>
+        </div>
+
+        <div class="text-center">
+          <a href="#" class="inline-flex items-center px-10 py-4 bg-primary-600 text-white text-lg font-bold rounded-full hover:bg-primary-700 transition shadow-lg hover:shadow-xl"><i class="fa-solid fa-heart mr-2"></i> Donasi Sekarang</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSFER -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Transfer Bank</h2>
+        <p class="text-gray-500">Anda juga bisa berdonasi langsung melalui transfer bank.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+          <div class="flex items-center gap-3 mb-4"><div class="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center"><i class="fa-solid fa-building-columns text-primary-700 text-xl"></i></div><div><p class="font-bold text-gray-900">Bank Papua</p><p class="text-xs text-gray-400">Rekening Giro</p></div></div>
+          <div class="bg-gray-50 rounded-xl p-4"><p class="text-sm text-gray-500 mb-1">No. Rekening</p><p class="text-xl font-bold text-gray-900 tracking-wider">001-234-567-890</p><p class="text-sm text-gray-500 mt-2">a.n. Yayasan Lingkungan Hidup Papua</p></div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+          <div class="flex items-center gap-3 mb-4"><div class="w-12 h-12 bg-secondary-100 rounded-xl flex items-center justify-center"><i class="fa-solid fa-building-columns text-secondary-700 text-xl"></i></div><div><p class="font-bold text-gray-900">Bank Mandiri</p><p class="text-xs text-gray-400">Rekening Tabungan</p></div></div>
+          <div class="bg-gray-50 rounded-xl p-4"><p class="text-sm text-gray-500 mb-1">No. Rekening</p><p class="text-xl font-bold text-gray-900 tracking-wider">131-00-1234567-8</p><p class="text-sm text-gray-500 mt-2">a.n. Yayasan Lingkungan Hidup Papua</p></div>
+        </div>
+      </div>
+      <p class="text-center text-sm text-gray-400 mt-8">Setelah transfer, kirim bukti ke <strong class="text-gray-600">donasi@yalipapua.or.id</strong> agar kami dapat mengkonfirmasi donasi Anda.</p>
+    </div>
+  </section>
+
+  <!-- DAMPAK -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Donasi Anda Berdampak</h2>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-8">
+        <div class="text-center p-6"><div class="w-16 h-16 bg-primary-100 text-primary-700 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-seedling text-3xl"></i></div><h3 class="font-bold text-gray-900 mb-2">50.000+</h3><p class="text-sm text-gray-500">Bibit mangrove ditanam dari donasi masyarakat</p></div>
+        <div class="text-center p-6"><div class="w-16 h-16 bg-secondary-100 text-secondary-700 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-graduation-cap text-3xl"></i></div><h3 class="font-bold text-gray-900 mb-2">500+</h3><p class="text-sm text-gray-500">Pemuda Papua terlatih melalui program edukasi</p></div>
+        <div class="text-center p-6"><div class="w-16 h-16 bg-primary-100 text-primary-700 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-map text-3xl"></i></div><h3 class="font-bold text-gray-900 mb-2">30+</h3><p class="text-sm text-gray-500">Peta wilayah adat berhasil dipetakan</p></div>
+      </div>
+    </div>
+  </section>
+
+    <footer class="bg-primary-950 text-gray-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <img src="images/logo-yali-papua.png" alt="YALI Papua" class="h-10 w-auto brightness-0 invert" />
+            <span class="text-xl font-bold text-white">YALI Papua</span>
+          </div>
+          <p class="text-sm leading-relaxed mb-6">Yayasan Lingkungan Hidup Papua — berdedikasi untuk pelestarian alam dan pemberdayaan masyarakat adat di tanah Papua.</p>
+          <p class="text-sm text-gray-400 mb-6"><i class="fa-solid fa-phone mr-2"></i> +62 823-1221-1707</p>
+          <div class="flex gap-3">
+            <a href="#" class="w-9 h-9 bg-white/10 hover:bg-primary-600 rounded-lg flex items-center justify-center transition"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-white/10 hover:bg-primary-600 rounded-lg flex items-center justify-center transition"><i class="fa-brands fa-instagram text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-white/10 hover:bg-primary-600 rounded-lg flex items-center justify-center transition"><i class="fa-brands fa-x-twitter text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-white/10 hover:bg-primary-600 rounded-lg flex items-center justify-center transition"><i class="fa-brands fa-youtube text-sm"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4">Navigasi</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="index.html" class="hover:text-primary-400 transition">Beranda</a></li>
+            <li><a href="tentang.html" class="hover:text-primary-400 transition">Tentang Kami</a></li>
+            <li><a href="program.html" class="hover:text-primary-400 transition">Yang Kami Lakukan</a></li>
+            <li><a href="mitra.html" class="hover:text-primary-400 transition">Mitra</a></li>
+            <li><a href="artikel.html" class="hover:text-primary-400 transition">Artikel</a></li>
+            <li><a href="galeri.html" class="hover:text-primary-400 transition">Galeri</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4">Lainnya</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="donasi.html" class="hover:text-primary-400 transition">Donasi</a></li>
+            <li><a href="cendera-mata.html" class="hover:text-primary-400 transition">Cendera Mata</a></li>
+            <li><a href="faq.html" class="hover:text-primary-400 transition">FAQ</a></li>
+            <li><a href="peta-situs.html" class="hover:text-primary-400 transition">Peta Situs</a></li>
+            <li><a href="kontak.html" class="hover:text-primary-400 transition">Kontak</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4">Dukung Gerakan Kami</h4>
+          <p class="text-sm mb-4">Setiap kontribusi Anda membantu menjaga alam Papua dan menguatkan masyarakat adat.</p>
+          <a href="donasi.html" class="inline-flex items-center px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-full transition text-sm shadow-md">
+            <i class="fa-solid fa-heart mr-2"></i> Donasi Sekarang
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-sm text-gray-400">&copy; 2026 YALI Papua. Hak Cipta Dilindungi.</p>
+        <p class="text-sm text-gray-400">Powered by <a href="https://nokensoft.com" target="_blank" class="text-primary-400 hover:text-primary-300 transition">Nokensoft.com</a></p>
+      </div>
+    </div>
+  </footer>
+  <a href="https://wa.me/6282312211707?text=Halo%20YALI%20Papua%2C%20saya%20ingin%20bertanya." target="_blank" rel="noopener noreferrer" aria-label="Chat CS WhatsApp" class="fixed bottom-24 right-6 w-12 h-12 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg flex items-center justify-center transition z-50"><i class="fa-brands fa-whatsapp text-2xl"></i></a>
+  <div x-data="{show:false}" @scroll.window="show=window.scrollY>500"><button x-show="show" x-transition @click="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 w-12 h-12 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-lg flex items-center justify-center transition z-50"><i class="fa-solid fa-arrow-up"></i></button></div>
+
+  <div id="prototype-disclaimer-modal" class="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 sm:p-8">
+      <div class="flex items-start justify-between gap-4 mb-4">
+        <div class="flex items-center gap-3">
+          <img src="images/logo-nokensoft.png" alt="Nokensoft" class="h-10 w-auto" />
+          <div>
+            <h3 class="text-lg sm:text-xl font-extrabold text-gray-900">Disclaimer Prototype</h3>
+            <p class="text-xs text-gray-500">Dokumen Audit & Penawaran Nokensoft</p>
+          </div>
+        </div>
+        <button type="button" onclick="document.getElementById('prototype-disclaimer-modal').style.display='none'" class="text-gray-400 hover:text-gray-600 text-xl leading-none" aria-label="Tutup disclaimer">&times;</button>
+      </div>
+      <p class="text-sm sm:text-base text-gray-600 leading-relaxed mb-4">Website ini masih dalam tahap perancangan prototype awal sebagai penawaran desian baru. Semua informasi diambil gunakan metode pencarian di internet dan gambar dengan AI.</p>
+      <p class="text-sm sm:text-base text-gray-600 leading-relaxed">Dirancang dan dibuat oleh <strong>Tim Nokensoft.com</strong>, PIC: <strong>082199558191 (Janzen)</strong>.</p>
+      <div class="mt-6 grid sm:grid-cols-2 gap-3">
+        <a href="downloads/Nokensoft.com%20-%20Laporan_Audit_Digital_YALI_PAPUA_v.1.0.docx%20%281%29.pdf" download target="_blank" class="inline-flex items-center justify-center px-4 py-2.5 border border-primary-200 bg-primary-50 hover:bg-primary-100 text-primary-700 text-sm font-semibold rounded-xl transition text-center">
+          <i class="fa-solid fa-file-arrow-down mr-2"></i> Laporan Audit Website Yali Papua Saat Ini
+        </a>
+        <a href="downloads/Nokensoft.com_Penawaran_Jasa_Profesional_YALI_PAPUA_v.1.0.docx.pdf" download target="_blank" class="inline-flex items-center justify-center px-4 py-2.5 border border-secondary-200 bg-secondary-50 hover:bg-secondary-100 text-secondary-700 text-sm font-semibold rounded-xl transition text-center">
+          <i class="fa-solid fa-file-arrow-down mr-2"></i> Penawaran Jasa Pembuatan dan Pengembangan Website Baru
+        </a>
+      </div>
+      <div class="mt-6 text-right">
+        <button type="button" onclick="document.getElementById('prototype-disclaimer-modal').style.display='none'" class="inline-flex items-center px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold rounded-full transition">Saya Mengerti</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

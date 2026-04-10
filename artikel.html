@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="id" x-data="{ mobileMenu: false }" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artikel — YALI Papua</title>
+  <meta name="description" content="Artikel, cerita kampung, dan berita terkini seputar pelestarian lingkungan di Papua." />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac',
+              400: '#4ade80', 500: '#22c55e', 600: '#16a34a', 700: '#15803d',
+              800: '#166534', 900: '#14532d', 950: '#052e16',
+            },
+            secondary: {
+              50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc',
+              400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1',
+              800: '#075985', 900: '#0c4a6e', 950: '#082f49',
+            },
+          },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+        },
+      },
+    }
+  </script>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" href="images/logo-yali-papua.png" type="image/png" />
+  <style>[x-cloak] { display: none !important; }</style>
+</head>
+
+<body class="font-sans text-gray-800 bg-white antialiased">
+
+  <!-- ==================== TOPBAR ==================== -->
+  <div class="bg-primary-900 text-white text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div class="flex items-center gap-4">
+        <span><i class="fa-solid fa-envelope mr-1"></i> info@yalipapua.or.id</span>
+        <span><i class="fa-solid fa-phone mr-1"></i> +62 823-1221-1707</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="hidden sm:flex items-center gap-3 text-xs">
+          <a href="donasi.html" class="hover:text-primary-300 transition font-medium">Donasi</a>
+          <span class="text-white/30">|</span>
+          <a href="cendera-mata.html" class="hover:text-primary-300 transition font-medium">Cendera Mata</a>
+          <span class="text-white/30">|</span>
+          <a href="faq.html" class="hover:text-primary-300 transition font-medium">FAQ</a>
+        </div>
+        <div class="flex items-center gap-3 sm:ml-4 sm:pl-4 sm:border-l sm:border-white/20">
+          <a href="#" class="hover:text-primary-300 transition"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="hover:text-primary-300 transition"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="hover:text-primary-300 transition"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="hover:text-primary-300 transition"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        <a href="index.html" class="flex items-center gap-3">
+          <img src="images/logo-yali-papua.png" alt="YALI Papua" class="h-12 w-auto" />
+          <div>
+            <span class="text-xl font-bold text-primary-800 leading-tight block">YALI Papua</span>
+            <span class="text-xs text-gray-500 leading-tight">Yayasan Lingkungan Hidup Papua</span>
+          </div>
+        </a>
+        <div class="hidden lg:flex items-center gap-1"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Beranda</a><a href="tentang.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Tentang Kami</a><a href="program.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Yang Kami Lakukan</a><a href="mitra.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Mitra</a><a href="artikel.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary-700 bg-primary-50">Artikel</a><a href="galeri.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Galeri</a><a href="kontak.html" class="ml-3 px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold rounded-full transition shadow-md"><i class="fa-solid fa-envelope mr-1"></i> Kontak</a></div>
+        <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-gray-700 text-2xl">
+          <i :class="mobileMenu ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
+        </button>
+      </div>
+    </div>
+    <div x-show="mobileMenu" x-cloak x-transition class="lg:hidden bg-white border-t shadow-lg">
+      <div class="px-4 py-4 space-y-1"><a @click="mobileMenu=false" href="index.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Beranda</a><a @click="mobileMenu=false" href="tentang.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Tentang Kami</a><a @click="mobileMenu=false" href="program.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Yang Kami Lakukan</a><a @click="mobileMenu=false" href="mitra.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Mitra</a><a @click="mobileMenu=false" href="artikel.html" class="block px-3 py-2.5 rounded-md text-primary-700 bg-primary-50 font-medium">Artikel</a><a @click="mobileMenu=false" href="galeri.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Galeri</a><a @click="mobileMenu=false" href="kontak.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Kontak</a><div class="border-t border-gray-100 mt-2 pt-2 space-y-1"><a @click="mobileMenu=false" href="donasi.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium"><i class="fa-solid fa-heart mr-2 text-primary-600"></i>Donasi</a><a @click="mobileMenu=false" href="cendera-mata.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium"><i class="fa-solid fa-gift mr-2 text-primary-600"></i>Cendera Mata</a><a @click="mobileMenu=false" href="faq.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium"><i class="fa-solid fa-circle-question mr-2 text-primary-600"></i>FAQ</a></div></div>
+    </div>
+  </nav>
+
+  <!-- ==================== PAGE HEADER ==================== -->
+  <section class="relative bg-gradient-to-br from-primary-800 via-primary-900 to-secondary-900 py-20 overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+      <div class="absolute bottom-10 right-10 w-80 h-80 bg-secondary-400 rounded-full blur-3xl"></div>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+      <span class="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-sm rounded-full text-sm font-medium mb-4 border border-white/20">
+        <i class="fa-solid fa-newspaper mr-1"></i> Artikel
+      </span>
+      <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Artikel Kami</h1>
+      <p class="text-gray-300 max-w-2xl mx-auto">Kumpulan artikel seputar pelestarian lingkungan, edukasi, konservasi, dan pemberdayaan masyarakat adat Papua.</p>
+      <nav class="mt-6 flex items-center justify-center gap-2 text-sm text-gray-300">
+        <a href="index.html" class="hover:text-white transition">Beranda</a>
+        <i class="fa-solid fa-chevron-right text-xs"></i>
+        <span class="text-white font-semibold">Artikel</span>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <section class="py-16 bg-gray-50" x-data="postinganPage()">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-4 gap-10">
+
+        <!-- ===== POSTS GRID (3 Kolom) ===== -->
+        <div class="lg:col-span-3">
+          <!-- Filter Tabs -->
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+            <div class="flex flex-wrap gap-2">
+              <button @click="activeCategory = 'Semua'; currentPage = 1"
+                :class="activeCategory === 'Semua' ? 'bg-primary-600 text-white' : 'bg-white text-gray-600 hover:bg-primary-50 hover:text-primary-700'"
+                class="px-4 py-2 rounded-full text-sm font-semibold border border-gray-200 transition">
+                Semua
+              </button>
+              <template x-for="cat in categories" :key="cat">
+                <button @click="activeCategory = cat; currentPage = 1"
+                  :class="activeCategory === cat ? 'bg-primary-600 text-white border-primary-600' : 'bg-white text-gray-600 hover:bg-primary-50 hover:text-primary-700'"
+                  class="px-4 py-2 rounded-full text-sm font-semibold border border-gray-200 transition"
+                  x-text="cat">
+                </button>
+              </template>
+            </div>
+            <p class="text-sm text-gray-400">
+              Menampilkan <span class="font-semibold text-gray-700" x-text="filteredPosts.length"></span> artikel
+            </p>
+          </div>
+
+          <!-- Posts Grid -->
+          <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            <template x-for="post in paginatedPosts" :key="post.id">
+              <article class="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <a :href="'artikel-detail.html?id=' + post.id" class="block">
+                  <div class="h-48 overflow-hidden relative" :class="post.image ? '' : 'bg-gradient-to-br from-primary-600 to-secondary-600 flex items-center justify-center'">
+                    <img x-show="post.image" :src="post.image" :alt="post.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <i x-show="!post.image" class="fa-solid fa-image text-5xl text-white/30"></i>
+                  </div>
+                </a>
+                <div class="p-5">
+                  <div class="flex items-center gap-3 mb-3 text-xs text-gray-400">
+                    <span class="inline-flex items-center px-2.5 py-0.5 bg-primary-50 text-primary-700 rounded-full font-semibold" x-text="post.category"></span>
+                    <span x-show="post.date"><i class="fa-regular fa-calendar mr-1"></i> <span x-text="post.date"></span></span>
+                  </div>
+                  <a :href="'artikel-detail.html?id=' + post.id">
+                    <h3 class="text-base font-bold text-gray-900 mb-2 group-hover:text-primary-700 transition line-clamp-2" x-text="post.title"></h3>
+                  </a>
+                  <p class="text-sm text-gray-500 mb-4 line-clamp-3" x-text="post.excerpt"></p>
+                  <a :href="'artikel-detail.html?id=' + post.id"
+                    class="inline-flex items-center text-sm font-semibold text-primary-600 hover:text-primary-800 transition">
+                    Baca selengkapnya <i class="fa-solid fa-arrow-right ml-1.5 text-xs"></i>
+                  </a>
+                </div>
+              </article>
+            </template>
+          </div>
+
+          <!-- Empty State -->
+          <div x-show="filteredPosts.length === 0" class="text-center py-20">
+            <i class="fa-solid fa-folder-open text-5xl text-gray-300 mb-4"></i>
+            <p class="text-gray-500 font-medium">Tidak ada postingan ditemukan.</p>
+            <button @click="activeCategory = 'Semua'; searchQuery = ''"
+              class="mt-4 px-5 py-2 bg-primary-600 text-white text-sm font-semibold rounded-full hover:bg-primary-700 transition">
+              Reset Filter
+            </button>
+          </div>
+
+          <!-- ===== PAGINATION ===== -->
+          <div x-show="totalPages > 1" class="mt-10 flex flex-wrap items-center justify-center gap-2">
+            <!-- Prev -->
+            <button @click="goToPage(currentPage - 1)" :disabled="currentPage === 1"
+              :class="currentPage === 1 ? 'opacity-40 cursor-not-allowed' : 'hover:bg-primary-50 hover:text-primary-700'"
+              class="w-10 h-10 rounded-xl border border-gray-200 bg-white flex items-center justify-center text-sm text-gray-600 transition">
+              <i class="fa-solid fa-chevron-left text-xs"></i>
+            </button>
+
+            <!-- Page Numbers -->
+            <template x-for="page in pageNumbers" :key="page">
+              <button @click="goToPage(page)"
+                :class="page === currentPage
+                  ? 'bg-primary-600 text-white border-primary-600 shadow-md'
+                  : page === '...'
+                    ? 'cursor-default border-transparent bg-transparent'
+                    : 'bg-white text-gray-600 border-gray-200 hover:bg-primary-50 hover:text-primary-700'"
+                :disabled="page === '...'"
+                class="w-10 h-10 rounded-xl border flex items-center justify-center text-sm font-semibold transition"
+                x-text="page">
+              </button>
+            </template>
+
+            <!-- Next -->
+            <button @click="goToPage(currentPage + 1)" :disabled="currentPage === totalPages"
+              :class="currentPage === totalPages ? 'opacity-40 cursor-not-allowed' : 'hover:bg-primary-50 hover:text-primary-700'"
+              class="w-10 h-10 rounded-xl border border-gray-200 bg-white flex items-center justify-center text-sm text-gray-600 transition">
+              <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="lg:col-span-1 space-y-8">
+          <!-- Search -->
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">
+              <i class="fa-solid fa-magnifying-glass text-primary-600 mr-2"></i>Pencarian
+            </h3>
+            <div class="relative">
+              <input type="text" x-model="searchQuery" @input="currentPage = 1" placeholder="Cari postingan..."
+                class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition text-sm" />
+              <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+            </div>
+          </div>
+
+          <!-- Categories -->
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">
+              <i class="fa-solid fa-folder text-primary-600 mr-2"></i>Kategori
+            </h3>
+            <ul class="space-y-1">
+              <li>
+                <button @click="activeCategory = 'Semua'; currentPage = 1"
+                  :class="activeCategory === 'Semua' ? 'bg-primary-50 text-primary-700 font-semibold' : 'text-gray-600 hover:bg-gray-50'"
+                  class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-sm transition">
+                  <span><i class="fa-solid fa-layer-group mr-2"></i>Semua Artikel</span>
+                  <span class="bg-gray-100 text-gray-600 text-xs font-bold px-2 py-0.5 rounded-full" x-text="allPosts.length"></span>
+                </button>
+              </li>
+              <template x-for="cat in categories" :key="cat">
+                <li>
+                  <button @click="activeCategory = cat; currentPage = 1"
+                    :class="activeCategory === cat ? 'bg-primary-50 text-primary-700 font-semibold' : 'text-gray-600 hover:bg-gray-50'"
+                    class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-sm transition">
+                    <span x-text="cat"></span>
+                    <span class="bg-gray-100 text-gray-600 text-xs font-bold px-2 py-0.5 rounded-full"
+                      x-text="allPosts.filter(p => p.category === cat).length"></span>
+                  </button>
+                </li>
+              </template>
+            </ul>
+          </div>
+
+          <!-- Popular Posts -->
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">
+              <i class="fa-solid fa-fire text-primary-600 mr-2"></i>Populer
+            </h3>
+            <div class="space-y-4">
+              <template x-for="post in allPosts.slice(0, 4)" :key="'pop-' + post.id">
+                <a :href="'artikel-detail.html?id=' + post.id" class="flex gap-3 group">
+                  <div class="w-16 h-16 rounded-xl flex-shrink-0 overflow-hidden" :class="post.image ? '' : 'bg-gradient-to-br from-primary-100 to-secondary-100 flex items-center justify-center'">
+                    <img x-show="post.image" :src="post.image" :alt="post.title" class="w-full h-full object-cover" />
+                    <i x-show="!post.image" :class="'fa-solid ' + post.icon + ' text-primary-400'"></i>
+                  </div>
+                  <div class="min-w-0">
+                    <h4 class="text-sm font-semibold text-gray-900 line-clamp-2 group-hover:text-primary-700 transition" x-text="post.title"></h4>
+                    <span class="text-xs text-gray-400" x-text="post.date"></span>
+                  </div>
+                </a>
+              </template>
+            </div>
+          </div>
+
+          <!-- CTA Donasi -->
+          <div class="bg-gradient-to-br from-primary-600 to-secondary-700 rounded-2xl p-6 text-white text-center">
+            <i class="fa-solid fa-heart text-4xl mb-4 opacity-80"></i>
+            <h3 class="text-lg font-bold mb-2">Dukung Kami</h3>
+            <p class="text-sm text-gray-200 mb-4">Bantu YALI Papua menjaga kelestarian alam untuk generasi mendatang.</p>
+            <a href="donasi.html"
+              class="inline-flex items-center px-6 py-2.5 bg-white text-primary-700 font-bold rounded-full hover:bg-primary-50 transition text-sm shadow-md">
+              <i class="fa-solid fa-heart mr-2"></i> Donasi
+            </a>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-primary-950 text-gray-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <img src="images/logo-yali-papua.png" alt="YALI Papua" class="h-10 w-auto brightness-0 invert" />
+            <span class="text-xl font-bold text-white">YALI Papua</span>
+          </div>
+          <p class="text-sm leading-relaxed mb-6">Yayasan Lingkungan Hidup Papua — berdedikasi untuk pelestarian alam dan pemberdayaan masyarakat adat di tanah Papua.</p>
+          <p class="text-sm text-gray-400 mb-6"><i class="fa-solid fa-phone mr-2"></i> +62 823-1221-1707</p>
+          <div class="flex gap-3">
+            <a href="#" class="w-9 h-9 bg-white/10 hover:bg-primary-600 rounded-lg flex items-center justify-center transition"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-white/10 hover:bg-primary-600 rounded-lg flex items-center justify-center transition"><i class="fa-brands fa-instagram text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-white/10 hover:bg-primary-600 rounded-lg flex items-center justify-center transition"><i class="fa-brands fa-x-twitter text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-white/10 hover:bg-primary-600 rounded-lg flex items-center justify-center transition"><i class="fa-brands fa-youtube text-sm"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4">Navigasi</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="index.html" class="hover:text-primary-400 transition">Beranda</a></li>
+            <li><a href="tentang.html" class="hover:text-primary-400 transition">Tentang Kami</a></li>
+            <li><a href="program.html" class="hover:text-primary-400 transition">Yang Kami Lakukan</a></li>
+            <li><a href="mitra.html" class="hover:text-primary-400 transition">Mitra</a></li>
+            <li><a href="artikel.html" class="hover:text-primary-400 transition">Artikel</a></li>
+            <li><a href="galeri.html" class="hover:text-primary-400 transition">Galeri</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4">Lainnya</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="donasi.html" class="hover:text-primary-400 transition">Donasi</a></li>
+            <li><a href="cendera-mata.html" class="hover:text-primary-400 transition">Cendera Mata</a></li>
+            <li><a href="faq.html" class="hover:text-primary-400 transition">FAQ</a></li>
+            <li><a href="peta-situs.html" class="hover:text-primary-400 transition">Peta Situs</a></li>
+            <li><a href="kontak.html" class="hover:text-primary-400 transition">Kontak</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4">Dukung Gerakan Kami</h4>
+          <p class="text-sm mb-4">Setiap kontribusi Anda membantu menjaga alam Papua dan menguatkan masyarakat adat.</p>
+          <a href="donasi.html" class="inline-flex items-center px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-full transition text-sm shadow-md">
+            <i class="fa-solid fa-heart mr-2"></i> Donasi Sekarang
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-sm text-gray-400">&copy; 2026 YALI Papua. Hak Cipta Dilindungi.</p>
+        <p class="text-sm text-gray-400">Powered by <a href="https://nokensoft.com" target="_blank" class="text-primary-400 hover:text-primary-300 transition">Nokensoft.com</a></p>
+      </div>
+    </div>
+  </footer>
+  <a href="https://wa.me/6282312211707?text=Halo%20YALI%20Papua%2C%20saya%20ingin%20bertanya." target="_blank" rel="noopener noreferrer" aria-label="Chat CS WhatsApp"
+    class="fixed bottom-24 right-6 w-12 h-12 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg flex items-center justify-center transition z-50">
+    <i class="fa-brands fa-whatsapp text-2xl"></i>
+  </a>
+
+  <!-- ==================== BACK TO TOP ==================== -->
+  <div x-data="{ show: false }" @scroll.window="show = window.scrollY > 500">
+    <button x-show="show" x-transition @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
+      class="fixed bottom-6 right-6 w-12 h-12 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-lg flex items-center justify-center transition z-50">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+  </div>
+
+  <!-- ==================== ALPINE DATA ==================== -->
+  <script>
+    function postinganPage() {
+      return {
+        searchQuery: '',
+        activeCategory: 'Semua',
+        currentPage: 1,
+        perPage: 9,
+        categories: ['Literasi Lingkungan', 'Dampak (Impact Report)', 'Keanekaragaman Hayati', 'Opini & Kebijakan', 'Kolaborasi Komunitas', 'Refleksi', 'Pemberdayaan Masyarakat'],
+        allPosts: [
+          {
+            id: 1, category: 'Literasi Lingkungan', icon: 'fa-book-open',
+            title: 'Mairasi: Menjaga Suara Hutan sebagai Warisan Generasi Muda Papua',
+            excerpt: 'Masyarakat adat suku Mairasi di Kaimana terus berupaya memperkuat kedaulatan mereka atas hutan adat melalui dokumentasi pengetahuan tradisional dan pemetaan wilayah.',
+            date: '15 Mar 2026', author: 'YALI Papua', image: 'images/blog/mairasi-suara-hutan.jpg'
+          },
+          {
+            id: 2, category: 'Keanekaragaman Hayati', icon: 'fa-leaf',
+            title: 'Upaya Menjaga Lahan Gambut Papua melalui Budidaya Sagu',
+            excerpt: 'Lahan gambut di Papua menghadapi ancaman serius akibat ekspansi perusahaan skala besar. Budidaya sagu menjadi solusi pelestarian ekosistem gambut.',
+            date: '10 Mar 2026', author: 'YALI Papua', image: 'images/blog/lahan-gambut-sagu.jpg'
+          },
+          {
+            id: 3, category: 'Kolaborasi Komunitas', icon: 'fa-people-group',
+            title: 'Kolaborasi Pemuda dan Perempuan Suku Mairasi dalam Reboisasi Hutan Adat',
+            excerpt: 'Kelompok pemuda dan perempuan suku Mairasi mengambil peran aktif dalam pemulihan ekosistem melalui aksi reboisasi di wilayah hutan adat mereka.',
+            date: '5 Mar 2026', author: 'YALI Papua', image: 'images/blog/reboisasi-mairasi.jpg'
+          },
+          {
+            id: 4, category: 'Dampak (Impact Report)', icon: 'fa-chart-line',
+            title: 'Menjaga Tanah Leluhur Lewat Peta: Lokakarya Pemetaan Wilayah Adat Suku Mairasi',
+            excerpt: 'Suku Mairasi di Kaimana telah mencapai tahapan krusial dalam perlindungan hak atas tanah mereka melalui Lokakarya III Pemetaan Wilayah Adat.',
+            date: '28 Feb 2026', author: 'YALI Papua', image: 'images/blog/pemetaan-mairasi.jpg'
+          },
+          {
+            id: 5, category: 'Pemberdayaan Masyarakat', icon: 'fa-people-group',
+            title: 'Implementasi Teknologi Tepat Guna untuk Kemandirian Masyarakat Kampung Wosimo',
+            excerpt: 'Masyarakat Kampung Wosimo diperkenalkan dengan teknologi tepat guna yang dirancang untuk meningkatkan produktivitas dan kualitas hidup sehari-hari.',
+            date: '20 Feb 2026', author: 'YALI Papua', image: 'images/blog/ttg-wosimo.jpg'
+          },
+          {
+            id: 6, category: 'Opini & Kebijakan', icon: 'fa-scale-balanced',
+            title: 'Pengarusutamaan Ekonomi Hijau melalui Strategi Pembangunan Rendah Emisi di Jayawijaya',
+            excerpt: 'Pemerintah Kabupaten Jayawijaya menunjukkan komitmen kuat dalam transisi menuju pembangunan ekonomi hijau melalui lokakarya RAD-GRK.',
+            date: '15 Feb 2026', author: 'YALI Papua', image: ''
+          },
+        ],
+
+        get filteredPosts() {
+          let posts = this.allPosts;
+          if (this.activeCategory !== 'Semua') {
+            posts = posts.filter(p => p.category === this.activeCategory);
+          }
+          if (this.searchQuery.trim()) {
+            const q = this.searchQuery.toLowerCase();
+            posts = posts.filter(p =>
+              p.title.toLowerCase().includes(q) ||
+              p.excerpt.toLowerCase().includes(q) ||
+              p.category.toLowerCase().includes(q)
+            );
+          }
+          return posts;
+        },
+
+        get totalPages() {
+          return Math.ceil(this.filteredPosts.length / this.perPage);
+        },
+
+        get paginatedPosts() {
+          const start = (this.currentPage - 1) * this.perPage;
+          return this.filteredPosts.slice(start, start + this.perPage);
+        },
+
+        get pageNumbers() {
+          const pages = [];
+          const total = this.totalPages;
+          const current = this.currentPage;
+          if (total <= 7) {
+            for (let i = 1; i <= total; i++) pages.push(i);
+          } else {
+            pages.push(1);
+            if (current > 3) pages.push('...');
+            for (let i = Math.max(2, current - 1); i <= Math.min(total - 1, current + 1); i++) {
+              pages.push(i);
+            }
+            if (current < total - 2) pages.push('...');
+            pages.push(total);
+          }
+          return pages;
+        },
+
+        goToPage(page) {
+          if (page >= 1 && page <= this.totalPages) {
+            this.currentPage = page;
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+          }
+        }
+      }
+    }
+  </script>
+
+
+  <div id="prototype-disclaimer-modal" class="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 sm:p-8">
+      <div class="flex items-start justify-between gap-4 mb-4">
+        <div class="flex items-center gap-3">
+          <img src="images/logo-nokensoft.png" alt="Nokensoft" class="h-10 w-auto" />
+          <div>
+            <h3 class="text-lg sm:text-xl font-extrabold text-gray-900">Disclaimer Prototype</h3>
+            <p class="text-xs text-gray-500">Dokumen Audit & Penawaran Nokensoft</p>
+          </div>
+        </div>
+        <button type="button" onclick="document.getElementById('prototype-disclaimer-modal').style.display='none'" class="text-gray-400 hover:text-gray-600 text-xl leading-none" aria-label="Tutup disclaimer">&times;</button>
+      </div>
+      <p class="text-sm sm:text-base text-gray-600 leading-relaxed mb-4">Website ini masih dalam tahap perancangan prototype awal sebagai penawaran desian baru. Semua informasi diambil gunakan metode pencarian di internet dan gambar dengan AI.</p>
+      <p class="text-sm sm:text-base text-gray-600 leading-relaxed">Dirancang dan dibuat oleh <strong>Tim Nokensoft.com</strong>, PIC: <strong>082199558191 (Janzen)</strong>.</p>
+      <div class="mt-6 grid sm:grid-cols-2 gap-3">
+        <a href="downloads/Nokensoft.com%20-%20Laporan_Audit_Digital_YALI_PAPUA_v.1.0.docx%20%281%29.pdf" download target="_blank" class="inline-flex items-center justify-center px-4 py-2.5 border border-primary-200 bg-primary-50 hover:bg-primary-100 text-primary-700 text-sm font-semibold rounded-xl transition text-center">
+          <i class="fa-solid fa-file-arrow-down mr-2"></i> Laporan Audit Website Yali Papua Saat Ini
+        </a>
+        <a href="downloads/Nokensoft.com_Penawaran_Jasa_Profesional_YALI_PAPUA_v.1.0.docx.pdf" download target="_blank" class="inline-flex items-center justify-center px-4 py-2.5 border border-secondary-200 bg-secondary-50 hover:bg-secondary-100 text-secondary-700 text-sm font-semibold rounded-xl transition text-center">
+          <i class="fa-solid fa-file-arrow-down mr-2"></i> Penawaran Jasa Pembuatan dan Pengembangan Website Baru
+        </a>
+      </div>
+      <div class="mt-6 text-right">
+        <button type="button" onclick="document.getElementById('prototype-disclaimer-modal').style.display='none'" class="inline-flex items-center px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold rounded-full transition">Saya Mengerti</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

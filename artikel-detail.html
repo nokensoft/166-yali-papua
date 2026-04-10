@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="id" x-data="{ mobileMenu: false }" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detail Artikel — YALI Papua</title>
+  <meta name="description" content="Baca artikel dan cerita kampung seputar pelestarian lingkungan di Papua." />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac',
+              400: '#4ade80', 500: '#22c55e', 600: '#16a34a', 700: '#15803d',
+              800: '#166534', 900: '#14532d', 950: '#052e16',
+            },
+            secondary: {
+              50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc',
+              400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1',
+              800: '#075985', 900: '#0c4a6e', 950: '#082f49',
+            },
+          },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+        },
+      },
+    }
+  </script>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" href="images/logo-yali-papua.png" type="image/png" />
+  <style>[x-cloak] { display: none !important; }</style>
+</head>
+
+<body class="font-sans text-gray-800 bg-white antialiased">
+
+  <!-- ==================== TOPBAR ==================== -->
+  <div class="bg-primary-900 text-white text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div class="flex items-center gap-4">
+        <span><i class="fa-solid fa-envelope mr-1"></i> info@yalipapua.or.id</span>
+        <span><i class="fa-solid fa-phone mr-1"></i> +62 823-1221-1707</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="hidden sm:flex items-center gap-3 text-xs">
+          <a href="donasi.html" class="hover:text-primary-300 transition font-medium">Donasi</a>
+          <span class="text-white/30">|</span>
+          <a href="cendera-mata.html" class="hover:text-primary-300 transition font-medium">Cendera Mata</a>
+          <span class="text-white/30">|</span>
+          <a href="faq.html" class="hover:text-primary-300 transition font-medium">FAQ</a>
+        </div>
+        <div class="flex items-center gap-3 sm:ml-4 sm:pl-4 sm:border-l sm:border-white/20">
+          <a href="#" class="hover:text-primary-300 transition"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="hover:text-primary-300 transition"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="hover:text-primary-300 transition"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="hover:text-primary-300 transition"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        <a href="index.html" class="flex items-center gap-3">
+          <img src="images/logo-yali-papua.png" alt="YALI Papua" class="h-12 w-auto" />
+          <div>
+            <span class="text-xl font-bold text-primary-800 leading-tight block">YALI Papua</span>
+            <span class="text-xs text-gray-500 leading-tight">Yayasan Lingkungan Hidup Papua</span>
+          </div>
+        </a>
+        <div class="hidden lg:flex items-center gap-1"><a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Beranda</a><a href="tentang.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Tentang Kami</a><a href="program.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Yang Kami Lakukan</a><a href="mitra.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Mitra</a><a href="artikel.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary-700 bg-primary-50">Artikel</a><a href="galeri.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 transition">Galeri</a><a href="kontak.html" class="ml-3 px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold rounded-full transition shadow-md"><i class="fa-solid fa-envelope mr-1"></i> Kontak</a></div>
+        <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-gray-700 text-2xl">
+          <i :class="mobileMenu ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
+        </button>
+      </div>
+    </div>
+    <div x-show="mobileMenu" x-cloak x-transition class="lg:hidden bg-white border-t shadow-lg">
+      <div class="px-4 py-4 space-y-1"><a @click="mobileMenu=false" href="index.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Beranda</a><a @click="mobileMenu=false" href="tentang.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Tentang Kami</a><a @click="mobileMenu=false" href="program.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Yang Kami Lakukan</a><a @click="mobileMenu=false" href="mitra.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Mitra</a><a @click="mobileMenu=false" href="artikel.html" class="block px-3 py-2.5 rounded-md text-primary-700 bg-primary-50 font-medium">Artikel</a><a @click="mobileMenu=false" href="galeri.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Galeri</a><a @click="mobileMenu=false" href="kontak.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium">Kontak</a><div class="border-t border-gray-100 mt-2 pt-2 space-y-1"><a @click="mobileMenu=false" href="donasi.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium"><i class="fa-solid fa-heart mr-2 text-primary-600"></i>Donasi</a><a @click="mobileMenu=false" href="cendera-mata.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium"><i class="fa-solid fa-gift mr-2 text-primary-600"></i>Cendera Mata</a><a @click="mobileMenu=false" href="faq.html" class="block px-3 py-2.5 rounded-md text-gray-700 hover:bg-primary-50 hover:text-primary-700 font-medium"><i class="fa-solid fa-circle-question mr-2 text-primary-600"></i>FAQ</a></div></div>
+    </div>
+  </nav>
+
+  <!-- ==================== PAGE HEADER ==================== -->
+  <section class="relative bg-gradient-to-br from-primary-800 via-primary-900 to-secondary-900 py-16 overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+      <div class="absolute bottom-10 right-10 w-80 h-80 bg-secondary-400 rounded-full blur-3xl"></div>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+      <nav class="flex items-center gap-2 text-sm text-gray-300 mb-6">
+        <a href="index.html" class="hover:text-white transition">Beranda</a>
+        <i class="fa-solid fa-chevron-right text-xs"></i>
+        <a href="artikel.html" class="hover:text-white transition">Artikel</a>
+        <i class="fa-solid fa-chevron-right text-xs"></i>
+        <span class="text-white font-semibold">Detail</span>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <section class="py-12 bg-gray-50" x-data="postDetail()">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-3 gap-10">
+
+        <!-- ===== ARTICLE CONTENT ===== -->
+        <article class="lg:col-span-2">
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <!-- Featured Image -->
+            <div class="h-64 sm:h-80 lg:h-96 relative overflow-hidden" :class="post.image ? '' : 'bg-gradient-to-br from-primary-600 to-secondary-600 flex items-center justify-center'">
+              <img x-show="post.image" :src="post.image" :alt="post.title" class="w-full h-full object-cover" />
+              <i x-show="!post.image" class="fa-solid fa-image text-7xl text-white/25"></i>
+              <div class="absolute top-4 left-4">
+                <span class="inline-flex items-center px-4 py-1.5 bg-white/90 backdrop-blur-sm text-primary-700 rounded-full text-sm font-bold shadow">
+                  <i :class="'fa-solid ' + post.icon + ' mr-1.5'"></i>
+                  <span x-text="post.category"></span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Article Body -->
+            <div class="p-6 sm:p-8 lg:p-10">
+              <!-- Meta -->
+              <div class="flex flex-wrap items-center gap-4 mb-6 text-sm text-gray-400">
+                <span class="flex items-center gap-1.5">
+                  <i class="fa-regular fa-calendar"></i>
+                  <span x-text="post.date"></span>
+                </span>
+                <span class="flex items-center gap-1.5">
+                  <i class="fa-regular fa-user"></i>
+                  <span x-text="post.author"></span>
+                </span>
+                <span class="flex items-center gap-1.5">
+                  <i class="fa-regular fa-folder"></i>
+                  <span x-text="post.category"></span>
+                </span>
+                <span class="flex items-center gap-1.5">
+                  <i class="fa-regular fa-clock"></i>
+                  <span x-text="post.readTime"></span>
+                </span>
+              </div>
+
+              <!-- Title -->
+              <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 mb-8 leading-tight" x-text="post.title"></h1>
+
+              <!-- Content -->
+              <div class="prose prose-lg max-w-none text-gray-600 leading-relaxed space-y-5" x-html="post.content">
+              </div>
+
+
+              <!-- Share -->
+              <div class="mt-10 pt-8 border-t border-gray-100">
+                <div class="flex flex-wrap items-center gap-3">
+                  <span class="text-sm font-semibold text-gray-700"><i class="fa-solid fa-share-nodes mr-1"></i> Bagikan:</span>
+                  <a href="#" class="w-9 h-9 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center justify-center transition text-sm">
+                    <i class="fa-brands fa-facebook-f"></i>
+                  </a>
+                  <a href="#" class="w-9 h-9 bg-sky-500 hover:bg-sky-600 text-white rounded-lg flex items-center justify-center transition text-sm">
+                    <i class="fa-brands fa-x-twitter"></i>
+                  </a>
+                  <a href="#" class="w-9 h-9 bg-green-600 hover:bg-green-700 text-white rounded-lg flex items-center justify-center transition text-sm">
+                    <i class="fa-brands fa-whatsapp"></i>
+                  </a>
+                  <a href="#" class="w-9 h-9 bg-gray-600 hover:bg-gray-700 text-white rounded-lg flex items-center justify-center transition text-sm">
+                    <i class="fa-solid fa-link"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Author Box -->
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 mt-8">
+            <div class="flex flex-col sm:flex-row gap-5">
+              <div class="w-20 h-20 bg-gradient-to-br from-primary-400 to-secondary-500 rounded-2xl flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-user text-3xl text-white"></i>
+              </div>
+              <div>
+                <p class="text-xs text-gray-400 font-medium uppercase tracking-wider mb-1">Ditulis oleh</p>
+                <h3 class="text-lg font-bold text-gray-900 mb-2" x-text="post.author"></h3>
+                <p class="text-sm text-gray-500 leading-relaxed">
+                  Tim penulis YALI Papua yang berdedikasi menyajikan informasi terkini seputar pelestarian lingkungan hidup, kearifan lokal, dan pemberdayaan masyarakat adat di tanah Papua.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Post Navigation -->
+          <div class="grid sm:grid-cols-2 gap-4 mt-8">
+            <template x-if="prevPost">
+              <a :href="'artikel-detail.html?id=' + prevPost.id"
+                class="group bg-white rounded-2xl shadow-sm border border-gray-100 p-5 hover:shadow-lg hover:border-primary-200 transition">
+                <span class="text-xs text-gray-400 font-medium uppercase tracking-wider flex items-center gap-1 mb-2">
+                  <i class="fa-solid fa-arrow-left text-xs"></i> Sebelumnya
+                </span>
+                <h4 class="text-sm font-bold text-gray-900 group-hover:text-primary-700 transition line-clamp-2" x-text="prevPost.title"></h4>
+              </a>
+            </template>
+            <template x-if="!prevPost">
+              <div></div>
+            </template>
+            <template x-if="nextPost">
+              <a :href="'artikel-detail.html?id=' + nextPost.id"
+                class="group bg-white rounded-2xl shadow-sm border border-gray-100 p-5 hover:shadow-lg hover:border-primary-200 transition text-right">
+                <span class="text-xs text-gray-400 font-medium uppercase tracking-wider flex items-center justify-end gap-1 mb-2">
+                  Selanjutnya <i class="fa-solid fa-arrow-right text-xs"></i>
+                </span>
+                <h4 class="text-sm font-bold text-gray-900 group-hover:text-primary-700 transition line-clamp-2" x-text="nextPost.title"></h4>
+              </a>
+            </template>
+          </div>
+
+        </article>
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="lg:col-span-1 space-y-8">
+          <!-- Search -->
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">
+              <i class="fa-solid fa-magnifying-glass text-primary-600 mr-2"></i>Pencarian
+            </h3>
+            <form action="artikel.html" class="relative">
+              <input type="text" name="q" placeholder="Cari postingan..."
+                class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition text-sm" />
+              <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+            </form>
+          </div>
+
+          <!-- Categories -->
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">
+              <i class="fa-solid fa-folder text-primary-600 mr-2"></i>Kategori
+            </h3>
+            <ul class="space-y-1">
+              <li>
+                <a href="artikel.html"
+                  class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-sm transition text-gray-600 hover:bg-gray-50">
+                  <span><i class="fa-solid fa-layer-group mr-2"></i>Semua Artikel</span>
+                  <span class="bg-gray-100 text-gray-600 text-xs font-bold px-2 py-0.5 rounded-full" x-text="allPosts.length"></span>
+                </a>
+              </li>
+              <template x-for="cat in categories" :key="cat">
+                <li>
+                  <a href="artikel.html"
+                    :class="post.category === cat ? 'bg-primary-50 text-primary-700 font-semibold' : 'text-gray-600 hover:bg-gray-50'"
+                    class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-sm transition">
+                    <span x-text="cat"></span>
+                    <span class="bg-gray-100 text-gray-600 text-xs font-bold px-2 py-0.5 rounded-full"
+                      x-text="allPosts.filter(p => p.category === cat).length"></span>
+                  </a>
+                </li>
+              </template>
+            </ul>
+          </div>
+
+          <!-- Popular Posts -->
+          <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">
+              <i class="fa-solid fa-fire text-primary-600 mr-2"></i>Populer
+            </h3>
+            <div class="space-y-4">
+              <template x-for="p in allPosts.filter(a => a.id !== post.id).slice(0, 4)" :key="'pop-' + p.id">
+                <a :href="'artikel-detail.html?id=' + p.id" class="flex gap-3 group">
+                  <div class="w-16 h-16 rounded-xl flex-shrink-0 overflow-hidden" :class="p.image ? '' : 'bg-gradient-to-br from-primary-100 to-secondary-100 flex items-center justify-center'">
+                    <img x-show="p.image" :src="p.image" :alt="p.title" class="w-full h-full object-cover" />
+                    <i x-show="!p.image" :class="'fa-solid ' + p.icon + ' text-primary-400'"></i>
+                  </div>
+                  <div class="min-w-0">
+                    <h4 class="text-sm font-semibold text-gray-900 line-clamp-2 group-hover:text-primary-700 transition" x-text="p.title"></h4>
+                    <span class="text-xs text-gray-400" x-text="p.date"></span>
+                  </div>
+                </a>
+              </template>
+            </div>
+          </div>
+
+          <!-- CTA Donasi -->
+          <div class="bg-gradient-to-br from-primary-600 to-secondary-700 rounded-2xl p-6 text-white text-center">
+            <i class="fa-solid fa-heart text-4xl mb-4 opacity-80"></i>
+            <h3 class="text-lg font-bold mb-2">Dukung Kami</h3>
+            <p class="text-sm text-gray-200 mb-4">Bantu YALI Papua menjaga kelestarian alam untuk generasi mendatang.</p>
+            <a href="donasi.html"
+              class="inline-flex items-center px-6 py-2.5 bg-white text-primary-700 font-bold rounded-full hover:bg-primary-50 transition text-sm shadow-md">
+              <i class="fa-solid fa-heart mr-2"></i> Donasi
+            </a>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-primary-950 text-gray-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <img src="images/logo-yali-papua.png" alt="YALI Papua" class="h-10 w-auto brightness-0 invert" />
+            <span class="text-xl font-bold text-white">YALI Papua</span>
+          </div>
+          <p class="text-sm leading-relaxed mb-6">Yayasan Lingkungan Hidup Papua — berdedikasi untuk pelestarian alam dan pemberdayaan masyarakat adat di tanah Papua.</p>
+          <p class="text-sm text-gray-400 mb-6"><i class="fa-solid fa-phone mr-2"></i> +62 823-1221-1707</p>
+          <div class="flex gap-3">
+            <a href="#" class="w-9 h-9 bg-white/10 hover:bg-primary-600 rounded-lg flex items-center justify-center transition"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-white/10 hover:bg-primary-600 rounded-lg flex items-center justify-center transition"><i class="fa-brands fa-instagram text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-white/10 hover:bg-primary-600 rounded-lg flex items-center justify-center transition"><i class="fa-brands fa-x-twitter text-sm"></i></a>
+            <a href="#" class="w-9 h-9 bg-white/10 hover:bg-primary-600 rounded-lg flex items-center justify-center transition"><i class="fa-brands fa-youtube text-sm"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4">Navigasi</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="index.html" class="hover:text-primary-400 transition">Beranda</a></li>
+            <li><a href="tentang.html" class="hover:text-primary-400 transition">Tentang Kami</a></li>
+            <li><a href="program.html" class="hover:text-primary-400 transition">Yang Kami Lakukan</a></li>
+            <li><a href="mitra.html" class="hover:text-primary-400 transition">Mitra</a></li>
+            <li><a href="artikel.html" class="hover:text-primary-400 transition">Artikel</a></li>
+            <li><a href="galeri.html" class="hover:text-primary-400 transition">Galeri</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4">Lainnya</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="donasi.html" class="hover:text-primary-400 transition">Donasi</a></li>
+            <li><a href="cendera-mata.html" class="hover:text-primary-400 transition">Cendera Mata</a></li>
+            <li><a href="faq.html" class="hover:text-primary-400 transition">FAQ</a></li>
+            <li><a href="peta-situs.html" class="hover:text-primary-400 transition">Peta Situs</a></li>
+            <li><a href="kontak.html" class="hover:text-primary-400 transition">Kontak</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4">Dukung Gerakan Kami</h4>
+          <p class="text-sm mb-4">Setiap kontribusi Anda membantu menjaga alam Papua dan menguatkan masyarakat adat.</p>
+          <a href="donasi.html" class="inline-flex items-center px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-full transition text-sm shadow-md">
+            <i class="fa-solid fa-heart mr-2"></i> Donasi Sekarang
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-sm text-gray-400">&copy; 2026 YALI Papua. Hak Cipta Dilindungi.</p>
+        <p class="text-sm text-gray-400">Powered by <a href="https://nokensoft.com" target="_blank" class="text-primary-400 hover:text-primary-300 transition">Nokensoft.com</a></p>
+      </div>
+    </div>
+  </footer>
+  <a href="https://wa.me/6282312211707?text=Halo%20YALI%20Papua%2C%20saya%20ingin%20bertanya." target="_blank" rel="noopener noreferrer" aria-label="Chat CS WhatsApp"
+    class="fixed bottom-24 right-6 w-12 h-12 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg flex items-center justify-center transition z-50">
+    <i class="fa-brands fa-whatsapp text-2xl"></i>
+  </a>
+
+  <!-- ==================== BACK TO TOP ==================== -->
+  <div x-data="{ show: false }" @scroll.window="show = window.scrollY > 500">
+    <button x-show="show" x-transition @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
+      class="fixed bottom-6 right-6 w-12 h-12 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-lg flex items-center justify-center transition z-50">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+  </div>
+
+  <!-- ==================== ALPINE DATA ==================== -->
+  <script>
+    function postDetail() {
+      const allPosts = [
+        {
+          id: 1, category: 'Literasi Lingkungan', icon: 'fa-book-open',
+          title: 'Mairasi: Menjaga Suara Hutan sebagai Warisan Generasi Muda Papua',
+          excerpt: 'Masyarakat adat suku Mairasi di Kaimana terus berupaya memperkuat kedaulatan mereka atas hutan adat melalui dokumentasi pengetahuan tradisional.',
+          date: '15 Mar 2026', author: 'YALI Papua', readTime: '5 menit baca',
+          image: 'images/blog/mairasi-suara-hutan.jpg',
+          content: `<p>Masyarakat adat suku Mairasi di Kaimana, Papua Barat, terus berupaya memperkuat kedaulatan mereka atas hutan adat melalui dokumentasi pengetahuan tradisional dan pemetaan wilayah. Hutan bagi suku Mairasi bukan sekadar hamparan pepohonan, melainkan identitas, sumber kehidupan, dan apotek alami yang harus dijaga dari ancaman eksploitasi luar.</p>
+          <p>Melalui inisiatif &ldquo;Suara dari Hutan&rdquo;, masyarakat berusaha memastikan bahwa nilai-nilai kearifan lokal dalam mengelola alam tetap relevan dan diakui secara legal oleh negara untuk mencegah alih fungsi lahan yang merugikan ekosistem.</p>
+          <div class="bg-primary-50 border-l-4 border-primary-600 p-5 rounded-r-xl my-8"><p class="text-primary-800 font-medium italic">&ldquo;Hutan adalah sekolah bagi kami, tempat kami belajar tentang kehidupan dan cara menghargai alam. Mendokumentasikan pengetahuan Mairasi bukan hanya soal mencatat sejarah, tetapi tentang membekali generasi muda dengan identitas agar mereka tetap teguh menjaga hutan warisan di tengah arus perubahan zaman.&rdquo;</p></div>
+          <p>Pentingnya transfer pengetahuan kepada generasi muda menjadi inti dari gerakan pelestarian ini agar warisan leluhur tidak punah tergerus zaman. Dengan melibatkan pemuda dalam proses pemetaan dan pendataan flora-fauna, suku Mairasi membangun benteng pertahanan budaya yang kokoh.</p>
+          <p class="text-sm text-gray-400 mt-8">Sumber: <a href="https://yalipapua.org/mairasi-suara-dari-hutan-warisan-untuk-generasi-muda/" class="text-primary-600 hover:underline" target="_blank">yalipapua.org</a></p>`
+        },
+        {
+          id: 2, category: 'Keanekaragaman Hayati', icon: 'fa-leaf',
+          title: 'Upaya Menjaga Lahan Gambut Papua melalui Budidaya Sagu',
+          excerpt: 'Lahan gambut di Papua menghadapi ancaman serius akibat ekspansi perusahaan skala besar. Budidaya sagu menjadi solusi pelestarian.',
+          date: '10 Mar 2026', author: 'YALI Papua', readTime: '5 menit baca',
+          image: 'images/blog/lahan-gambut-sagu.jpg',
+          content: `<p>Lahan gambut di Papua kini menghadapi ancaman serius akibat ekspansi perusahaan skala besar yang mengubah hutan menjadi perkebunan monokultur seperti sawit. Fenomena ini memicu kekhawatiran akan kerusakan ekosistem dan potensi kebakaran hutan.</p>
+          <p>Untuk mengatasi tantangan tersebut, pemerintah melalui Badan Restorasi Gambut (BRG) bersama para penggiat lingkungan mulai memperkuat pengawasan dan mendorong inisiatif perlindungan guna memastikan tata kelola air dan karbon di wilayah Papua tetap terjaga.</p>
+          <div class="bg-primary-50 border-l-4 border-primary-600 p-5 rounded-r-xl my-8"><p class="text-primary-800 font-medium italic">&ldquo;Sagu juga berfungsi sebagai tanaman pelindung agar lahan gambut tak mengering dan terbakar. Sagu sekali tanam, tak perlu tanam lagi, tak perlu pupuk atau dibersihkan. Masa panen sagu di lahan gambut sekitar 10-12 tahun, sangat dekat dengan kehidupan orang Papua.&rdquo;</p></div>
+          <p>Salah satu solusi utama yang diusung adalah pelestarian tanaman sagu. Sebagai tanaman asli yang menjadi identitas budaya dan pangan pokok masyarakat Papua, sagu memiliki kemampuan alami untuk menyerap air dalam jumlah besar sehingga mampu menjaga kelembapan lahan gambut.</p>
+          <p class="text-sm text-gray-400 mt-8">Sumber: <a href="https://mongabay.co.id/2017/06/04/upaya-menjaga-lahan-gambut-papua/" class="text-primary-600 hover:underline" target="_blank">Mongabay Indonesia</a></p>`
+        },
+        {
+          id: 3, category: 'Kolaborasi Komunitas', icon: 'fa-people-group',
+          title: 'Kolaborasi Pemuda dan Perempuan Suku Mairasi dalam Reboisasi Hutan Adat',
+          excerpt: 'Kelompok pemuda dan perempuan suku Mairasi mengambil peran aktif dalam pemulihan ekosistem melalui aksi reboisasi.',
+          date: '5 Mar 2026', author: 'YALI Papua', readTime: '5 menit baca',
+          image: 'images/blog/reboisasi-mairasi.jpg',
+          content: `<p>Masyarakat adat suku Mairasi, khususnya kelompok pemuda dan perempuan, mengambil peran aktif dalam upaya pemulihan ekosistem melalui aksi reboisasi di wilayah hutan adat mereka. Inisiatif ini muncul sebagai respons terhadap degradasi lahan yang mengancam keseimbangan alam dan ketersediaan sumber daya tradisional.</p>
+          <p>Dengan menanam kembali spesies pohon lokal dan tanaman produktif, mereka berupaya mengembalikan fungsi ekologis hutan sekaligus memperkuat ikatan spiritual dan fisik antara masyarakat dengan tanah ulayatnya.</p>
+          <div class="bg-primary-50 border-l-4 border-primary-600 p-5 rounded-r-xl my-8"><p class="text-primary-800 font-medium italic">&ldquo;Keterlibatan kaum muda dan perempuan dalam menanam kembali hutan yang rusak adalah bukti bahwa semangat menjaga tanah adat masih menyala. Reboisasi ini bukan sekadar menanam pohon, melainkan menanam harapan.&rdquo;</p></div>
+          <p>Keterlibatan aktif perempuan dalam proyek reboisasi ini memberikan dimensi baru dalam pelestarian hutan, karena mereka memegang peranan kunci dalam pengelolaan pangan dan obat-obatan tradisional.</p>
+          <p class="text-sm text-gray-400 mt-8">Sumber: <a href="https://yalipapua.org/pemuda-dan-perempuan-suku-mairasi-reboisasi-hutan-adat/" class="text-primary-600 hover:underline" target="_blank">yalipapua.org</a></p>`
+        },
+        {
+          id: 4, category: 'Dampak (Impact Report)', icon: 'fa-chart-line',
+          title: 'Menjaga Tanah Leluhur Lewat Peta: Lokakarya Pemetaan Wilayah Adat Suku Mairasi',
+          excerpt: 'Suku Mairasi di Kaimana telah mencapai tahapan krusial dalam perlindungan hak atas tanah mereka melalui pemetaan wilayah adat.',
+          date: '28 Feb 2026', author: 'YALI Papua', readTime: '5 menit baca',
+          image: 'images/blog/pemetaan-mairasi.jpg',
+          content: `<p>Suku Mairasi di Kaimana, Papua Barat, telah mencapai tahapan krusial dalam perlindungan hak atas tanah mereka melalui pelaksanaan Lokakarya III Pemetaan Wilayah Adat. Kegiatan ini menjadi ajang penting untuk melakukan verifikasi data lapangan serta sinkronisasi batas-batas wilayah yang telah dipetakan secara partisipatif oleh masyarakat.</p>
+          <div class="bg-primary-50 border-l-4 border-primary-600 p-5 rounded-r-xl my-8"><p class="text-primary-800 font-medium italic">&ldquo;Peta ini adalah identitas dan bukti harga diri kami di atas tanah ini. Tanpa batas yang jelas, wilayah adat kami rentan hilang. Melalui pemetaan partisipatif ini, kami sedang membangun benteng hukum untuk melindungi hutan, air, dan tanah yang menjadi sumber kehidupan suku Mairasi.&rdquo;</p></div>
+          <p>Proses pemetaan ini bukan sekadar aktivitas teknis semata, melainkan upaya mendokumentasikan kembali sejarah, asal-usul, dan hubungan spiritual masyarakat dengan alam. Keterlibatan aktif para tokoh adat, perempuan, dan pemuda memastikan bahwa setiap jengkal tanah yang dipetakan memiliki landasan budaya yang jelas.</p>
+          <p class="text-sm text-gray-400 mt-8">Sumber: <a href="https://yalipapua.org/menjaga-tanah-leluhur-lewat-peta-lokakarya-iii-pemetaan-wilayah-adat-suku-mairasi-di-kaimana/" class="text-primary-600 hover:underline" target="_blank">yalipapua.org</a></p>`
+        },
+        {
+          id: 5, category: 'Pemberdayaan Masyarakat', icon: 'fa-people-group',
+          title: 'Implementasi Teknologi Tepat Guna untuk Kemandirian Masyarakat Kampung Wosimo',
+          excerpt: 'Masyarakat Kampung Wosimo diperkenalkan dengan teknologi tepat guna untuk meningkatkan produktivitas dan kualitas hidup.',
+          date: '20 Feb 2026', author: 'YALI Papua', readTime: '5 menit baca',
+          image: 'images/blog/ttg-wosimo.jpg',
+          content: `<p>Masyarakat Kampung Wosimo kini mulai diperkenalkan dengan berbagai instrumen teknologi tepat guna (TTG) yang dirancang untuk meningkatkan produktivitas dan kualitas hidup sehari-hari. Inisiatif ini bertujuan untuk memberikan solusi praktis atas tantangan lokal, seperti pengolahan hasil alam dan pemenuhan kebutuhan energi atau air bersih.</p>
+          <div class="bg-primary-50 border-l-4 border-primary-600 p-5 rounded-r-xl my-8"><p class="text-primary-800 font-medium italic">&ldquo;Teknologi tepat guna bukan berarti menggunakan mesin yang canggih dan mahal, melainkan alat yang sesuai dengan kebutuhan masyarakat, mudah dioperasikan, dan bisa diperbaiki sendiri.&rdquo;</p></div>
+          <p>Pelatihan dan pendampingan menjadi kunci utama dalam pengenalan teknologi ini agar masyarakat tidak hanya menjadi pengguna, tetapi juga mampu melakukan perawatan secara mandiri. Melalui pendekatan partisipatif, pengenalan TTG ini diharapkan dapat mendorong pertumbuhan ekonomi kreatif di tingkat keluarga dan kelompok usaha lokal.</p>
+          <p class="text-sm text-gray-400 mt-8">Sumber: <a href="https://yalipapua.org/teknologi-tepat-guna-diperkenalkan-kepada-masyarakat-kampung-wosimo/" class="text-primary-600 hover:underline" target="_blank">yalipapua.org</a></p>`
+        },
+        {
+          id: 6, category: 'Opini & Kebijakan', icon: 'fa-scale-balanced',
+          title: 'Pengarusutamaan Ekonomi Hijau melalui Strategi Pembangunan Rendah Emisi di Jayawijaya',
+          excerpt: 'Pemerintah Kabupaten Jayawijaya menunjukkan komitmen kuat dalam transisi menuju pembangunan ekonomi hijau.',
+          date: '15 Feb 2026', author: 'YALI Papua', readTime: '5 menit baca',
+          image: '',
+          content: `<p>Pemerintah Kabupaten Jayawijaya menunjukkan komitmen kuat dalam transisi menuju pembangunan ekonomi hijau melalui lokakarya penyusunan dokumen Rencana Aksi Daerah Gas Rumah Kaca (RAD-GRK). Langkah ini bertujuan untuk menyelaraskan target pertumbuhan ekonomi dengan pelestarian lingkungan serta pengurangan emisi karbon di wilayah Pegunungan Tengah Papua.</p>
+          <div class="bg-primary-50 border-l-4 border-primary-600 p-5 rounded-r-xl my-8"><p class="text-primary-800 font-medium italic">&ldquo;Upaya pengarusutamaan ekonomi hijau ini merupakan langkah nyata Kabupaten Jayawijaya dalam menjawab tantangan perubahan iklim. Fokus utama terletak pada bagaimana mengelola potensi sumber daya alam yang melimpah secara bijaksana.&rdquo;</p></div>
+          <p>Fokus utama dari inisiatif ini adalah integrasi prinsip-prinsip keberlanjutan ke dalam perencanaan pembangunan daerah yang inklusif. Strategi yang disusun mencakup perlindungan hutan, pengelolaan lahan yang bertanggung jawab, serta penguatan kapasitas sumber daya manusia lokal dalam mengelola potensi alam tanpa merusaknya.</p>
+          <p class="text-sm text-gray-400 mt-8">Sumber: <a href="https://www.worldagroforestry.org/news/upaya-nyata-pengarusutamaan-pembangunan-ekonomi-hijau-di-kabupaten-jayawijaya" class="text-primary-600 hover:underline" target="_blank">World Agroforestry (ICRAF)</a></p>`
+        },
+      ];
+
+      const params = new URLSearchParams(window.location.search);
+      const postId = parseInt(params.get('id')) || 1;
+      const currentIndex = allPosts.findIndex(p => p.id === postId);
+      const post = currentIndex >= 0 ? allPosts[currentIndex] : allPosts[0];
+
+      return {
+        allPosts,
+        post,
+        categories: ['Literasi Lingkungan', 'Dampak (Impact Report)', 'Keanekaragaman Hayati', 'Opini & Kebijakan', 'Kolaborasi Komunitas', 'Refleksi', 'Pemberdayaan Masyarakat'],
+
+        get prevPost() {
+          const idx = allPosts.findIndex(p => p.id === post.id);
+          return idx > 0 ? allPosts[idx - 1] : null;
+        },
+
+        get nextPost() {
+          const idx = allPosts.findIndex(p => p.id === post.id);
+          return idx < allPosts.length - 1 ? allPosts[idx + 1] : null;
+        },
+
+        get relatedPosts() {
+          return allPosts
+            .filter(p => p.id !== post.id && p.category === post.category)
+            .slice(0, 4);
+        },
+
+        init() {
+          document.title = this.post.title + ' — YALI Papua';
+        }
+      };
+    }
+  </script>
+
+
+  <div id="prototype-disclaimer-modal" class="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 sm:p-8">
+      <div class="flex items-start justify-between gap-4 mb-4">
+        <div class="flex items-center gap-3">
+          <img src="images/logo-nokensoft.png" alt="Nokensoft" class="h-10 w-auto" />
+          <div>
+            <h3 class="text-lg sm:text-xl font-extrabold text-gray-900">Disclaimer Prototype</h3>
+            <p class="text-xs text-gray-500">Dokumen Audit & Penawaran Nokensoft</p>
+          </div>
+        </div>
+        <button type="button" onclick="document.getElementById('prototype-disclaimer-modal').style.display='none'" class="text-gray-400 hover:text-gray-600 text-xl leading-none" aria-label="Tutup disclaimer">&times;</button>
+      </div>
+      <p class="text-sm sm:text-base text-gray-600 leading-relaxed mb-4">Website ini masih dalam tahap perancangan prototype awal sebagai penawaran desian baru. Semua informasi diambil gunakan metode pencarian di internet dan gambar dengan AI.</p>
+      <p class="text-sm sm:text-base text-gray-600 leading-relaxed">Dirancang dan dibuat oleh <strong>Tim Nokensoft.com</strong>, PIC: <strong>082199558191 (Janzen)</strong>.</p>
+      <div class="mt-6 grid sm:grid-cols-2 gap-3">
+        <a href="downloads/Nokensoft.com%20-%20Laporan_Audit_Digital_YALI_PAPUA_v.1.0.docx%20%281%29.pdf" download target="_blank" class="inline-flex items-center justify-center px-4 py-2.5 border border-primary-200 bg-primary-50 hover:bg-primary-100 text-primary-700 text-sm font-semibold rounded-xl transition text-center">
+          <i class="fa-solid fa-file-arrow-down mr-2"></i> Laporan Audit Website Yali Papua Saat Ini
+        </a>
+        <a href="downloads/Nokensoft.com_Penawaran_Jasa_Profesional_YALI_PAPUA_v.1.0.docx.pdf" download target="_blank" class="inline-flex items-center justify-center px-4 py-2.5 border border-secondary-200 bg-secondary-50 hover:bg-secondary-100 text-secondary-700 text-sm font-semibold rounded-xl transition text-center">
+          <i class="fa-solid fa-file-arrow-down mr-2"></i> Penawaran Jasa Pembuatan dan Pengembangan Website Baru
+        </a>
+      </div>
+      <div class="mt-6 text-right">
+        <button type="button" onclick="document.getElementById('prototype-disclaimer-modal').style.display='none'" class="inline-flex items-center px-5 py-2.5 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold rounded-full transition">Saya Mengerti</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
