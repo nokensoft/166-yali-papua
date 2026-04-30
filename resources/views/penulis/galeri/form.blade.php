@@ -55,12 +55,12 @@
                      :class="cover_drag_over ? 'border-primary bg-primary/5' : 'border-gray-200 bg-white'"
                      class="border p-2 cursor-pointer transition no-round">
                     <template x-if="previewUrl(cover_media_id)">
-                        <div class="w-full bg-gray-100 pointer-events-none" style="aspect-ratio: 1720 / 1080;">
+                        <div class="w-full max-w-xl bg-gray-100 pointer-events-none" style="aspect-ratio: 1720 / 1080;">
                             <img :src="previewUrl(cover_media_id)" alt="Preview cover" class="w-full h-full object-contain bg-gray-100">
                         </div>
                     </template>
                     <template x-if="!previewUrl(cover_media_id)">
-                        <div class="w-full bg-gray-100 border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400" style="aspect-ratio: 1720 / 1080;">
+                        <div class="w-full max-w-xl bg-gray-100 border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400" style="aspect-ratio: 1720 / 1080;">
                             <i class="fas fa-image text-2xl mb-2"></i>
                             <span class="text-xs uppercase tracking-wide">Drag & Drop Foto Cover di Sini</span>
                             <span class="text-xs mt-1">atau klik untuk pilih file</span>
@@ -139,12 +139,12 @@
                                          :class="item.drag_over ? 'border-primary bg-primary/5' : 'border-gray-200 bg-white'"
                                          class="border p-2 cursor-pointer transition no-round">
                                         <template x-if="previewUrl(item.media_id)">
-                                            <div class="w-full bg-gray-100 pointer-events-none" style="aspect-ratio: 1720 / 1080;">
+                                            <div class="w-full max-w-lg bg-gray-100 pointer-events-none" style="aspect-ratio: 1720 / 1080;">
                                                 <img :src="previewUrl(item.media_id)" alt="Preview foto" class="w-full h-full object-contain bg-gray-100">
                                             </div>
                                         </template>
                                         <template x-if="!previewUrl(item.media_id)">
-                                            <div class="w-full bg-gray-100 border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400" style="aspect-ratio: 1720 / 1080;">
+                                            <div class="w-full max-w-lg bg-gray-100 border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400" style="aspect-ratio: 1720 / 1080;">
                                                 <i class="fas fa-image text-2xl mb-2"></i>
                                                 <span class="text-xs uppercase tracking-wide">Drag & Drop Foto di Sini</span>
                                                 <span class="text-xs mt-1">atau klik untuk pilih file</span>

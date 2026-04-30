@@ -44,23 +44,26 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
                 </div>
 
                 <div class="hidden lg:flex justify-center">
-                    <div class="relative">
-                        <div class="w-80 h-80 bg-white rounded-[2rem] border border-white/80 shadow-2xl flex items-center justify-center p-10">
-                            <img src="{{ asset('img/logo-yali-papua.png') }}" alt="{{ $situs['nama_situs'] ?? 'YALI Papua' }}" class="w-full h-full object-contain drop-shadow-xl">
+                    <div class="relative w-[34rem] h-[30rem] flex items-center justify-center">
+                        <div class="absolute w-80 h-80 bg-white rounded-[2rem] border border-white/80 shadow-2xl"></div>
+                        <div class="relative w-[32rem] z-10">
+                            <div class="rounded-[1.85rem] overflow-hidden" style="aspect-ratio: 1720 / 1080;">
+                                <img src="{{ asset('img/ilustrasi-model-yali-papua.png') }}" alt="Ilustrasi 2 orang YALI Papua" class="w-full h-full object-cover">
+                            </div>
                         </div>
-                        <div class="absolute -top-12 -left-20 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 px-4 py-3 flex items-center gap-2.5 shadow-lg">
+                        <div class="absolute top-2 left-2 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 px-4 py-3 flex items-center gap-2.5 shadow-lg">
                             <div class="w-9 h-9 bg-emerald-500/30 rounded-lg flex items-center justify-center"><i class="fa-solid fa-tree text-emerald-200"></i></div>
                             <span class="text-white text-xs font-semibold tracking-wide whitespace-nowrap">Pelestarian Hutan</span>
                         </div>
-                        <div class="absolute -top-12 -right-20 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 px-4 py-3 flex items-center gap-2.5 shadow-lg">
+                        <div class="absolute top-2 right-2 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 px-4 py-3 flex items-center gap-2.5 shadow-lg">
                             <div class="w-9 h-9 bg-sky-500/30 rounded-lg flex items-center justify-center"><i class="fa-solid fa-fish text-sky-200"></i></div>
                             <span class="text-white text-xs font-semibold tracking-wide whitespace-nowrap">Konservasi Laut</span>
                         </div>
-                        <div class="absolute -bottom-12 -left-24 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 px-4 py-3 flex items-center gap-2.5 shadow-lg">
+                        <div class="absolute bottom-2 left-2 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 px-4 py-3 flex items-center gap-2.5 shadow-lg">
                             <div class="w-9 h-9 bg-emerald-500/30 rounded-lg flex items-center justify-center"><i class="fa-solid fa-graduation-cap text-emerald-200"></i></div>
                             <span class="text-white text-xs font-semibold tracking-wide whitespace-nowrap">Edukasi Lingkungan</span>
                         </div>
-                        <div class="absolute -bottom-12 -right-16 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 px-4 py-3 flex items-center gap-2.5 shadow-lg">
+                        <div class="absolute bottom-2 right-2 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 px-4 py-3 flex items-center gap-2.5 shadow-lg">
                             <div class="w-9 h-9 bg-sky-500/30 rounded-lg flex items-center justify-center"><i class="fa-solid fa-people-group text-sky-200"></i></div>
                             <span class="text-white text-xs font-semibold tracking-wide whitespace-nowrap">Pemberdayaan Masyarakat</span>
                         </div>

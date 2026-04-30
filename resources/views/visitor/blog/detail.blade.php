@@ -114,7 +114,7 @@
                                         <img src="{{ $item->gambar }}" class="w-full h-40 object-cover" alt="{{ $item->judul }}">
                                         <div class="p-4">
                                             <h4 class="text-sm font-bold text-gray-900 group-hover:text-primary-700 transition line-clamp-2">{{ $item->judul }}</h4>
-                                            <p class="text-xs text-gray-400 mt-2">{{ $item->tanggal_terbit?->translatedFormat('d M Y') ?? $item->created_at->translatedFormat('d M Y') }}</p>
+                                            {{-- <p class="text-xs text-gray-400 mt-2">{{ $item->tanggal_terbit?->translatedFormat('d M Y') ?? $item->created_at->translatedFormat('d M Y') }}</p> --}}
                                         </div>
                                     </a>
                                 @endforeach
