@@ -22,5 +22,19 @@ class UserSeeder extends Seeder
             'password' => 'penulis@yalipapua.org',
             'role' => 'penulis',
         ]);
+
+        User::create([
+            'name' => 'Harun H.',
+            'email' => 'harun.h@yalipapua.org',
+            'password' => 'Y4L1_2026',
+            'role' => 'penulis',
+        ]);
+
+        User::create([
+            'name' => 'Nees M.',
+            'email' => 'nees.m@yalipapua.org',
+            'password' => 'Y4L1_2026',
+            'role' => 'penulis',
+        ]);
     }
 }

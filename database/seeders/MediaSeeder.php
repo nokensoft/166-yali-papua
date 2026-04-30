@@ -55,10 +55,10 @@ class MediaSeeder extends Seeder
 
     private function seedBlogDirectory(int $userId): int
     {
-        $blogDir = public_path('blog');
+        $blogDir = public_path('blogs');
 
         if (!File::isDirectory($blogDir)) {
-            $this->command->warn('Direktori public/blog/ tidak ditemukan.');
+            $this->command->warn('Direktori public/blogs/ tidak ditemukan.');
             return 0;
         }
 
@@ -68,7 +68,7 @@ class MediaSeeder extends Seeder
             ->values();
 
         if ($directories->isEmpty()) {
-            $this->command->warn('Tidak ada folder blog di public/blog/.');
+            $this->command->warn('Tidak ada folder blog di public/blogs/.');
             return 0;
         }
 
@@ -83,7 +83,7 @@ class MediaSeeder extends Seeder
                 continue;
             }
 
-            $this->upsertMediaFromFile($imageFile, 'media/blog', $userId);
+            $this->upsertMediaFromFile($imageFile, 'media/blogs', $userId);
             $count++;
         }
 
