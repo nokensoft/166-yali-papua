@@ -63,15 +63,15 @@
                     @endphp
                     <a href="{{ route('foto-bercerita.detail', $album->slug) }}"
                         class="group block bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                        <div class="h-48 relative overflow-hidden bg-gray-100">
+                        <div class="relative overflow-hidden bg-gray-100" style="aspect-ratio: 1720 / 1080;">
                             @if ($cover && $cover->tipe === 'video')
                                 <img src="{{ 'https://img.youtube.com/vi/' . $cover->file_name . '/hqdefault.jpg' }}" alt="{{ $album->judul }}"
                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                    onerror="this.onerror=null;this.src='https://placehold.co/600x400'">
+                                    onerror="this.onerror=null;this.src='https://placehold.co/1720x1080'">
                             @elseif ($cover)
                                 <img src="{{ asset('storage/' . $cover->file_path) }}" alt="{{ $album->judul }}"
                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                    onerror="this.onerror=null;this.src='https://placehold.co/600x400'">
+                                    onerror="this.onerror=null;this.src='https://placehold.co/1720x1080'">
                             @else
                                 <div class="w-full h-full bg-gradient-to-br from-primary-500 to-secondary-600 flex items-center justify-center">
                                     <i class="fa-solid fa-images text-6xl text-white/30"></i>

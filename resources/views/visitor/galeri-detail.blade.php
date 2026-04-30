@@ -60,12 +60,12 @@ $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
                         $itemKeterangan = $m->pivot->keterangan_singkat ?: ($m->judul ?: 'Dokumentasi kegiatan lapangan YALI Papua.');
                     @endphp
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                        <div class="h-64 sm:h-80 lg:h-96 relative overflow-hidden bg-gray-100">
+                        <div class="relative overflow-hidden bg-gray-100" style="aspect-ratio: 1720 / 1080;">
                             @if ($m->tipe === 'video')
                                 <img src="https://img.youtube.com/vi/{{ $m->file_name }}/hqdefault.jpg"
                                     class="w-full h-full object-cover"
                                     alt="{{ $galeri->judul }} - Video {{ $index + 1 }}"
-                                    onerror="this.onerror=null;this.src='https://placehold.co/1200x800'">
+                                    onerror="this.onerror=null;this.src='https://placehold.co/1720x1080'">
                                 <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
                                     <span class="bg-red-600/90 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg">
                                         <i class="fa-solid fa-play text-xl ml-1"></i>
@@ -75,7 +75,7 @@ $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
                                 <img src="{{ asset('storage/' . $m->file_path) }}"
                                     class="w-full h-full object-cover"
                                     alt="{{ $galeri->judul }} - Foto {{ $index + 1 }}"
-                                    onerror="this.onerror=null;this.src='https://placehold.co/1200x800'">
+                                    onerror="this.onerror=null;this.src='https://placehold.co/1720x1080'">
                             @endif
                             <div class="absolute top-4 left-4 bg-black/40 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-full font-semibold">
                                 Item {{ $index + 1 }} / {{ $totalCount }}

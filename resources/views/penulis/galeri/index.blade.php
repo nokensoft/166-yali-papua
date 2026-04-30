@@ -15,12 +15,12 @@
                 : null;
             if ($cover && $cover->tipe === 'video') {
                 $preview = new \Illuminate\Support\HtmlString(
-                    '<img src="https://img.youtube.com/vi/' . e($cover->file_name) . '/default.jpg" alt="' . e($g->judul) . '" class="w-16 h-12 object-cover border border-gray-200" onerror="this.outerHTML=\'<span class=&quot;text-gray-400 text-xl&quot;><i class=&quot;fab fa-youtube&quot;></i></span>\'">' .
+                    '<img src="https://img.youtube.com/vi/' . e($cover->file_name) . '/default.jpg" alt="' . e($g->judul) . '" class="w-20 object-cover border border-gray-200" style="aspect-ratio: 1720 / 1080;" onerror="this.outerHTML=\'<span class=&quot;text-gray-400 text-xl&quot;><i class=&quot;fab fa-youtube&quot;></i></span>\'">' .
                     '<span class="absolute bottom-0 right-0 bg-red-600 text-white text-lg px-1"><i class="fab fa-youtube"></i></span>'
                 );
             } elseif ($cover && $cover->file_path && !str_starts_with($cover->file_path, 'http')) {
                 $preview = new \Illuminate\Support\HtmlString(
-                    '<img src="' . asset('storage/' . $cover->file_path) . '" alt="' . e($g->judul) . '" class="w-16 h-12 object-cover border border-gray-200">'
+                    '<img src="' . asset('storage/' . $cover->file_path) . '" alt="' . e($g->judul) . '" class="w-20 object-cover border border-gray-200" style="aspect-ratio: 1720 / 1080;">'
                 );
             } else {
                 $preview = new \Illuminate\Support\HtmlString(

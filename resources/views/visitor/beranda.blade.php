@@ -147,12 +147,12 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
                         } elseif ($cover) {
                             $coverUrl = asset('storage/' . $cover->file_path);
                         } else {
-                            $coverUrl = 'https://placehold.co/600x400';
+                            $coverUrl = 'https://placehold.co/1720x1080';
                         }
                     @endphp
                     <a href="{{ route('foto-bercerita.detail', $album->slug) }}" class="group block bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                        <div class="h-44 relative overflow-hidden">
-                            <img src="{{ $coverUrl }}" alt="{{ $album->judul }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.onerror=null;this.src='https://placehold.co/600x400'">
+                        <div class="relative overflow-hidden bg-gray-100" style="aspect-ratio: 1720 / 1080;">
+                            <img src="{{ $coverUrl }}" alt="{{ $album->judul }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.onerror=null;this.src='https://placehold.co/1720x1080'">
                             <div class="absolute bottom-3 right-3 bg-black/40 backdrop-blur-sm text-white text-xs px-2.5 py-1 rounded-full">
                                 <i class="fa-solid fa-images mr-1"></i> {{ $album->media->count() }} Foto
                             </div>
