@@ -43,6 +43,9 @@ class Galeri extends Model
 
     public function media()
     {
-        return $this->belongsToMany(Media::class, 'galeri_media');
+        return $this->belongsToMany(Media::class, 'galeri_media')
+            ->withPivot(['judul_item', 'keterangan_singkat', 'urutan'])
+            ->withTimestamps()
+            ->orderBy('galeri_media.urutan');
     }
 }

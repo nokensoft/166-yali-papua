@@ -1,109 +1,214 @@
 @extends('layouts.dashboard')
-@section('title', $editMode ? 'Edit Galeri' : 'Tambah Galeri')
-@section('page-title', $editMode ? 'Edit Galeri' : 'Tambah Galeri')
+@section('title', $editMode ? 'Edit Foto Bercerita' : 'Tambah Foto Bercerita')
+@section('page-title', $editMode ? 'Edit Foto Bercerita' : 'Tambah Foto Bercerita')
 @section('content')
     @php
-        $selectedIds = old('media_ids', $editMode ? $galeri->media->pluck('id')->toArray() : []);
+        $initialItems = old('items', $editMode
+            ? $galeri->media->map(fn ($m) => [
+                'media_id' => (string) $m->id,
+                'judul' => $m->pivot->judul_item ?: $m->judul,
+                'keterangan_singkat' => $m->pivot->keterangan_singkat,
+            ])->values()->toArray()
+            : []);
+
+        if (empty($initialItems)) {
+            $initialItems = [[
+                'media_id' => '',
+                'judul' => '',
+                'keterangan_singkat' => '',
+            ]];
+        }
+
+        $mediaOptions = $media->map(fn ($m) => [
+            'id' => (string) $m->id,
+            'judul' => $m->judul,
+            'preview' => asset('storage/' . $m->file_path),
+        ])->values()->toArray();
     @endphp
+
     <div class="bg-white shadow-sm p-6">
-        <form action="{{ $editMode ? route('penulis.galeri.update', $galeri->id) : route('penulis.galeri.store') }}" method="POST" class="space-y-6">
+        <form action="{{ $editMode ? route('penulis.foto-bercerita.update', $galeri->id) : route('penulis.foto-bercerita.store') }}" method="POST" class="space-y-6" x-data="galeriItemsForm(@js($initialItems), @js($mediaOptions))">
             @csrf
             @if ($editMode) @method('PUT') @endif
 
-            <div class="max-w-4xl">
-                {{-- Judul --}}
-                <div>
-                    <label class="text-lg font-bold uppercase text-gray-500 block mb-2">Judul Album</label>
-                    <input type="text" name="judul" value="{{ old('judul', $editMode ? $galeri->judul : '') }}" required
-                           class="w-full border border-gray-300 p-4 text-lg focus:border-primary focus:outline-none transition no-round"
-                           placeholder="Judul album galeri">
-                    @error('judul') <p class="text-red-500 text-lg mt-1">{{ $message }}</p> @enderror
+            @if ($errors->any())
+                <div class="bg-red-50 border-l-4 border-red-500 p-4 text-red-700">
+                    <p class="font-bold mb-2">Ada data yang belum sesuai:</p>
+                    <ul class="list-disc list-inside space-y-1 text-sm">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
+            @endif
+
+            <div class="max-w-4xl">
+                <label class="text-lg font-bold uppercase text-gray-500 block mb-2">Judul Cerita</label>
+                <input type="text" name="judul" value="{{ old('judul', $editMode ? $galeri->judul : '') }}" required
+                       class="w-full border border-gray-300 p-4 text-lg focus:border-primary focus:outline-none transition no-round"
+                       placeholder="Judul foto bercerita">
+                @error('judul') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
             </div>
 
-            {{-- Deskripsi --}}
             <div class="max-w-4xl">
                 <label class="text-lg font-bold uppercase text-gray-500 block mb-2">Deskripsi</label>
                 <textarea name="deskripsi" rows="3"
                           class="w-full border border-gray-300 p-4 text-lg focus:border-primary focus:outline-none transition no-round resize-none"
-                          placeholder="Deskripsi album (opsional)">{{ old('deskripsi', $editMode ? $galeri->deskripsi : '') }}</textarea>
+                          placeholder="Deskripsi cerita (opsional)">{{ old('deskripsi', $editMode ? $galeri->deskripsi : '') }}</textarea>
             </div>
 
-            {{-- Pilih Media (Foto & Video) --}}
-            <div x-data="galeriMediaPicker()">
-                <label class="text-lg font-bold uppercase text-gray-500 block mb-2">Pilih Media (Foto & Video)</label>
-
-                {{-- Counter + Search --}}
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
-                    <p class="text-lg text-gray-500">
-                        <i class="fas fa-check-circle text-primary mr-1"></i>
-                        <span x-text="selectedCount"></span> media dipilih
+            @if ($media->count() > 0)
+                <div>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-2">
+                        <label class="text-lg font-bold uppercase text-gray-500">Item Foto Bercerita</label>
+                        <button type="button" @click="addItem()" class="bg-primary text-white px-4 py-2 text-sm font-bold hover:bg-red-700 transition uppercase tracking-wide no-round">
+                            <i class="fas fa-plus mr-2"></i>Tambah
+                        </button>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-4">
+                        Setiap item berisi <strong>foto dari fitur Media</strong>, <strong>judul</strong>, dan <strong>keterangan singkat</strong>.
                     </p>
-                    <div class="relative w-full sm:w-72">
-                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><i class="fas fa-search"></i></span>
-                        <input type="text" x-model="search" placeholder="Cari judul / nama file..."
-                               class="w-full border border-gray-300 p-3 pl-10 text-lg focus:border-primary focus:outline-none transition no-round">
+
+                    <div class="space-y-4">
+                        <template x-for="(item, index) in items" :key="index">
+                            <div class="border border-gray-200 p-4 bg-gray-50">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="font-bold text-gray-700">Item Foto <span x-text="index + 1"></span></h3>
+                                    <button type="button" @click="removeItem(index)" x-show="items.length > 1" class="text-red-600 hover:text-red-700 text-sm font-bold">
+                                        <i class="fas fa-trash mr-1"></i>Hapus
+                                    </button>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="text-sm font-bold uppercase text-gray-500 block mb-2">Foto Item</label>
+                                    <input type="hidden" :name="`items[${index}][media_id]`" :value="item.media_id">
+                                    <input type="file" :id="`item-file-input-${index}`" class="hidden" accept="image/*" @change="handleItemFileInput(index, $event)">
+                                    <div @click="triggerItemFilePicker(index)"
+                                         @dragover.prevent="setItemDragOver(index, true)"
+                                         @dragleave.prevent="setItemDragOver(index, false)"
+                                         @drop.prevent="handleItemFileDrop(index, $event)"
+                                         :class="item.drag_over ? 'border-primary bg-primary/5' : 'border-gray-200 bg-white'"
+                                         class="border p-2 cursor-pointer transition no-round">
+                                        <template x-if="previewUrl(item.media_id)">
+                                            <img :src="previewUrl(item.media_id)" alt="Preview foto" class="w-full h-56 object-contain bg-gray-100 pointer-events-none">
+                                        </template>
+                                        <template x-if="!previewUrl(item.media_id)">
+                                            <div class="w-full h-56 bg-gray-100 border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400">
+                                                <i class="fas fa-image text-2xl mb-2"></i>
+                                                <span class="text-xs uppercase tracking-wide">Drag & Drop Foto di Sini</span>
+                                                <span class="text-xs mt-1">atau klik untuk pilih file</span>
+                                            </div>
+                                        </template>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-2">Drag & drop foto untuk upload media baru.</p>
+                                    <div class="flex flex-wrap items-center gap-3 mt-2">
+                                        <button type="button" @click.stop="openGalleryModal(index)"
+                                                class="text-xs font-bold uppercase tracking-wide text-primary hover:text-red-700 underline">
+                                            Pilih dari Media
+                                        </button>
+                                        <button type="button" @click="triggerItemFilePicker(index)"
+                                                class="text-xs font-bold uppercase tracking-wide text-dark hover:text-gray-700 underline">
+                                            Pilih File
+                                        </button>
+                                    <button type="button" @click="clearSelectedMedia(index)" x-show="item.media_id"
+                                            class="text-red-600 hover:text-red-700 text-xs font-bold uppercase tracking-wide">
+                                        <i class="fas fa-times mr-1"></i>Hapus Pilihan Foto
+                                    </button>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-2" x-show="selectedMediaTitle(item.media_id)">
+                                        Dipilih: <span class="font-semibold" x-text="selectedMediaTitle(item.media_id)"></span>
+                                    </p>
+                                    <p class="text-xs text-primary mt-2" x-show="item.uploading">
+                                        <i class="fas fa-spinner fa-spin mr-1"></i>Mengupload foto...
+                                    </p>
+                                    <p class="text-xs text-red-600 mt-2" x-show="item.upload_error" x-text="item.upload_error"></p>
+                                    <p class="text-xs text-gray-400 mt-1">Foto wajib dipilih dari fitur Media agar terintegrasi.</p>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="text-sm font-bold uppercase text-gray-500 block mb-2">Judul</label>
+                                    <input type="text" :name="`items[${index}][judul]`" x-model="item.judul" required
+                                           class="w-full border border-gray-300 p-3 text-sm focus:border-primary focus:outline-none transition no-round"
+                                           placeholder="Judul foto">
+                                </div>
+
+                                <div>
+                                    <label class="text-sm font-bold uppercase text-gray-500 block mb-2">Keterangan Singkat</label>
+                                    <textarea :name="`items[${index}][keterangan_singkat]`" x-model="item.keterangan_singkat" rows="3"
+                                              class="w-full border border-gray-300 p-3 text-sm focus:border-primary focus:outline-none transition no-round resize-none"
+                                              placeholder="Keterangan singkat di bawah foto"></textarea>
+                                </div>
+                            </div>
+                        </template>
                     </div>
                 </div>
+            @else
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 text-yellow-700">
+                    Belum ada media foto. Silakan
+                    <a href="{{ route('penulis.media.create') }}" class="underline font-bold">upload foto di fitur Media</a>
+                    terlebih dahulu.
+                </div>
+            @endif
 
-                @if ($media->count() > 0)
-                    {{-- Media Grid --}}
-                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-h-[28rem] overflow-y-auto border border-gray-200 p-3 bg-gray-50">
-                        @foreach ($media as $m)
-                            <div x-show="matchSearch('{{ addslashes($m->judul) }}', '{{ addslashes($m->file_name) }}')"
-                                 @click="toggle({{ $m->id }})"
-                                 :class="isSelected({{ $m->id }}) ? 'ring-2 ring-primary ring-offset-1 bg-primary/5' : 'hover:ring-2 hover:ring-gray-300'"
-                                 class="relative cursor-pointer border border-gray-200 bg-white group transition">
-                                @if ($m->tipe === 'video')
-                                    <div class="relative">
-                                        <img src="https://img.youtube.com/vi/{{ $m->file_name }}/mqdefault.jpg" alt="{{ $m->judul }}"
-                                             class="w-full h-full object-cover"
-                                             onerror="this.src='https://img.youtube.com/vi/default/mqdefault.jpg'">
-                                        <div class="absolute inset-0 flex items-center justify-center">
-                                            <span class="bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center shadow">
-                                                <i class="fab fa-youtube text-lg"></i>
-                                            </span>
-                                        </div>
+            <div x-show="showGalleryModal" x-cloak class="fixed inset-0 z-[60] flex items-center justify-center p-4"
+                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0">
+                <div class="absolute inset-0 bg-black/60" @click="closeGalleryModal()"></div>
+
+                <div class="relative bg-white w-full max-w-4xl max-h-[85vh] flex flex-col shadow-xl no-round z-10">
+                    <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+                        <h3 class="text-lg font-bold uppercase text-dark">Pilih Foto dari Galeri Media</h3>
+                        <button type="button" @click="closeGalleryModal()" class="text-gray-400 hover:text-gray-700 text-xl">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex-1 overflow-y-auto p-6">
+                        <div x-show="mediaOptions.length === 0" class="text-center py-10 text-gray-400">
+                            <i class="fas fa-inbox text-3xl mb-2"></i>
+                            <p>Belum ada media foto. Upload gambar terlebih dahulu.</p>
+                        </div>
+
+                        <div x-show="mediaOptions.length > 0" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                            <template x-for="option in mediaOptions" :key="option.id">
+                                <button type="button" @click="chooseModalMedia(option.id)"
+                                        :class="modalSelectedId === option.id ? 'ring-2 ring-primary ring-offset-1' : 'hover:ring-2 hover:ring-gray-300'"
+                                        class="relative text-left border border-gray-200 bg-white transition no-round overflow-hidden">
+                                    <img :src="option.preview" :alt="option.judul" class="w-full h-28 object-contain bg-gray-100">
+                                    <div class="p-2">
+                                        <p class="text-sm font-semibold text-gray-700 truncate" x-text="option.judul"></p>
                                     </div>
-                                @else
-                                    <img src="{{ asset('storage/' . $m->file_path) }}" alt="{{ $m->judul }}"
-                                         class="w-full h-full object-cover">
-                                @endif
-                                <div class="p-2">
-                                    <p class="text-lg font-semibold text-gray-700 truncate">{{ $m->judul }}</p>
-                                    <p class="text-lg text-gray-400 truncate">{{ $m->tipe === 'video' ? '🎬 Video' : $m->file_name }}</p>
-                                </div>
-                                {{-- Checkbox indicator --}}
-                                <div :class="isSelected({{ $m->id }}) ? 'bg-primary' : 'bg-white border-2 border-gray-300'"
-                                     class="absolute top-2 right-2 w-6 h-6 flex items-center justify-center no-round transition">
-                                    <i x-show="isSelected({{ $m->id }})" class="fas fa-check text-white text-lg"></i>
-                                </div>
-                                {{-- Hidden checkbox --}}
-                                <input type="checkbox" name="media_ids[]" value="{{ $m->id }}"
-                                       :checked="isSelected({{ $m->id }})" class="hidden">
-                            </div>
-                        @endforeach
+                                    <div x-show="modalSelectedId === option.id" class="absolute top-2 right-2 bg-primary text-white w-6 h-6 flex items-center justify-center text-xs no-round">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                </button>
+                            </template>
+                        </div>
                     </div>
 
-                    {{-- No search results --}}
-                    <div x-show="search && !hasVisibleItems()" class="text-center py-8 text-gray-400 border border-gray-200 bg-gray-50 mt-3">
-                        <i class="fas fa-search text-2xl mb-2"></i>
-                        <p class="text-lg">Tidak ditemukan media dengan kata kunci tersebut.</p>
+                    <div class="flex justify-end gap-3 px-6 py-4 border-t border-gray-200">
+                        <button type="button" @click="closeGalleryModal()" class="bg-gray-200 text-gray-700 px-6 py-3 font-bold hover:bg-gray-300 transition uppercase text-sm no-round">
+                            Batal
+                        </button>
+                        <button type="button" @click="confirmGallerySelection()" :disabled="!modalSelectedId"
+                                class="bg-primary text-white px-6 py-3 font-bold hover:bg-red-700 transition uppercase text-sm no-round disabled:opacity-50">
+                            <i class="fas fa-check mr-1"></i>Pilih Foto
+                        </button>
                     </div>
-                @else
-                    <div class="bg-gray-50 border border-gray-300 p-8 text-center text-gray-400">
-                        <i class="fas fa-images text-3xl mb-2 block"></i>
-                        Belum ada media. <a href="{{ route('penulis.media.create') }}" class="text-primary underline">Upload media</a> terlebih dahulu.
-                    </div>
-                @endif
+                </div>
             </div>
 
-            {{-- Tombol Aksi --}}
             <div class="flex gap-3">
-                <button type="submit" class="bg-primary text-white px-8 py-4 font-bold hover:bg-red-700 transition uppercase text-lg tracking-wide no-round">
-                    <i class="fas fa-save mr-2"></i> {{ $editMode ? 'Perbarui' : 'Simpan' }}
-                </button>
-                <a href="{{ route('penulis.galeri.index') }}" class="bg-gray-200 text-gray-700 px-8 py-4 font-bold hover:bg-gray-300 transition uppercase text-lg tracking-wide no-round">Batal</a>
+                @if ($media->count() > 0)
+                    <button type="submit" class="bg-primary text-white px-8 py-4 font-bold hover:bg-red-700 transition uppercase text-lg tracking-wide no-round">
+                        <i class="fas fa-save mr-2"></i> {{ $editMode ? 'Perbarui' : 'Simpan' }}
+                    </button>
+                @endif
+                <a href="{{ route('penulis.foto-bercerita.index') }}" class="bg-gray-200 text-gray-700 px-8 py-4 font-bold hover:bg-gray-300 transition uppercase text-lg tracking-wide no-round">Batal</a>
             </div>
         </form>
     </div>
@@ -111,40 +216,169 @@
 
 @push('scripts')
 <script>
-function galeriMediaPicker() {
+function galeriItemsForm(initialItems, mediaOptions) {
     return {
-        selected: @json(array_map('intval', $selectedIds)),
-        search: '',
-        mediaData: @json($media->map(fn ($m) => ['id' => $m->id, 'judul' => $m->judul, 'file_name' => $m->file_name])),
-
-        get selectedCount() {
-            return this.selected.length;
+        items: (Array.isArray(initialItems) && initialItems.length ? initialItems : [{
+            media_id: '',
+            judul: '',
+            keterangan_singkat: '',
+        }]).map(item => ({
+            media_id: item.media_id ? String(item.media_id) : '',
+            judul: item.judul ?? '',
+            keterangan_singkat: item.keterangan_singkat ?? '',
+            uploading: false,
+            upload_error: '',
+            drag_over: false,
+        })),
+        mediaOptions: Array.isArray(mediaOptions)
+            ? mediaOptions.map(option => ({ ...option, id: String(option.id) }))
+            : [],
+        showGalleryModal: false,
+        activeItemIndex: null,
+        modalSelectedId: '',
+        addItem() {
+            this.items.push({
+                media_id: '',
+                judul: '',
+                keterangan_singkat: '',
+                uploading: false,
+                upload_error: '',
+                drag_over: false,
+            });
         },
-
-        isSelected(id) {
-            return this.selected.includes(id);
-        },
-
-        toggle(id) {
-            if (this.isSelected(id)) {
-                this.selected = this.selected.filter(i => i !== id);
-            } else {
-                this.selected.push(id);
+        removeItem(index) {
+            if (this.items.length <= 1) return;
+            this.items.splice(index, 1);
+            if (this.activeItemIndex === index) {
+                this.closeGalleryModal();
+            } else if (this.activeItemIndex !== null && this.activeItemIndex > index) {
+                this.activeItemIndex -= 1;
             }
         },
-
-        matchSearch(judul, fileName) {
-            if (!this.search) return true;
-            const q = this.search.toLowerCase();
-            return judul.toLowerCase().includes(q) || fileName.toLowerCase().includes(q);
+        triggerItemFilePicker(index) {
+            const input = document.getElementById(`item-file-input-${index}`);
+            if (input) input.click();
         },
+        handleItemFileInput(index, event) {
+            const file = event.target?.files?.[0];
+            if (file) {
+                this.uploadMediaForItem(index, file);
+            }
+            event.target.value = '';
+        },
+        setItemDragOver(index, value) {
+            if (!this.items[index]) return;
+            this.items[index].drag_over = !!value;
+        },
+        handleItemFileDrop(index, event) {
+            this.setItemDragOver(index, false);
+            const file = event.dataTransfer?.files?.[0];
+            if (file) {
+                this.uploadMediaForItem(index, file);
+            }
+        },
+        async uploadMediaForItem(index, file) {
+            const item = this.items[index];
+            if (!item) return;
 
-        hasVisibleItems() {
-            if (!this.search) return true;
-            const q = this.search.toLowerCase();
-            return this.mediaData.some(m => m.judul.toLowerCase().includes(q) || m.file_name.toLowerCase().includes(q));
+            if (!file.type || !file.type.startsWith('image/')) {
+                item.upload_error = 'File harus berupa gambar.';
+                return;
+            }
+
+            item.uploading = true;
+            item.upload_error = '';
+
+            try {
+                const formData = new FormData();
+                const mediaTitle = (item.judul || '').trim() || file.name.replace(/\.[^/.]+$/, '');
+                formData.append('judul', mediaTitle || 'Foto');
+                formData.append('file', file);
+
+                const response = await fetch('{{ route("penulis.media.upload-ajax") }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Accept': 'application/json',
+                    },
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    let errorMessage = 'Gagal upload foto baru.';
+                    try {
+                        const errorData = await response.json();
+                        errorMessage = errorData.message
+                            || (errorData.errors && Object.values(errorData.errors).flat()[0])
+                            || errorMessage;
+                    } catch (_) {}
+
+                    item.upload_error = errorMessage;
+                    return;
+                }
+
+                const uploadedMedia = await response.json();
+                this.upsertMediaOption(uploadedMedia);
+                item.media_id = String(uploadedMedia.id);
+            } catch (_) {
+                item.upload_error = 'Terjadi kesalahan saat upload foto.';
+            } finally {
+                item.uploading = false;
+                item.drag_over = false;
+            }
+        },
+        upsertMediaOption(media) {
+            const option = {
+                id: String(media.id),
+                judul: media.judul ?? '',
+                preview: media.file_path ?? '',
+            };
+            const existingIndex = this.mediaOptions.findIndex(item => item.id === option.id);
+            if (existingIndex === -1) {
+                this.mediaOptions.unshift(option);
+                return;
+            }
+            this.mediaOptions[existingIndex] = option;
+        },
+        openGalleryModal(index) {
+            if (!this.items[index]) return;
+            this.activeItemIndex = index;
+            this.modalSelectedId = this.items[index].media_id ? String(this.items[index].media_id) : '';
+            this.showGalleryModal = true;
+        },
+        closeGalleryModal() {
+            this.showGalleryModal = false;
+            this.activeItemIndex = null;
+            this.modalSelectedId = '';
+        },
+        chooseModalMedia(mediaId) {
+            this.modalSelectedId = String(mediaId);
+        },
+        confirmGallerySelection() {
+            if (this.activeItemIndex === null || !this.items[this.activeItemIndex]) {
+                this.closeGalleryModal();
+                return;
+            }
+            this.items[this.activeItemIndex].media_id = this.modalSelectedId ? String(this.modalSelectedId) : '';
+            this.closeGalleryModal();
+        },
+        clearSelectedMedia(index) {
+            if (!this.items[index]) return;
+            this.items[index].media_id = '';
+            this.items[index].upload_error = '';
+        },
+        selectedMedia(mediaId) {
+            return this.mediaOptions.find(option => option.id === String(mediaId)) ?? null;
+        },
+        selectedMediaTitle(mediaId) {
+            const selected = this.selectedMedia(mediaId);
+            return selected ? selected.judul : '';
+        },
+        previewUrl(mediaId) {
+            const selected = this.selectedMedia(mediaId);
+            return selected ? selected.preview : '';
         }
-    }
+    };
 }
 </script>
 @endpush

@@ -35,9 +35,14 @@ class User extends Authenticatable
         ];
     }
 
+    public function blog()
+    {
+        return $this->hasMany(Blog::class);
+    }
+
     public function berita()
     {
-        return $this->hasMany(Berita::class);
+        return $this->blog();
     }
 
     public function media()

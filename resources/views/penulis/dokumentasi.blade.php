@@ -25,7 +25,7 @@
             <div class="flex items-start justify-between">
                 <div>
                     <h2 class="text-2xl font-extrabold text-dark mb-1">Panduan Penggunaan — Penulis</h2>
-                    <p class="text-gray-500">Panduan lengkap penggunaan panel Penulis pada website {{ $situs['nama_situs'] ?? 'YALI Papua' }}. Dokumen ini menjelaskan cara mengelola konten blog, media, galeri, donasi, dan fitur lainnya.</p>
+                    <p class="text-gray-500">Panduan lengkap penggunaan panel Penulis pada website {{ $situs['nama_situs'] ?? 'YALI Papua' }}. Dokumen ini menjelaskan cara mengelola konten blog, media, foto bercerita, dan fitur lainnya.</p>
                 </div>
             </div>
             <div class="flex flex-wrap gap-3 mt-4 text-lg">
@@ -44,12 +44,10 @@
                     $daftarIsi = [
                         ['sec-login', 'Login & Navigasi'],
                         ['sec-dashboard', 'Dasbor'],
-                        ['sec-blog', 'Mengelola Blog / Artikel'],
+                        ['sec-blog', 'Mengelola Blog'],
                         ['sec-kategori', 'Mengelola Kategori Blog'],
                         ['sec-media', 'Mengelola Media'],
-                        ['sec-galeri', 'Mengelola Galeri'],
-                        ['sec-program-donasi', 'Mengelola Program Donasi'],
-                        ['sec-donasi', 'Mengelola Donasi Masuk'],
+                        ['sec-galeri', 'Mengelola Foto Bercerita'],
                         ['sec-statistik', 'Statistik Pengunjung'],
                         ['sec-aktivitas', 'Aktivitas Login'],
                         ['sec-profil', 'Edit Profil'],
@@ -90,7 +88,7 @@
                     <span class="w-7 h-7 bg-primary text-white flex items-center justify-center shrink-0 text-lg font-bold mt-0.5">3</span>
                     <div>
                         <p class="font-bold text-dark">Navigasi Sidebar</p>
-                        <p>Setelah login, gunakan <strong>sidebar kiri</strong> untuk mengakses semua menu: Blog, Media, Galeri, Donasi, Statistik, dll. Di perangkat mobile, klik ikon <i class="fas fa-bars text-gray-400"></i> untuk membuka sidebar.</p>
+                        <p>Setelah login, gunakan <strong>sidebar kiri</strong> untuk mengakses semua menu: Blog, Media, Foto Bercerita, Statistik, dll. Di perangkat mobile, klik ikon <i class="fas fa-bars text-gray-400"></i> untuk membuka sidebar.</p>
                     </div>
                 </div>
                 <div class="flex items-start gap-3">
@@ -112,13 +110,10 @@
                 <p>Halaman dasbor menampilkan ringkasan data keseluruhan yang Anda kelola:</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     @foreach ([
-                        ['fa-newspaper', 'Jumlah blog/artikel yang telah dibuat'],
-                        ['fa-images', 'Jumlah album galeri'],
+                        ['fa-newspaper', 'Jumlah blog yang telah dibuat'],
+                        ['fa-images', 'Jumlah album foto bercerita'],
                         ['fa-photo-video', 'Jumlah file media (foto & video)'],
                         ['fa-tags', 'Jumlah kategori blog'],
-                        ['fa-hand-holding-heart', 'Jumlah program donasi aktif'],
-                        ['fa-heart', 'Jumlah donasi berstatus pending'],
-                        ['fa-donate', 'Total dana donasi yang sudah terkonfirmasi'],
                     ] as $item)
                         <div class="flex items-center gap-2 p-2 bg-gray-50">
                             <i class="fas {{ $item[0] }} text-primary w-5 text-center"></i>
@@ -126,45 +121,45 @@
                         </div>
                     @endforeach
                 </div>
-                <p>Di bawah statistik, terdapat daftar <strong>Berita Terbaru</strong> yang Anda tulis beserta status (Draft / Terbit).</p>
+                <p>Di bawah statistik, terdapat daftar <strong>Blog Terbaru</strong> yang Anda tulis beserta status (Draft / Terbit).</p>
             </div>
         </div>
 
         {{-- 3. Blog --}}
         <div id="sec-blog" class="bg-white shadow-sm p-6 mb-6">
             <h3 class="text-lg font-bold uppercase mb-4 pb-3 border-b border-primary">
-                <i class="fas fa-newspaper mr-2 text-primary"></i>3. Mengelola Blog / Artikel
+                <i class="fas fa-newspaper mr-2 text-primary"></i>3. Mengelola Blog
             </h3>
             <div class="text-lg text-gray-600 space-y-4">
-                <p>Menu <strong>Blog > Artikel</strong> digunakan untuk membuat dan mengelola artikel berita.</p>
+                <p>Menu <strong>Blog</strong> digunakan untuk membuat dan mengelola postingan blog.</p>
 
                 <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
-                    <p class="font-bold text-dark mb-2"><i class="fas fa-plus-circle mr-1 text-blue-500"></i> Menambah Artikel Baru</p>
+                    <p class="font-bold text-dark mb-2"><i class="fas fa-plus-circle mr-1 text-blue-500"></i> Menambah Blog Baru</p>
                     <ol class="list-decimal list-inside space-y-1">
-                        <li>Klik tombol <strong>Tambah Artikel</strong></li>
-                        <li>Isi <strong>Judul Artikel</strong> (wajib)</li>
+                        <li>Klik tombol <strong>Tambah Blog</strong></li>
+                        <li>Isi <strong>Judul Blog</strong> (wajib)</li>
                         <li>Isi <strong>Ringkasan</strong> (opsional — tampil di daftar blog publik)</li>
-                        <li>Tulis <strong>Konten Artikel</strong> menggunakan editor WYSIWYG (CKEditor)</li>
-                        <li>Isi <strong>Sumber Berita</strong> jika artikel diambil dari sumber lain (opsional)</li>
+                        <li>Tulis <strong>Konten Blog</strong> menggunakan editor WYSIWYG (CKEditor)</li>
+                        <li>Isi <strong>Sumber Referensi</strong> jika konten diambil dari sumber lain (opsional)</li>
                         <li>Pilih <strong>Kategori</strong> dari dropdown</li>
                         <li>Atur <strong>Status</strong>: <code class="bg-gray-100 px-1">Draft</code> (belum tayang) atau <code class="bg-gray-100 px-1">Terbit</code> (tayang di website)</li>
                         <li>Atur <strong>Tanggal Publikasi</strong> (opsional — default tanggal saat ini)</li>
-                        <li>Pilih <strong>Gambar Artikel</strong> dari Media Library atau upload baru</li>
+                        <li>Pilih <strong>Gambar Blog</strong> dari Media Library atau upload baru</li>
                         <li>Klik <strong>Simpan</strong></li>
                     </ol>
                 </div>
 
                 <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
-                    <p class="font-bold text-dark mb-2"><i class="fas fa-edit mr-1 text-yellow-500"></i> Mengedit Artikel</p>
-                    <p>Klik ikon <i class="fas fa-ellipsis-vertical text-gray-400"></i> pada baris artikel, pilih <strong>Edit</strong>. Ubah data yang diperlukan, lalu klik <strong>Perbarui</strong>.</p>
+                    <p class="font-bold text-dark mb-2"><i class="fas fa-edit mr-1 text-yellow-500"></i> Mengedit Blog</p>
+                    <p>Klik ikon <i class="fas fa-ellipsis-vertical text-gray-400"></i> pada baris blog, pilih <strong>Edit</strong>. Ubah data yang diperlukan, lalu klik <strong>Perbarui</strong>.</p>
                 </div>
 
                 <div class="bg-red-50 border-l-4 border-red-400 p-4">
                     <p class="font-bold text-dark mb-2"><i class="fas fa-trash mr-1 text-red-500"></i> Menghapus & Memulihkan</p>
                     <ul class="list-disc list-inside space-y-1">
-                        <li><strong>Hapus</strong> — artikel dipindahkan ke tempat sampah (soft delete), bisa dipulihkan</li>
+                        <li><strong>Hapus</strong> — blog dipindahkan ke tempat sampah (soft delete), bisa dipulihkan</li>
                         <li><strong>Terhapus</strong> — klik tab/tombol "Terhapus" untuk melihat data yang dihapus</li>
-                        <li><strong>Pulihkan</strong> — mengembalikan artikel ke daftar aktif</li>
+                        <li><strong>Pulihkan</strong> — mengembalikan blog ke daftar aktif</li>
                         <li><strong>Hapus Permanen</strong> — menghapus data secara permanen, tidak bisa dikembalikan</li>
                     </ul>
                 </div>
@@ -177,7 +172,7 @@
                 <i class="fas fa-tags mr-2 text-primary"></i>4. Mengelola Kategori Blog
             </h3>
             <div class="text-lg text-gray-600 space-y-3">
-                <p>Menu <strong>Blog > Kategori</strong> untuk membuat dan mengelola kategori artikel.</p>
+                <p>Menu <strong>Blog > Kategori Blog</strong> untuk membuat dan mengelola kategori blog.</p>
                 <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
                     <p class="font-bold text-dark mb-2">Cara Menambah Kategori</p>
                     <ol class="list-decimal list-inside space-y-1">
@@ -188,7 +183,7 @@
                 </div>
                 <p>Kategori mendukung <strong>soft delete</strong> (hapus sementara), <strong>restore</strong> (pulihkan), dan <strong>force delete</strong> (hapus permanen).</p>
                 <div class="bg-orange-50 border-l-4 border-orange-400 p-4 text-orange-800">
-                    <i class="fas fa-exclamation-triangle mr-1"></i> <strong>Perhatian:</strong> Pastikan tidak ada artikel yang menggunakan kategori sebelum menghapus permanen.
+                    <i class="fas fa-exclamation-triangle mr-1"></i> <strong>Perhatian:</strong> Pastikan tidak ada blog yang menggunakan kategori sebelum menghapus permanen.
                 </div>
             </div>
         </div>
@@ -199,7 +194,7 @@
                 <i class="fas fa-photo-video mr-2 text-primary"></i>5. Mengelola Media
             </h3>
             <div class="text-lg text-gray-600 space-y-4">
-                <p>Menu <strong>Media > Media</strong> untuk mengelola file gambar dan video yang digunakan di blog dan galeri.</p>
+                <p>Menu <strong>Media > Media</strong> untuk mengelola file gambar dan video yang digunakan di blog dan foto bercerita.</p>
 
                 <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
                     <p class="font-bold text-dark mb-2">Upload Media Baru</p>
@@ -224,22 +219,22 @@
                     </div>
                 </div>
 
-                <p>Media yang sudah di-upload dapat digunakan di <strong>Artikel Blog</strong> (sebagai gambar utama), <strong>Galeri</strong> (sebagai album foto), dan <strong>Program Donasi</strong> (sebagai cover).</p>
+                <p>Media yang sudah di-upload dapat digunakan di <strong>Blog</strong> (sebagai gambar utama) dan <strong>Foto Bercerita</strong> (sebagai item foto cerita).</p>
             </div>
         </div>
 
-        {{-- 6. Galeri --}}
+        {{-- 6. Foto Bercerita --}}
         <div id="sec-galeri" class="bg-white shadow-sm p-6 mb-6">
             <h3 class="text-lg font-bold uppercase mb-4 pb-3 border-b border-primary">
-                <i class="fas fa-images mr-2 text-primary"></i>6. Mengelola Galeri
+                <i class="fas fa-images mr-2 text-primary"></i>6. Mengelola Foto Bercerita
             </h3>
             <div class="text-lg text-gray-600 space-y-4">
-                <p>Menu <strong>Media > Galeri</strong> untuk membuat album foto/video kegiatan.</p>
+                <p>Menu <strong>Media > Foto Bercerita</strong> untuk membuat album foto/video kegiatan.</p>
 
                 <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
-                    <p class="font-bold text-dark mb-2">Membuat Album Galeri</p>
+                    <p class="font-bold text-dark mb-2">Membuat Album Foto Bercerita</p>
                     <ol class="list-decimal list-inside space-y-1">
-                        <li>Klik <strong>Tambah Galeri</strong></li>
+                        <li>Klik <strong>Tambah Foto Bercerita</strong></li>
                         <li>Isi <strong>Judul Album</strong></li>
                         <li>Isi <strong>Deskripsi</strong> (opsional)</li>
                         <li>Pilih <strong>media</strong> (foto/video) yang ingin dimasukkan ke album — gunakan klik untuk memilih/membatalkan, bisa pilih banyak sekaligus</li>
@@ -249,81 +244,11 @@
 
                 <div class="bg-green-50 border-l-4 border-green-400 p-4">
                     <p class="font-bold text-dark mb-2"><i class="fas fa-eye mr-1 text-green-500"></i> Toggle Publik</p>
-                    <p>Setiap album memiliki toggle <strong>Publik</strong>. Album yang ditandai publik akan tampil di halaman galeri website. Album yang tidak publik hanya terlihat di panel penulis.</p>
+                    <p>Setiap album memiliki toggle <strong>Publik</strong>. Album yang ditandai publik akan tampil di halaman foto bercerita website. Album yang tidak publik hanya terlihat di panel penulis.</p>
                 </div>
             </div>
         </div>
 
-        {{-- 7. Program Donasi --}}
-        <div id="sec-program-donasi" class="bg-white shadow-sm p-6 mb-6">
-            <h3 class="text-lg font-bold uppercase mb-4 pb-3 border-b border-primary">
-                <i class="fas fa-hand-holding-heart mr-2 text-primary"></i>7. Mengelola Program Donasi
-            </h3>
-            <div class="text-lg text-gray-600 space-y-4">
-                <p>Menu <strong>Donasi > Program Donasi</strong> untuk membuat program yang menjadi tujuan donasi.</p>
-
-                <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
-                    <p class="font-bold text-dark mb-2">Membuat Program Donasi</p>
-                    <ol class="list-decimal list-inside space-y-1">
-                        <li>Klik <strong>Tambah Program Donasi</strong></li>
-                        <li>Isi <strong>Judul Program</strong></li>
-                        <li>Isi <strong>Deskripsi</strong> program</li>
-                        <li>Pilih <strong>Cover Image</strong> dari media library (opsional)</li>
-                        <li>Isi <strong>Target Nominal</strong> dalam Rupiah (opsional — jika diisi, progress bar akan tampil)</li>
-                        <li>Centang <strong>Program Aktif</strong> agar tampil di halaman donasi publik</li>
-                        <li>Klik <strong>Simpan</strong></li>
-                    </ol>
-                </div>
-
-                <div class="bg-orange-50 border-l-4 border-orange-400 p-4 text-orange-800">
-                    <i class="fas fa-info-circle mr-1"></i> Hanya program yang <strong>aktif</strong> yang akan ditampilkan sebagai pilihan di formulir donasi publik.
-                </div>
-            </div>
-        </div>
-
-        {{-- 8. Donasi --}}
-        <div id="sec-donasi" class="bg-white shadow-sm p-6 mb-6">
-            <h3 class="text-lg font-bold uppercase mb-4 pb-3 border-b border-primary">
-                <i class="fas fa-heart mr-2 text-primary"></i>8. Mengelola Donasi Masuk
-            </h3>
-            <div class="text-lg text-gray-600 space-y-4">
-                <p>Menu <strong>Donasi > Kelola Donasi</strong> menampilkan seluruh donasi yang masuk dari pengunjung website.</p>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
-                    <div class="p-4 bg-yellow-50 border-l-4 border-yellow-400">
-                        <p class="font-bold text-yellow-700">Pending</p>
-                        <p class="text-gray-600">Donasi baru masuk, menunggu verifikasi Anda.</p>
-                    </div>
-                    <div class="p-4 bg-green-50 border-l-4 border-green-400">
-                        <p class="font-bold text-green-700">Dikonfirmasi</p>
-                        <p class="text-gray-600">Donasi sudah terverifikasi dan dihitung di total.</p>
-                    </div>
-                    <div class="p-4 bg-red-50 border-l-4 border-red-400">
-                        <p class="font-bold text-red-600">Ditolak</p>
-                        <p class="text-gray-600">Donasi tidak valid atau bukti transfer tidak sesuai.</p>
-                    </div>
-                    <div class="p-4 bg-gray-50 border-l-4 border-gray-400">
-                        <p class="font-bold text-gray-600">Terhapus</p>
-                        <p class="text-gray-600">Donasi yang sudah dihapus (soft delete).</p>
-                    </div>
-                </div>
-
-                <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
-                    <p class="font-bold text-dark mb-2">Aksi yang Tersedia</p>
-                    <ul class="list-disc list-inside space-y-1">
-                        <li><strong>Lihat Detail</strong> — melihat informasi lengkap donasi (donatur, jumlah, pesan, bukti)</li>
-                        <li><strong>Konfirmasi</strong> — mengubah status menjadi "Dikonfirmasi"</li>
-                        <li><strong>Tolak</strong> — mengubah status menjadi "Ditolak"</li>
-                        <li><strong>Edit Pesan</strong> — mengubah catatan admin pada donasi</li>
-                        <li><strong>Toggle Publik</strong> — menampilkan/menyembunyikan donasi di halaman publik (testimoni donatur)</li>
-                        <li><strong>Toggle Anonim</strong> — mengubah status anonim donatur</li>
-                        <li><strong>Lihat Bukti Transfer</strong> — membuka file bukti yang diupload donatur</li>
-                    </ul>
-                </div>
-
-                <p>Gunakan <strong>filter Status</strong> dan <strong>filter Program</strong> di atas tabel untuk menyaring data donasi.</p>
-            </div>
-        </div>
 
         {{-- 9. Statistik --}}
         <div id="sec-statistik" class="bg-white shadow-sm p-6 mb-6">
@@ -347,7 +272,7 @@
                     </div>
                     <div class="flex items-center gap-2 p-3 bg-gray-50">
                         <i class="fas fa-newspaper text-orange-500 w-5 text-center"></i>
-                        <span><strong>Pembaca Blog</strong> — total pembaca seluruh artikel</span>
+                        <span><strong>Pembaca Blog</strong> — total pembaca seluruh blog</span>
                     </div>
                 </div>
                 <p>Gunakan tombol filter <strong>Harian</strong>, <strong>Mingguan</strong>, <strong>Bulanan</strong>, <strong>Tahunan</strong> untuk melihat data sesuai rentang waktu.</p>
@@ -411,14 +336,14 @@
                     <i class="fas fa-check-circle text-green-600 mt-0.5"></i>
                     <div>
                         <p class="font-bold text-dark">Upload Media Dulu</p>
-                        <p>Sebelum membuat artikel atau galeri, pastikan gambar/video sudah di-upload di menu <strong>Media</strong>. Media yang sudah di-upload bisa digunakan berulang kali.</p>
+                        <p>Sebelum membuat blog atau foto bercerita, pastikan gambar/video sudah di-upload di menu <strong>Media</strong>. Media yang sudah di-upload bisa digunakan berulang kali.</p>
                     </div>
                 </div>
                 <div class="flex items-start gap-3 p-4 bg-blue-50">
                     <i class="fas fa-info-circle text-blue-600 mt-0.5"></i>
                     <div>
                         <p class="font-bold text-dark">Gunakan Status Draft</p>
-                        <p>Jika artikel belum selesai, simpan dengan status <strong>Draft</strong>. Artikel Draft tidak akan tampil di website publik.</p>
+                        <p>Jika blog belum selesai, simpan dengan status <strong>Draft</strong>. Blog Draft tidak akan tampil di website publik.</p>
                     </div>
                 </div>
                 <div class="flex items-start gap-3 p-4 bg-yellow-50">
@@ -518,9 +443,7 @@ function sectionNav() {
             { id: 'sec-blog',           label: 'Blog',               icon: 'fas fa-newspaper' },
             { id: 'sec-kategori',       label: 'Kategori',           icon: 'fas fa-tags' },
             { id: 'sec-media',          label: 'Media',              icon: 'fas fa-photo-video' },
-            { id: 'sec-galeri',         label: 'Galeri',             icon: 'fas fa-images' },
-            { id: 'sec-program-donasi', label: 'Program Donasi',     icon: 'fas fa-hand-holding-heart' },
-            { id: 'sec-donasi',         label: 'Donasi',             icon: 'fas fa-heart' },
+            { id: 'sec-galeri',         label: 'Foto Bercerita',     icon: 'fas fa-images' },
             { id: 'sec-statistik',      label: 'Statistik',          icon: 'fas fa-chart-bar' },
             { id: 'sec-aktivitas',      label: 'Aktivitas Login',    icon: 'fas fa-history' },
             { id: 'sec-profil',         label: 'Profil',             icon: 'fas fa-user-edit' },

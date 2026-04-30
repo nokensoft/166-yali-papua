@@ -182,15 +182,15 @@
                     </div>
                     <div>
                         <p class="text-lg font-bold uppercase tracking-widest text-gray-500 mb-3 px-3">Blog</p>
-                        <a href="{{ route('penulis.berita.index') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.berita.*') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                        <a href="{{ route('penulis.blog.index') }}"
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.blog.*') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                             <i class="fas fa-newspaper w-6 text-center"></i>
-                            <span>Artikel</span>
+                            <span>Blog</span>
                         </a>
-                        <a href="{{ route('penulis.kategori-berita.index') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.kategori-berita.*') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                        <a href="{{ route('penulis.kategori-blog.index') }}"
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.kategori-blog.*') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                             <i class="fas fa-tags w-6 text-center"></i>
-                            <span>Kategori</span>
+                            <span>Kategori Blog</span>
                         </a>
                     </div>
                     <div>
@@ -200,23 +200,10 @@
                             <i class="fas fa-photo-video w-6 text-center"></i>
                             <span>Media</span>
                         </a>
-                        <a href="{{ route('penulis.galeri.index') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.galeri.*') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                        <a href="{{ route('penulis.foto-bercerita.index') }}"
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.foto-bercerita.*') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
                             <i class="fas fa-images w-6 text-center"></i>
-                            <span>Galeri</span>
-                        </a>
-                    </div>
-                    <div>
-                        <p class="text-lg font-bold uppercase tracking-widest text-gray-500 mb-3 px-3">Donasi</p>
-                        <a href="{{ route('penulis.program-donasi.index') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.program-donasi.*') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
-                            <i class="fas fa-hand-holding-heart w-6 text-center"></i>
-                            <span>Program Donasi</span>
-                        </a>
-                        <a href="{{ route('penulis.donasi.index') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.donasi.*') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
-                            <i class="fas fa-heart w-6 text-center"></i>
-                            <span>Kelola Donasi</span>
+                            <span>Foto Bercerita</span>
                         </a>
                     </div>
                     <div>

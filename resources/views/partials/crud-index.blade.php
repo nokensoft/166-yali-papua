@@ -56,10 +56,18 @@
                                 </button>
                                 <div x-show="open" x-cloak x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                                      class="absolute right-0 mt-1 w-44 bg-white border border-gray-200 shadow-lg z-20 no-round">
+                                    @if (isset($row['viewRoute']) && $row['viewRoute'])
+                                        <a href="{{ $row['viewRoute'] }}"
+                                           target="{{ $row['viewTarget'] ?? '_blank' }}"
+                                           rel="noopener noreferrer"
+                                           class="flex items-center gap-3 px-4 py-3 text-lg text-gray-700 hover:bg-gray-50 transition">
+                                            <i class="fas fa-arrow-up-right-from-square w-4 text-center text-primary"></i> {{ $row['viewLabel'] ?? 'Tampilkan Detail' }}
+                                        </a>
+                                    @endif
                                     @if (isset($row['copyUrl']) && $row['copyUrl'])
-                                        <button type="button" @click="navigator.clipboard.writeText('{{ $row['copyUrl'] }}'); open = false; $dispatch('notify', { message: 'Link berhasil disalin!' })"
+                                        <button type="button" @click="navigator.clipboard.writeText(@js($row['copyUrl'])); open = false; $dispatch('notify', { message: @js($row['copySuccessMessage'] ?? 'Link berhasil disalin!') })"
                                                 class="w-full flex items-center gap-3 px-4 py-3 text-lg text-gray-700 hover:bg-gray-50 transition">
-                                            <i class="fas fa-link w-4 text-center text-blue-500"></i> Copy Link
+                                            <i class="fas fa-link w-4 text-center text-blue-500"></i> {{ $row['copyLabel'] ?? 'Copy Link' }}
                                         </button>
                                     @endif
                                     @if (isset($row['editRoute']))

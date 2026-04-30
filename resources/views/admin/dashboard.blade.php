@@ -43,8 +43,8 @@
         </div>
     </div>
 
-    {{-- 3 Column Info --}}
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    {{-- Informasi Utama --}}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         {{-- Aktivitas Login Terbaru --}}
         <div class="bg-white shadow-sm p-6">
             <div class="flex items-center justify-between mb-4 pb-3 border-b border-primary">
@@ -68,14 +68,14 @@
             @endif
         </div>
 
-        {{-- Berita Terbaru --}}
+        {{-- Blog Terbaru --}}
         <div class="bg-white shadow-sm p-6">
             <div class="flex items-center justify-between mb-4 pb-3 border-b border-primary">
                 <h3 class="text-lg font-bold uppercase">Blog Terbaru</h3>
             </div>
-            @if ($beritaTerbaru->count() > 0)
+            @if ($blogTerbaru->count() > 0)
                 <div class="space-y-0">
-                    @foreach ($beritaTerbaru as $b)
+                    @foreach ($blogTerbaru as $b)
                         <div class="flex justify-between items-center py-3 border-b border-gray-100">
                             <div class="min-w-0 flex-1 mr-3">
                                 <p class="text-lg font-medium truncate">{{ $b->judul }}</p>
@@ -90,30 +90,6 @@
             @endif
         </div>
 
-        {{-- Donasi Terbaru --}}
-        <div class="bg-white shadow-sm p-6">
-            <div class="flex items-center justify-between mb-4 pb-3 border-b border-primary">
-                <h3 class="text-lg font-bold uppercase">Donasi Terbaru</h3>
-            </div>
-            @if ($donasiTerbaru->count() > 0)
-                <div class="space-y-0">
-                    @foreach ($donasiTerbaru as $d)
-                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
-                            <div class="min-w-0 flex-1 mr-3">
-                                <p class="text-lg font-medium truncate">{{ $d->nama_tampil }}</p>
-                                <p class="text-lg text-gray-400">{{ $d->programDonasi?->judul ?? '-' }} &middot; {{ $d->created_at->format('d M Y') }}</p>
-                            </div>
-                            <div class="text-right shrink-0">
-                                <p class="text-lg font-bold text-dark">{{ $d->jumlah_format }}</p>
-                                <span class="text-lg font-bold px-2 py-0.5 {{ $d->status_color }}">{{ $d->status_label }}</span>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                <p class="text-gray-400 text-center py-4">Belum ada donasi.</p>
-            @endif
-        </div>
     </div>
 
     {{-- Info Sistem --}}

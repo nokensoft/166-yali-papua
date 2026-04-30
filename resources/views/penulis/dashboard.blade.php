@@ -18,10 +18,10 @@
     </div>
 
     <div class="bg-white shadow-sm p-6">
-        <h3 class="text-lg font-bold uppercase mb-4 pb-3 border-b border-primary">Berita Terbaru</h3>
-        @if ($beritaTerbaru->count() > 0)
+        <h3 class="text-lg font-bold uppercase mb-4 pb-3 border-b border-primary">Blog Terbaru</h3>
+        @if ($blogTerbaru->count() > 0)
             <div class="space-y-0">
-                @foreach ($beritaTerbaru as $b)
+                @foreach ($blogTerbaru as $b)
                     <div class="flex justify-between items-center py-3 border-b border-gray-100">
                         <div class="flex-1 min-w-0 mr-4">
                             <p class="text-lg font-medium truncate">{{ $b->judul }}</p>
@@ -32,7 +32,7 @@
                 @endforeach
             </div>
         @else
-            <p class="text-gray-400 text-center py-4">Belum ada berita. <a href="{{ route('penulis.berita.create') }}" class="text-primary underline">Tulis berita pertama</a></p>
+            <p class="text-gray-400 text-center py-4">Belum ada blog. <a href="{{ route('penulis.blog.create') }}" class="text-primary underline">Tulis blog pertama</a></p>
         @endif
     </div>
 @endsection

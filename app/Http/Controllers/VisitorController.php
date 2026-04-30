@@ -2,34 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Berita;
-use App\Models\Donasi;
+use App\Models\Blog;
 use App\Models\Galeri;
 use App\Models\Halaman;
-use App\Models\KategoriBerita;
-use App\Models\ProgramDonasi;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Models\KategoriBlog;
 
 class VisitorController extends Controller
 {
     public function beranda()
     {
-        $beritaTerbaru = Berita::with('kategori', 'media')
+        $blogTerbaru = Blog::with('kategori', 'media')
             ->where('status', 'terbit')
             ->orderByDesc('tanggal_terbit')
             ->orderByDesc('id')
             ->take(3)
             ->get();
 
-        $galeriTerbaru = Galeri::with('media')->where('is_publik', true)->latest()->take(6)->get();
+        $fotoBerceritaTerbaru = Galeri::with('media')->where('is_publik', true)->latest()->take(6)->get();
 
-        return view('visitor.beranda', compact('beritaTerbaru', 'galeriTerbaru'));
+        return view('visitor.beranda', compact('blogTerbaru', 'fotoBerceritaTerbaru'));
     }
 
-    public function berita()
+    public function blog()
     {
-        $query = Berita::with('kategori', 'media')
+        $query = Blog::with('kategori', 'media')
             ->where('status', 'terbit');
 
         if (request('cari')) {
@@ -39,24 +35,31 @@ class VisitorController extends Controller
             });
         }
 
-        $beritaList = $query
+        $blogList = $query
             ->orderByDesc('tanggal_terbit')
             ->orderByDesc('id')
             ->paginate(9)
             ->withQueryString();
-        $kategoriList = KategoriBerita::whereHas('berita', fn ($q) => $q->where('status', 'terbit'))
-            ->withCount(['berita' => fn ($q) => $q->where('status', 'terbit')])
+        $kategoriList = KategoriBlog::whereHas('blog', fn ($q) => $q->where('status', 'terbit'))
+            ->withCount(['blog' => fn ($q) => $q->where('status', 'terbit')])
             ->get();
         $kategoriAktif = null;
+        $blogPopuler = Blog::with('media')
+            ->where('status', 'terbit')
+            ->orderByDesc('jumlah_dibaca')
+            ->orderByDesc('tanggal_terbit')
+            ->orderByDesc('id')
+            ->take(4)
+            ->get();
 
-        return view('visitor.blog.index', compact('beritaList', 'kategoriList', 'kategoriAktif'));
+        return view('visitor.blog.index', compact('blogList', 'kategoriList', 'kategoriAktif', 'blogPopuler'));
     }
 
-    public function beritaKategori(string $slug)
+    public function blogKategori(string $slug)
     {
-        $kategoriAktif = KategoriBerita::where('slug', $slug)->firstOrFail();
+        $kategoriAktif = KategoriBlog::where('slug', $slug)->firstOrFail();
 
-        $query = Berita::with('kategori', 'media')
+        $query = Blog::with('kategori', 'media')
             ->where('status', 'terbit')
             ->where('kategori_berita_id', $kategoriAktif->id);
 
@@ -67,48 +70,82 @@ class VisitorController extends Controller
             });
         }
 
-        $beritaList = $query
+        $blogList = $query
             ->orderByDesc('tanggal_terbit')
             ->orderByDesc('id')
             ->paginate(9)
             ->withQueryString();
-        $kategoriList = KategoriBerita::whereHas('berita', fn ($q) => $q->where('status', 'terbit'))
-            ->withCount(['berita' => fn ($q) => $q->where('status', 'terbit')])
+        $kategoriList = KategoriBlog::whereHas('blog', fn ($q) => $q->where('status', 'terbit'))
+            ->withCount(['blog' => fn ($q) => $q->where('status', 'terbit')])
+            ->get();
+        $blogPopuler = Blog::with('media')
+            ->where('status', 'terbit')
+            ->orderByDesc('jumlah_dibaca')
+            ->orderByDesc('tanggal_terbit')
+            ->orderByDesc('id')
+            ->take(4)
             ->get();
 
-        return view('visitor.blog.index', compact('beritaList', 'kategoriList', 'kategoriAktif'));
+        return view('visitor.blog.index', compact('blogList', 'kategoriList', 'kategoriAktif', 'blogPopuler'));
     }
 
-    public function beritaDetail(string $slug)
+    public function blogDetail(string $slug)
     {
-        $berita = Berita::with('kategori', 'media', 'user')
+        $blog = Blog::with('kategori', 'media', 'user')
             ->where('slug', $slug)
             ->where('status', 'terbit')
             ->firstOrFail();
 
-        $kategoriAktif = $berita->kategori;
+        $kategoriAktif = $blog->kategori;
 
-        $berita->increment('jumlah_dibaca');
-        $kategoriList = KategoriBerita::whereHas('berita', fn ($q) => $q->where('status', 'terbit'))
-            ->withCount(['berita' => fn ($q) => $q->where('status', 'terbit')])
+        $blog->increment('jumlah_dibaca');
+        $kategoriList = KategoriBlog::whereHas('blog', fn ($q) => $q->where('status', 'terbit'))
+            ->withCount(['blog' => fn ($q) => $q->where('status', 'terbit')])
             ->get();
 
-        $beritaTerkait = Berita::with('kategori', 'media')
+        $blogTerkait = Blog::with('kategori', 'media')
             ->where('status', 'terbit')
-            ->where('id', '!=', $berita->id)
-            ->when($berita->kategori_berita_id, function ($q) use ($berita) {
-                $q->where('kategori_berita_id', $berita->kategori_berita_id);
+            ->where('id', '!=', $blog->id)
+            ->when($blog->kategori_berita_id, function ($q) use ($blog) {
+                $q->where('kategori_berita_id', $blog->kategori_berita_id);
             })
             ->orderByDesc('tanggal_terbit')
             ->orderByDesc('id')
             ->take(2)
             ->get();
-        return view('visitor.blog.detail', compact('berita', 'beritaTerkait', 'kategoriList', 'kategoriAktif'));
+        $blogPopuler = Blog::with('media')
+            ->where('status', 'terbit')
+            ->where('id', '!=', $blog->id)
+            ->orderByDesc('jumlah_dibaca')
+            ->orderByDesc('tanggal_terbit')
+            ->orderByDesc('id')
+            ->take(4)
+            ->get();
+
+        return view('visitor.blog.detail', compact('blog', 'blogTerkait', 'kategoriList', 'kategoriAktif', 'blogPopuler'));
     }
 
-    public function galeri()
+    public function berita()
     {
-        $query = Galeri::withCount('media')->where('is_publik', true)->latest();
+        return $this->blog();
+    }
+
+    public function beritaKategori(string $slug)
+    {
+        return $this->blogKategori($slug);
+    }
+
+    public function beritaDetail(string $slug)
+    {
+        return $this->blogDetail($slug);
+    }
+
+    public function fotoBercerita()
+    {
+        $query = Galeri::withCount('media')
+            ->with('media')
+            ->where('is_publik', true)
+            ->latest();
 
         if (request('cari')) {
             $query->where(function ($q) {
@@ -117,14 +154,11 @@ class VisitorController extends Controller
             });
         }
 
-        $galeriList = $query->paginate(12)->withQueryString();
-
-        // Load first media for cover image
-        $galeriList->load(['media' => fn ($q) => $q->limit(1)]);
-        return view('visitor.galeri', compact('galeriList'));
+        $fotoBerceritaList = $query->paginate(12)->withQueryString();
+        return view('visitor.galeri', compact('fotoBerceritaList'));
     }
 
-    public function galeriDetail(string $slug)
+    public function fotoBerceritaDetail(string $slug)
     {
         $galeri = Galeri::with('media')->where('slug', $slug)->where('is_publik', true)->firstOrFail();
 
@@ -138,67 +172,12 @@ class VisitorController extends Controller
 
     public function donasi()
     {
-        $programs = ProgramDonasi::with('media')
-            ->where('is_active', true)
-            ->latest()
-            ->get();
-
-        $testimoni = Donasi::with('programDonasi')
-            ->where('status', 'dikonfirmasi')
-            ->where('is_publik', true)
-            ->whereNotNull('pesan')
-            ->where('pesan', '!=', '')
-            ->latest()
-            ->take(12)
-            ->get();
-
-        return view('visitor.donasi', compact('programs', 'testimoni'));
-    }
-
-    public function donasiStore(Request $request)
-    {
-        $request->validate([
-            'program_donasi_id' => 'required|exists:program_donasi,id',
-            'nama_donatur'      => 'required|string|max:255',
-            'is_anonim'         => 'nullable|boolean',
-            'email'             => 'nullable|email|max:255',
-            'telepon'           => 'nullable|string|max:20',
-            'jumlah'            => 'required|integer|min:1',
-            'pesan'             => 'nullable|string|max:1000',
-            'bukti_transfer'    => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
-        ]);
-
-        $buktiPath = null;
-        if ($request->hasFile('bukti_transfer')) {
-            $file = $request->file('bukti_transfer');
-            $ext = $file->getClientOriginalExtension() ?: 'jpg';
-            $buktiPath = $file->storeAs('donasi', \App\Helpers\ImageHelper::generateFilename($ext), 'public');
-        }
-
-        Donasi::create([
-            'program_donasi_id' => $request->program_donasi_id,
-            'nama_donatur'      => $request->nama_donatur,
-            'is_anonim'         => $request->boolean('is_anonim'),
-            'email'             => $request->email,
-            'telepon'           => $request->telepon,
-            'bank'              => ProgramDonasi::BANK_NAMA,
-            'jumlah'            => $request->jumlah,
-            'pesan'             => $request->pesan,
-            'bukti_transfer'    => $buktiPath,
-            'status'            => 'pending',
-            'tanggal'           => now()->toDateString(),
-        ]);
-
-        return redirect()->route('donasi')->with('success', 'Terima kasih! Konfirmasi donasi Anda telah kami terima dan sedang diproses.');
+        return view('visitor.donasi');
     }
 
     public function mitra()
     {
-        $halaman = Halaman::where('slug', 'mitra')
-            ->where('is_active', true)
-            ->firstOrFail();
-
-        return view('visitor.mitra', compact('halaman'));
+        return view('visitor.mitra');
     }
 
     public function halaman(string $slug)
@@ -213,21 +192,21 @@ class VisitorController extends Controller
     public function petaSitus()
     {
         $halamanList = Halaman::where('is_active', true)->orderBy('urutan')->get();
-        $kategoriBeritaList = KategoriBerita::whereNotNull('slug')
-            ->withCount(['berita' => fn ($q) => $q->where('status', 'terbit')])
+        $kategoriBlogList = KategoriBlog::whereNotNull('slug')
+            ->withCount(['blog' => fn ($q) => $q->where('status', 'terbit')])
             ->get();
-        $beritaTerbaru = Berita::where('status', 'terbit')
+        $blogTerbaru = Blog::where('status', 'terbit')
             ->orderByDesc('tanggal_terbit')
             ->orderByDesc('id')
             ->take(20)
             ->get();
-        $galeriTerbaru = Galeri::latest()->take(20)->get();
+        $fotoBerceritaTerbaru = Galeri::where('is_publik', true)->latest()->take(20)->get();
 
         return view('visitor.peta-situs', compact(
             'halamanList',
-            'kategoriBeritaList',
-            'beritaTerbaru',
-            'galeriTerbaru'
+            'kategoriBlogList',
+            'blogTerbaru',
+            'fotoBerceritaTerbaru'
         ));
     }
 }

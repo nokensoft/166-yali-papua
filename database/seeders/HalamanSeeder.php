@@ -465,7 +465,7 @@ HTML,
             </div>
             <div class="rounded-lg overflow-hidden border border-neutral-200 fade-in">
                 <div class="p-5 bg-neutral-50"><h3 class="font-display font-bold text-neutral-900 flex items-center gap-3"><span class="w-7 h-7 bg-secondary text-white text-xs font-bold flex items-center justify-center flex-shrink-0">4</span>Bagaimana cara berdonasi untuk program YALI Papua?</h3></div>
-                <div class="p-5"><p class="text-neutral-600 leading-relaxed">Anda dapat berdonasi melalui halaman <a href="/donasi" class="text-secondary underline font-semibold">Donasi</a>. Pilih program yang ingin didukung, lakukan transfer ke rekening BNI yang tertera, lalu isi formulir konfirmasi donasi. Semua donasi dikelola secara transparan dan akuntabel.</p></div>
+                <div class="p-5"><p class="text-neutral-600 leading-relaxed">Anda dapat berdonasi melalui halaman <a href="/donasi" class="text-secondary underline font-semibold">Donasi</a>. Lakukan transfer ke rekening resmi yang tertera, simpan bukti transfer, lalu hubungi admin melalui halaman <a href="/kontak" class="text-secondary underline font-semibold">Kontak</a> untuk konfirmasi manual. Seluruh donasi dikelola secara transparan dan akuntabel.</p></div>
             </div>
             <div class="rounded-lg overflow-hidden border border-neutral-200 fade-in">
                 <div class="p-5 bg-neutral-50"><h3 class="font-display font-bold text-neutral-900 flex items-center gap-3"><span class="w-7 h-7 bg-secondary text-white text-xs font-bold flex items-center justify-center flex-shrink-0">5</span>Apakah konten blog berasal dari YALI Papua sendiri?</h3></div>
@@ -521,7 +521,7 @@ HTML,
             </div>
             <div class="fade-in">
                 <h2 class="text-xl font-display font-bold text-neutral-900 mb-3"><i class="fa-solid fa-heart text-secondary mr-2"></i>Donasi</h2>
-                <p>Informasi terkait program donasi bersifat indikatif. YALI Papua berkomitmen mengelola seluruh dana donasi secara transparan dan akuntabel sesuai program yang dipilih donatur. Donasi yang telah dikirimkan tidak dapat dikembalikan (<em>non-refundable</em>) kecuali terjadi kesalahan teknis yang dapat dibuktikan.</p>
+                <p>Informasi donasi pada website ini bersifat umum dan dapat berubah sewaktu-waktu. YALI Papua berkomitmen mengelola seluruh dana donasi secara transparan dan akuntabel untuk mendukung kegiatan lembaga. Donasi yang telah dikirimkan tidak dapat dikembalikan (<em>non-refundable</em>) kecuali terjadi kesalahan teknis yang dapat dibuktikan.</p>
             </div>
             <div class="fade-in">
                 <h2 class="text-xl font-display font-bold text-neutral-900 mb-3"><i class="fa-solid fa-arrow-up-right-from-square text-secondary mr-2"></i>Tautan Eksternal</h2>
@@ -533,7 +533,7 @@ HTML,
             </div>
             <div class="fade-in">
                 <h2 class="text-xl font-display font-bold text-neutral-900 mb-3"><i class="fa-solid fa-user-shield text-secondary mr-2"></i>Privasi Data</h2>
-                <p>Data pribadi yang Anda berikan melalui formulir donasi atau kontak hanya digunakan untuk keperluan internal YALI Papua dan tidak akan dibagikan kepada pihak ketiga tanpa persetujuan Anda, kecuali diwajibkan oleh hukum yang berlaku di Indonesia.</p>
+                <p>Data pribadi yang Anda berikan melalui kanal kontak atau proses konfirmasi donasi manual hanya digunakan untuk keperluan internal YALI Papua dan tidak akan dibagikan kepada pihak ketiga tanpa persetujuan Anda, kecuali diwajibkan oleh hukum yang berlaku di Indonesia.</p>
             </div>
             <div class="fade-in">
                 <h2 class="text-xl font-display font-bold text-neutral-900 mb-3"><i class="fa-solid fa-envelope text-secondary mr-2"></i>Kontak</h2>

@@ -2,8 +2,8 @@
 @section('title', $editMode ? 'Edit Blog' : 'Tambah Blog')
 @section('page-title', $editMode ? 'Edit Blog' : 'Tambah Blog')
 @section('content')
-    <form action="{{ $editMode ? route('penulis.berita.update', $berita->id) : route('penulis.berita.store') }}" method="POST" enctype="multipart/form-data"
-          x-data="beritaForm()">
+    <form action="{{ $editMode ? route('penulis.blog.update', $blog->id) : route('penulis.blog.store') }}" method="POST" enctype="multipart/form-data"
+          x-data="blogForm()">
         @csrf
         @if ($editMode) @method('PUT') @endif
 
@@ -14,10 +14,10 @@
 
                 {{-- Judul --}}
                 <div class="bg-white shadow-sm p-6">
-                    <label class="text-lg font-bold uppercase text-gray-500 block mb-2">Judul Artikel</label>
-                    <input type="text" name="judul" value="{{ old('judul', $editMode ? $berita->judul : '') }}" required
+                    <label class="text-lg font-bold uppercase text-gray-500 block mb-2">Judul Blog</label>
+                    <input type="text" name="judul" value="{{ old('judul', $editMode ? $blog->judul : '') }}" required
                            class="w-full border border-gray-300 p-4 text-lg font-semibold focus:border-primary focus:outline-none transition no-round"
-                           placeholder="Masukkan judul berita">
+                           placeholder="Masukkan judul blog">
                     @error('judul') <p class="text-red-500 text-lg mt-1">{{ $message }}</p> @enderror
                 </div>
 
@@ -26,30 +26,30 @@
                     <label class="text-lg font-bold uppercase text-gray-500 block mb-2">Ringkasan</label>
                     <textarea name="ringkasan" rows="3"
                               class="w-full border border-gray-300 p-4 text-lg focus:border-primary focus:outline-none transition no-round resize-none"
-                              placeholder="Ringkasan singkat berita (opsional)">{{ old('ringkasan', $editMode ? $berita->ringkasan : '') }}</textarea>
+                              placeholder="Ringkasan singkat blog (opsional)">{{ old('ringkasan', $editMode ? $blog->ringkasan : '') }}</textarea>
                     @error('ringkasan') <p class="text-red-500 text-lg mt-1">{{ $message }}</p> @enderror
                 </div>
 
                 {{-- Konten --}}
                 <div class="bg-white shadow-sm p-6">
-                    <label class="text-lg font-bold uppercase text-gray-500 block mb-2">Konten Artikel</label>
-                    <textarea name="konten" id="editor" required>{{ old('konten', $editMode ? $berita->konten : '') }}</textarea>
+                    <label class="text-lg font-bold uppercase text-gray-500 block mb-2">Konten Blog</label>
+                    <textarea name="konten" id="editor" required>{{ old('konten', $editMode ? $blog->konten : '') }}</textarea>
                     @error('konten') <p class="text-red-500 text-lg mt-1">{{ $message }}</p> @enderror
                 </div>
 
-                {{-- Sumber Berita --}}
+                {{-- Sumber Referensi --}}
                 <div class="bg-white shadow-sm p-6">
-                    <label class="text-lg font-bold uppercase text-gray-500 block mb-3">Sumber Berita (Opsional)</label>
+                    <label class="text-lg font-bold uppercase text-gray-500 block mb-3">Sumber Referensi (Opsional)</label>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="text-lg text-gray-500 block mb-1">Nama Sumber</label>
-                            <input type="text" name="sumber_nama" value="{{ old('sumber_nama', $editMode ? $berita->sumber_nama : '') }}"
+                            <input type="text" name="sumber_nama" value="{{ old('sumber_nama', $editMode ? $blog->sumber_nama : '') }}"
                                    class="w-full border border-gray-300 p-3 text-lg focus:border-primary focus:outline-none transition no-round"
                                    placeholder="Contoh: KlikTimur.com">
                         </div>
                         <div>
                             <label class="text-lg text-gray-500 block mb-1">Link Sumber</label>
-                            <input type="url" name="sumber_link" value="{{ old('sumber_link', $editMode ? $berita->sumber_link : '') }}"
+                            <input type="url" name="sumber_link" value="{{ old('sumber_link', $editMode ? $blog->sumber_link : '') }}"
                                    class="w-full border border-gray-300 p-3 text-lg focus:border-primary focus:outline-none transition no-round"
                                    placeholder="https://...">
                         </div>
@@ -66,43 +66,43 @@
                 <div class="bg-white shadow-sm p-6">
                     <label class="text-lg font-bold uppercase text-gray-500 block mb-2">Status</label>
                     <select name="status" class="w-full border border-gray-300 p-3 text-lg focus:border-primary focus:outline-none transition bg-white no-round">
-                        <option value="draft" {{ old('status', $editMode ? $berita->status : 'draft') === 'draft' ? 'selected' : '' }}>Draft</option>
-                        <option value="terbit" {{ old('status', $editMode ? $berita->status : '') === 'terbit' ? 'selected' : '' }}>Terbit</option>
+                        <option value="draft" {{ old('status', $editMode ? $blog->status : 'draft') === 'draft' ? 'selected' : '' }}>Draft</option>
+                        <option value="terbit" {{ old('status', $editMode ? $blog->status : '') === 'terbit' ? 'selected' : '' }}>Terbit</option>
                     </select>
 
                     <div class="flex gap-3 mt-4">
                         <button type="submit" class="flex-1 bg-primary text-white px-4 py-3 font-bold hover:bg-red-700 transition uppercase text-lg tracking-wide no-round text-center">
                             <i class="fas fa-save mr-1"></i> {{ $editMode ? 'Perbarui' : 'Simpan' }}
                         </button>
-                        <a href="{{ route('penulis.berita.index') }}" class="bg-gray-200 text-gray-700 px-4 py-3 font-bold hover:bg-gray-300 transition uppercase text-lg tracking-wide no-round text-center">Batal</a>
+                        <a href="{{ route('penulis.blog.index') }}" class="bg-gray-200 text-gray-700 px-4 py-3 font-bold hover:bg-gray-300 transition uppercase text-lg tracking-wide no-round text-center">Batal</a>
                     </div>
                 </div>
 
                 {{-- Kategori --}}
                 <div class="bg-white shadow-sm p-6">
                     <label class="text-lg font-bold uppercase text-gray-500 block mb-2">Kategori</label>
-                    <select name="kategori_berita_id" required class="w-full border border-gray-300 p-3 text-lg focus:border-primary focus:outline-none transition bg-white no-round">
+                    <select name="kategori_blog_id" required class="w-full border border-gray-300 p-3 text-lg focus:border-primary focus:outline-none transition bg-white no-round">
                         <option value="">Pilih Kategori</option>
                         @foreach ($kategori as $kat)
-                            <option value="{{ $kat->id }}" {{ old('kategori_berita_id', $editMode ? $berita->kategori_berita_id : '') == $kat->id ? 'selected' : '' }}>{{ $kat->nama }}</option>
+                            <option value="{{ $kat->id }}" {{ old('kategori_blog_id', $editMode ? $blog->kategori_blog_id : '') == $kat->id ? 'selected' : '' }}>{{ $kat->nama }}</option>
                         @endforeach
                     </select>
-                    @error('kategori_berita_id') <p class="text-red-500 text-lg mt-1">{{ $message }}</p> @enderror
+                    @error('kategori_blog_id') <p class="text-red-500 text-lg mt-1">{{ $message }}</p> @enderror
                 </div>
 
                 {{-- Tanggal Publikasi --}}
                 <div class="bg-white shadow-sm p-6">
                     <label class="text-lg font-bold uppercase text-gray-500 block mb-2">Tanggal Publikasi</label>
                     <input type="date" name="tanggal_terbit"
-                           value="{{ old('tanggal_terbit', ($editMode && $berita->tanggal_terbit) ? $berita->tanggal_terbit->format('Y-m-d') : '') }}"
+                           value="{{ old('tanggal_terbit', ($editMode && $blog->tanggal_terbit) ? $blog->tanggal_terbit->format('Y-m-d') : '') }}"
                            class="w-full border border-gray-300 p-3 text-lg focus:border-primary focus:outline-none transition no-round">
                     <p class="text-lg text-gray-400 mt-1">Kosongkan untuk menggunakan tanggal saat ini</p>
                     @error('tanggal_terbit') <p class="text-red-500 text-lg mt-1">{{ $message }}</p> @enderror
                 </div>
 
-                {{-- Gambar Berita --}}
+                {{-- Gambar Blog --}}
                 <div class="bg-white shadow-sm p-6">
-                    <label class="text-lg font-bold uppercase text-gray-500 block mb-2">Gambar Artikel</label>
+                    <label class="text-lg font-bold uppercase text-gray-500 block mb-2">Gambar Blog</label>
                     <input type="hidden" name="media_id" :value="selectedMediaId">
 
                     {{-- Preview --}}
@@ -261,7 +261,7 @@ ClassicEditor
                 { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' }
             ]
         },
-        placeholder: 'Tulis konten berita lengkap...',
+        placeholder: 'Tulis konten blog lengkap...',
         language: 'id'
     })
     .then(editor => {
@@ -273,13 +273,13 @@ ClassicEditor
     })
     .catch(error => console.error(error));
 
-function beritaForm() {
+function blogForm() {
     return {
         showModal: false,
         modalTab: 'gallery',
         mediaList: [],
         loadingMedia: false,
-        selectedMediaId: '{{ old("media_id", $editMode ? ($berita->media_id ?? "") : "") }}',
+        selectedMediaId: '{{ old("media_id", $editMode ? ($blog->media_id ?? "") : "") }}',
         selectedMediaName: '',
         previewUrl: '',
         tempSelectedId: null,
@@ -293,9 +293,9 @@ function beritaForm() {
         uploadError: '',
 
         init() {
-            @if($editMode && $berita->media_id && $berita->media)
-                this.previewUrl = '{{ asset("storage/" . $berita->media->file_path) }}';
-                this.selectedMediaName = '{{ $berita->media->judul }}';
+            @if($editMode && $blog->media_id && $blog->media)
+                this.previewUrl = '{{ asset("storage/" . $blog->media->file_path) }}';
+                this.selectedMediaName = '{{ $blog->media->judul }}';
             @endif
         },
 

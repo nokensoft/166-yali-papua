@@ -58,7 +58,7 @@ class PengaturanSitusSeeder extends Seeder
             'sosmed_whatsapp'  => '6282312211707',
             // Rekening Donasi
             'donasi_rek_bri'     => null,
-            'donasi_rek_bni'     => null,
+            'donasi_rek_bni'     => '1984081278',
             'donasi_rek_mandiri' => null,
             // SEO
             'seo_meta_keywords'   => 'YALI Papua, yayasan lingkungan hidup papua, pelestarian alam papua, masyarakat adat papua, konservasi papua, advokasi lingkungan',

@@ -48,8 +48,8 @@ $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
                         <li><a href="/faq" class="text-neutral-700 hover:text-secondary transition"><i class="fa-solid fa-angle-right text-neutral-300 mr-2 text-lg"></i>FAQ</a></li>
                         <li><a href="/disclaimer" class="text-neutral-700 hover:text-secondary transition"><i class="fa-solid fa-angle-right text-neutral-300 mr-2 text-lg"></i>Disclaimer</a></li>
                         <li><a href="{{ route('program') }}" class="text-neutral-700 hover:text-secondary transition"><i class="fa-solid fa-angle-right text-neutral-300 mr-2 text-lg"></i>Program</a></li>
-                        <li><a href="{{ route('berita') }}" class="text-neutral-700 hover:text-secondary transition"><i class="fa-solid fa-angle-right text-neutral-300 mr-2 text-lg"></i>Blog</a></li>
-                        <li><a href="{{ route('galeri') }}" class="text-neutral-700 hover:text-secondary transition"><i class="fa-solid fa-angle-right text-neutral-300 mr-2 text-lg"></i>Galeri</a></li>
+                        <li><a href="{{ route('blog') }}" class="text-neutral-700 hover:text-secondary transition"><i class="fa-solid fa-angle-right text-neutral-300 mr-2 text-lg"></i>Blog</a></li>
+                        <li><a href="{{ route('foto-bercerita') }}" class="text-neutral-700 hover:text-secondary transition"><i class="fa-solid fa-angle-right text-neutral-300 mr-2 text-lg"></i>Foto Bercerita</a></li>
                         <li><a href="{{ route('donasi') }}" class="text-neutral-700 hover:text-secondary transition"><i class="fa-solid fa-angle-right text-neutral-300 mr-2 text-lg"></i>Donasi</a></li>
                         <li><a href="{{ route('kontak') }}" class="text-neutral-700 hover:text-secondary transition"><i class="fa-solid fa-angle-right text-neutral-300 mr-2 text-lg"></i>Kontak</a></li>
                     </ul>
@@ -80,60 +80,59 @@ $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
-                {{-- Kategori Berita --}}
+                {{-- Kategori Blog --}}
                 <div class="bg-neutral-50 border border-neutral-100 p-6">
                     <h2 class="text-lg font-display font-bold text-neutral-900 mb-4">
-                        <i class="fa-solid fa-tags text-secondary mr-2 text-lg"></i>Kategori Berita
+                        <i class="fa-solid fa-tags text-secondary mr-2 text-lg"></i>Kategori Blog
                     </h2>
                     <ul class="space-y-2 text-lg">
-                        @forelse ($kategoriBeritaList as $kat)
+                        @forelse ($kategoriBlogList as $kat)
                             <li>
-                                <a href="{{ route('berita.kategori', $kat->slug) }}" class="text-neutral-700 hover:text-secondary transition">
+                                <a href="{{ route('blog.kategori', $kat->slug) }}" class="text-neutral-700 hover:text-secondary transition">
                                     <i class="fa-solid fa-angle-right text-neutral-300 mr-2 text-lg"></i>{{ $kat->nama }}
-                                    <span class="text-neutral-400 text-lg ml-1">({{ $kat->berita_count }})</span>
+                                    <span class="text-neutral-400 text-lg ml-1">({{ $kat->blog_count }})</span>
                                 </a>
                             </li>
                         @empty
-                            <li class="text-neutral-400 text-lg">Belum ada kategori berita.</li>
+                            <li class="text-neutral-400 text-lg">Belum ada kategori blog.</li>
                         @endforelse
                     </ul>
                 </div>
-
-                {{-- Berita Terbaru --}}
+                {{-- Blog Terbaru --}}
                 <div class="bg-neutral-50 border border-neutral-100 p-6">
                     <h2 class="text-lg font-display font-bold text-neutral-900 mb-4">
-                        <i class="fa-solid fa-newspaper text-secondary mr-2 text-lg"></i>Berita Terbaru
+                        <i class="fa-solid fa-newspaper text-secondary mr-2 text-lg"></i>Blog Terbaru
                     </h2>
                     <ul class="space-y-2 text-lg">
-                        @forelse ($beritaTerbaru as $b)
+                        @forelse ($blogTerbaru as $b)
                             <li>
-                                <a href="{{ route('berita.detail', $b->slug) }}" class="text-neutral-700 hover:text-secondary transition">
+                                <a href="{{ route('blog.detail', $b->slug) }}" class="text-neutral-700 hover:text-secondary transition">
                                     <i class="fa-solid fa-angle-right text-neutral-300 mr-2 text-lg"></i>{{ $b->judul }}
                                 </a>
                                 <span class="text-neutral-400 text-lg ml-1">{{ $b->tanggal_terbit?->translatedFormat('d M Y') }}</span>
                             </li>
                         @empty
-                            <li class="text-neutral-400 text-lg">Belum ada berita.</li>
+                            <li class="text-neutral-400 text-lg">Belum ada blog.</li>
                         @endforelse
                     </ul>
                 </div>
             </div>
 
             <div class="grid md:grid-cols-1 gap-8">
-                {{-- Album Galeri --}}
+                {{-- Album Foto Bercerita --}}
                 <div class="bg-neutral-50 border border-neutral-100 p-6">
                     <h2 class="text-lg font-display font-bold text-neutral-900 mb-4">
-                        <i class="fa-solid fa-images text-secondary mr-2 text-lg"></i>Album Galeri
+                        <i class="fa-solid fa-images text-secondary mr-2 text-lg"></i>Album Foto Bercerita
                     </h2>
                     <ul class="space-y-2 text-lg">
-                        @forelse ($galeriTerbaru as $g)
+                        @forelse ($fotoBerceritaTerbaru as $g)
                             <li>
-                                <a href="{{ route('galeri.detail', $g->slug) }}" class="text-neutral-700 hover:text-secondary transition">
+                                <a href="{{ route('foto-bercerita.detail', $g->slug) }}" class="text-neutral-700 hover:text-secondary transition">
                                     <i class="fa-solid fa-angle-right text-neutral-300 mr-2 text-lg"></i>{{ $g->judul }}
                                 </a>
                             </li>
                         @empty
-                            <li class="text-neutral-400 text-lg">Belum ada album galeri.</li>
+                            <li class="text-neutral-400 text-lg">Belum ada album foto bercerita.</li>
                         @endforelse
                     </ul>
                 </div>

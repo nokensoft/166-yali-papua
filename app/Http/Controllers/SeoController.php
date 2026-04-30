@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Berita;
+use App\Models\Blog;
 use App\Models\Galeri;
 use App\Models\Halaman;
-use App\Models\KategoriBerita;
+use App\Models\KategoriBlog;
 use Illuminate\Http\Response;
 
 class SeoController extends Controller
@@ -23,7 +23,6 @@ class SeoController extends Controller
             'Disallow: /penulis/',
             'Disallow: /login',
             'Disallow: /logout',
-            'Disallow: /storage/donasi/',
             '',
             'User-agent: Googlebot',
             'Allow: /',
@@ -47,8 +46,8 @@ class SeoController extends Controller
         // --- Static pages ---
         $staticPages = [
             ['loc' => route('beranda'),     'priority' => '1.0', 'changefreq' => 'daily'],
-            ['loc' => route('berita'),      'priority' => '0.9', 'changefreq' => 'daily'],
-            ['loc' => route('galeri'),      'priority' => '0.7', 'changefreq' => 'weekly'],
+            ['loc' => route('blog'),      'priority' => '0.9', 'changefreq' => 'daily'],
+            ['loc' => route('foto-bercerita'), 'priority' => '0.7', 'changefreq' => 'weekly'],
             ['loc' => route('donasi'),      'priority' => '0.7', 'changefreq' => 'monthly'],
             ['loc' => route('program'),     'priority' => '0.7', 'changefreq' => 'monthly'],
             ['loc' => route('kontak'),      'priority' => '0.6', 'changefreq' => 'monthly'],
@@ -66,14 +65,14 @@ class SeoController extends Controller
             $urls->push($page);
         }
 
-        // --- Berita (published articles) ---
-        Berita::where('status', 'terbit')
+        // --- Blog (published posts) ---
+        Blog::where('status', 'terbit')
             ->orderByDesc('tanggal_terbit')
             ->select('slug', 'updated_at')
             ->chunk(200, function ($items) use ($urls) {
                 foreach ($items as $item) {
                     $urls->push([
-                        'loc'        => route('berita.detail', $item->slug),
+                        'loc'        => route('blog.detail', $item->slug),
                         'lastmod'    => $item->updated_at?->toW3cString(),
                         'priority'   => '0.8',
                         'changefreq' => 'weekly',
@@ -81,25 +80,25 @@ class SeoController extends Controller
                 }
             });
 
-        // --- Kategori Berita ---
-        KategoriBerita::whereNotNull('slug')
+        // --- Kategori Blog ---
+        KategoriBlog::whereNotNull('slug')
             ->select('slug', 'updated_at')
             ->get()
             ->each(function ($kat) use ($urls) {
                 $urls->push([
-                    'loc'        => route('berita.kategori', $kat->slug),
+                    'loc'        => route('blog.kategori', $kat->slug),
                     'lastmod'    => $kat->updated_at?->toW3cString(),
                     'priority'   => '0.6',
                     'changefreq' => 'weekly',
                 ]);
             });
 
-        // --- Galeri albums ---
+        // --- Foto Bercerita albums ---
         Galeri::select('slug', 'updated_at')
             ->get()
             ->each(function ($galeri) use ($urls) {
                 $urls->push([
-                    'loc'        => route('galeri.detail', $galeri->slug),
+                    'loc'        => route('foto-bercerita.detail', $galeri->slug),
                     'lastmod'    => $galeri->updated_at?->toW3cString(),
                     'priority'   => '0.6',
                     'changefreq' => 'monthly',

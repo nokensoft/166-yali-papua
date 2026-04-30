@@ -13,10 +13,8 @@ use App\Http\Controllers\Admin\BackupStorageController;
 use App\Http\Controllers\Admin\HalamanController;
 use App\Http\Controllers\Penulis\AktivitasLoginController as PenulisAktivitasLoginController;
 use App\Http\Controllers\Penulis\DashboardController as PenulisDashboardController;
-use App\Http\Controllers\Penulis\DonasiController as PenulisDonasiController;
-use App\Http\Controllers\Penulis\ProgramDonasiController;
-use App\Http\Controllers\Penulis\BeritaController;
-use App\Http\Controllers\Penulis\KategoriBeritaController;
+use App\Http\Controllers\Penulis\BlogController;
+use App\Http\Controllers\Penulis\KategoriBlogController;
 use App\Http\Controllers\Penulis\GaleriController;
 use App\Http\Controllers\Penulis\MediaController;
 use App\Http\Controllers\SeoController;
@@ -54,7 +52,7 @@ Route::middleware('track.visitor')->group(function () {
 
     // Halaman CMS — route slug sesuai slug di database
     Route::get('/sejarah',      fn () => app(VisitorController::class)->halaman('sejarah')     )->name('sejarah');
-    Route::get('/profil',       fn () => app(VisitorController::class)->halaman('profil')      )->name('profil');
+    Route::view('/profil', 'visitor.profil')->name('profil');
     Route::get('/pilar-kerja', fn () => app(VisitorController::class)->halaman('bidang-kerja'))->name('pilar-kerja');
     Route::get('/faq',          fn () => app(VisitorController::class)->halaman('faq')         )->name('faq');
     Route::get('/disclaimer',   fn () => app(VisitorController::class)->halaman('disclaimer')  )->name('disclaimer');
@@ -64,18 +62,24 @@ Route::middleware('track.visitor')->group(function () {
     // Program (static)
     Route::view('/program', 'visitor.program')->name('program');
 
-    // Donasi (dynamic GET + POST)
+    // Donasi (halaman statis)
     Route::get('/donasi', [VisitorController::class, 'donasi'])->name('donasi');
-    Route::post('/donasi', [VisitorController::class, 'donasiStore'])->name('donasi.store');
 
     // Blog (dynamic)
-    Route::get('/blog', [VisitorController::class, 'berita'])->name('berita');
-    Route::get('/blog/kategori/{slug}', [VisitorController::class, 'beritaKategori'])->name('berita.kategori');
-    Route::get('/blog/{slug}', [VisitorController::class, 'beritaDetail'])->name('berita.detail');
+    Route::get('/blog', [VisitorController::class, 'blog'])->name('blog');
+    Route::get('/blog/kategori/{slug}', [VisitorController::class, 'blogKategori'])->name('blog.kategori');
+    Route::get('/blog/{slug}', [VisitorController::class, 'blogDetail'])->name('blog.detail');
+    // Redirect URL lama berita
+    Route::redirect('/berita', '/blog', 301);
+    Route::redirect('/berita/kategori/{slug}', '/blog/kategori/{slug}', 301);
+    Route::redirect('/berita/{slug}', '/blog/{slug}', 301);
 
-    // Galeri (dynamic)
-    Route::get('/galeri', [VisitorController::class, 'galeri'])->name('galeri');
-    Route::get('/galeri/{slug}', [VisitorController::class, 'galeriDetail'])->name('galeri.detail');
+    // Foto Bercerita (dynamic)
+    Route::get('/foto-bercerita', [VisitorController::class, 'fotoBercerita'])->name('foto-bercerita');
+    Route::get('/foto-bercerita/{slug}', [VisitorController::class, 'fotoBerceritaDetail'])->name('foto-bercerita.detail');
+    // Redirect URL lama galeri
+    Route::redirect('/galeri', '/foto-bercerita', 301);
+    Route::redirect('/galeri/{slug}', '/foto-bercerita/{slug}', 301);
 
     // Kontak
     Route::get('/kontak', [VisitorController::class, 'kontak'])->name('kontak');
@@ -149,40 +153,30 @@ Route::prefix('penulis')->name('penulis.')->middleware(['auth.custom', 'role:pen
     Route::get('/dashboard', [PenulisDashboardController::class, 'index'])->name('dashboard');
 
     // Konten
-    Route::resource('berita', BeritaController::class)->except(['show']);
-    Route::patch('/berita/{beritum}/restore', [BeritaController::class, 'restore'])->name('berita.restore');
-    Route::delete('/berita/{beritum}/force-delete', [BeritaController::class, 'forceDelete'])->name('berita.force-delete');
-    Route::resource('kategori-berita', KategoriBeritaController::class)->except(['show']);
-    Route::patch('/kategori-berita/{kategori_beritum}/restore', [KategoriBeritaController::class, 'restore'])->name('kategori-berita.restore');
-    Route::delete('/kategori-berita/{kategori_beritum}/force-delete', [KategoriBeritaController::class, 'forceDelete'])->name('kategori-berita.force-delete');
+    Route::resource('blog', BlogController::class)->except(['show']);
+    Route::patch('/blog/{blog}/restore', [BlogController::class, 'restore'])->name('blog.restore');
+    Route::delete('/blog/{blog}/force-delete', [BlogController::class, 'forceDelete'])->name('blog.force-delete');
+    Route::resource('kategori-blog', KategoriBlogController::class)->except(['show']);
+    Route::patch('/kategori-blog/{kategori_blog}/restore', [KategoriBlogController::class, 'restore'])->name('kategori-blog.restore');
+    Route::delete('/kategori-blog/{kategori_blog}/force-delete', [KategoriBlogController::class, 'forceDelete'])->name('kategori-blog.force-delete');
+    // Redirect URL lama berita/kategori-berita
+    Route::redirect('/berita', '/penulis/blog', 301);
+    Route::redirect('/berita/create', '/penulis/blog/create', 301);
+    Route::redirect('/kategori-berita', '/penulis/kategori-blog', 301);
+    Route::redirect('/kategori-berita/create', '/penulis/kategori-blog/create', 301);
     // Media
     Route::get('/media/json', [MediaController::class, 'json'])->name('media.json');
     Route::post('/media/upload-ajax', [MediaController::class, 'uploadAjax'])->name('media.upload-ajax');
     Route::resource('media', MediaController::class)->except(['show']);
     Route::patch('/media/{medium}/restore', [MediaController::class, 'restore'])->name('media.restore');
     Route::delete('/media/{medium}/force-delete', [MediaController::class, 'forceDelete'])->name('media.force-delete');
-    Route::resource('galeri', GaleriController::class)->except(['show']);
-    Route::patch('/galeri/{galeri}/toggle-publik', [GaleriController::class, 'togglePublik'])->name('galeri.toggle-publik');
-    Route::patch('/galeri/{galeri}/restore', [GaleriController::class, 'restore'])->name('galeri.restore');
-    Route::delete('/galeri/{galeri}/force-delete', [GaleriController::class, 'forceDelete'])->name('galeri.force-delete');
+    Route::resource('foto-bercerita', GaleriController::class)
+        ->parameters(['foto-bercerita' => 'galeri'])
+        ->except(['show']);
+    Route::patch('/foto-bercerita/{galeri}/toggle-publik', [GaleriController::class, 'togglePublik'])->name('foto-bercerita.toggle-publik');
+    Route::patch('/foto-bercerita/{galeri}/restore', [GaleriController::class, 'restore'])->name('foto-bercerita.restore');
+    Route::delete('/foto-bercerita/{galeri}/force-delete', [GaleriController::class, 'forceDelete'])->name('foto-bercerita.force-delete');
 
-    // Donasi
-    Route::get('/donasi', [PenulisDonasiController::class, 'index'])->name('donasi.index');
-    Route::get('/donasi/{id}', [PenulisDonasiController::class, 'show'])->name('donasi.show');
-    Route::get('/donasi/{id}/bukti-transfer', [PenulisDonasiController::class, 'buktiTransfer'])->name('donasi.bukti-transfer');
-    Route::patch('/donasi/{id}/konfirmasi', [PenulisDonasiController::class, 'konfirmasi'])->name('donasi.konfirmasi');
-    Route::patch('/donasi/{id}/tolak', [PenulisDonasiController::class, 'tolak'])->name('donasi.tolak');
-    Route::patch('/donasi/{id}/update-pesan', [PenulisDonasiController::class, 'updatePesan'])->name('donasi.update-pesan');
-    Route::patch('/donasi/{id}/toggle-publik', [PenulisDonasiController::class, 'togglePublik'])->name('donasi.toggle-publik');
-    Route::patch('/donasi/{id}/toggle-anonim', [PenulisDonasiController::class, 'toggleAnonim'])->name('donasi.toggle-anonim');
-    Route::delete('/donasi/{id}', [PenulisDonasiController::class, 'destroy'])->name('donasi.destroy');
-    Route::patch('/donasi/{id}/restore', [PenulisDonasiController::class, 'restore'])->name('donasi.restore');
-    Route::delete('/donasi/{id}/force-delete', [PenulisDonasiController::class, 'forceDelete'])->name('donasi.force-delete');
-
-    // Program Donasi
-    Route::resource('program-donasi', ProgramDonasiController::class)->except(['show']);
-    Route::patch('/program-donasi/{program_donasi}/restore', [ProgramDonasiController::class, 'restore'])->name('program-donasi.restore');
-    Route::delete('/program-donasi/{program_donasi}/force-delete', [ProgramDonasiController::class, 'forceDelete'])->name('program-donasi.force-delete');
 
     // Statistik
     Route::get('/statistik-pengunjung', [StatistikPengunjungController::class, 'index'])->name('statistik-pengunjung');

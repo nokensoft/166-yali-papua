@@ -76,21 +76,21 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
         </div>
     </section>
 
-    {{-- ARTIKEL TERBARU --}}
-    <section id="artikel" class="py-20 bg-white">
+    {{-- BLOG TERBARU --}}
+    <section id="blog" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-14">
                 <span class="inline-block px-4 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold mb-4">
-                    <i class="fa-solid fa-newspaper mr-1"></i> Artikel
+                    <i class="fa-solid fa-newspaper mr-1"></i> Blog
                 </span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Artikel Terbaru</h2>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Blog Terbaru</h2>
                 <p class="text-gray-500 max-w-2xl mx-auto">Edukasi, konservasi, dan cerita dampak dari program pelestarian lingkungan di Papua.</p>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @forelse ($beritaTerbaru as $b)
+                @forelse ($blogTerbaru as $b)
                     <article class="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                        <a href="{{ route('berita.detail', $b->slug) }}" class="block">
+                        <a href="{{ route('blog.detail', $b->slug) }}" class="block">
                             <div class="h-48 overflow-hidden">
                                 <img src="{{ $b->gambar }}" alt="{{ $b->judul }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.onerror=null;this.src='https://placehold.co/600x400'">
                             </div>
@@ -98,30 +98,30 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
                         <div class="p-6">
                             <div class="flex items-center gap-2 mb-3">
                                 <span class="text-xs px-2.5 py-0.5 bg-emerald-50 text-emerald-700 rounded-full font-semibold">
-                                    {{ $b->kategori->nama ?? 'Artikel' }}
+                                    {{ $b->kategori->nama ?? 'Blog' }}
                                 </span>
                             </div>
-                            <a href="{{ route('berita.detail', $b->slug) }}">
+                            <a href="{{ route('blog.detail', $b->slug) }}">
                                 <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-emerald-700 transition line-clamp-2">{{ $b->judul }}</h3>
                             </a>
                             <p class="text-sm text-gray-500 mb-4 line-clamp-3">
                                 {{ \Illuminate\Support\Str::limit(strip_tags($b->ringkasan ?: $b->konten), 130) }}
                             </p>
-                            <a href="{{ route('berita.detail', $b->slug) }}" class="inline-flex items-center text-sm font-semibold text-emerald-600 hover:text-emerald-800 transition">
+                            <a href="{{ route('blog.detail', $b->slug) }}" class="inline-flex items-center text-sm font-semibold text-emerald-600 hover:text-emerald-800 transition">
                                 Baca selengkapnya <i class="fa-solid fa-arrow-right ml-1 text-xs"></i>
                             </a>
                         </div>
                     </article>
                 @empty
                     <div class="col-span-full text-center py-10 text-gray-400">
-                        Belum ada artikel.
+                        Belum ada blog.
                     </div>
                 @endforelse
             </div>
 
             <div class="text-center mt-10">
-                <a href="{{ route('berita') }}" class="inline-flex items-center px-6 py-3 border-2 border-emerald-600 text-emerald-600 font-semibold rounded-full hover:bg-emerald-600 hover:text-white transition">
-                    Lihat Semua Artikel <i class="fa-solid fa-arrow-right ml-2"></i>
+                <a href="{{ route('blog') }}" class="inline-flex items-center px-6 py-3 border-2 border-emerald-600 text-emerald-600 font-semibold rounded-full hover:bg-emerald-600 hover:text-white transition">
+                    Lihat Semua Blog <i class="fa-solid fa-arrow-right ml-2"></i>
                 </a>
             </div>
         </div>
@@ -139,7 +139,7 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                @forelse ($galeriTerbaru->take(4) as $album)
+                @forelse ($fotoBerceritaTerbaru->take(4) as $album)
                     @php
                         $cover = $album->media->first();
                         if ($cover && ($cover->tipe ?? '') === 'video') {
@@ -150,7 +150,7 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
                             $coverUrl = 'https://placehold.co/600x400';
                         }
                     @endphp
-                    <a href="{{ route('galeri.detail', $album->slug) }}" class="group block bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <a href="{{ route('foto-bercerita.detail', $album->slug) }}" class="group block bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                         <div class="h-44 relative overflow-hidden">
                             <img src="{{ $coverUrl }}" alt="{{ $album->judul }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.onerror=null;this.src='https://placehold.co/600x400'">
                             <div class="absolute bottom-3 right-3 bg-black/40 backdrop-blur-sm text-white text-xs px-2.5 py-1 rounded-full">
@@ -164,13 +164,13 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
                     </a>
                 @empty
                     <div class="col-span-full text-center py-10 text-gray-400">
-                        Belum ada album galeri.
+                        Belum ada album foto bercerita.
                     </div>
                 @endforelse
             </div>
 
             <div class="text-center mt-10">
-                <a href="{{ route('galeri') }}" class="inline-flex items-center px-6 py-3 border-2 border-sky-600 text-sky-600 font-semibold rounded-full hover:bg-sky-600 hover:text-white transition">
+                <a href="{{ route('foto-bercerita') }}" class="inline-flex items-center px-6 py-3 border-2 border-sky-600 text-sky-600 font-semibold rounded-full hover:bg-sky-600 hover:text-white transition">
                     Lihat Semua Album <i class="fa-solid fa-arrow-right ml-2"></i>
                 </a>
             </div>

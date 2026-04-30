@@ -13,10 +13,8 @@ class DatabaseSeeder extends Seeder
             HalamanSeeder::class,
             PengaturanSitusSeeder::class,
             MediaSeeder::class,
-            KategoriBeritaSeeder::class,
-            BeritaSeeder::class,
-            ProgramDonasiSeeder::class,
-            DonasiSeeder::class,
+            KategoriBlogSeeder::class,
+            BlogSeeder::class,
             GaleriSeeder::class,
         ]);
     }

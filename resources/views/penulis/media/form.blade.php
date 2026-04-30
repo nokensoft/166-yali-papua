@@ -51,7 +51,7 @@
             </div>
 
             <div class="bg-blue-50 border-l-4 border-blue-500 p-4 text-lg text-blue-700">
-                <i class="fas fa-info-circle mr-2"></i> Media yang diupload akan tersedia untuk digunakan di berita dan galeri.
+                <i class="fas fa-info-circle mr-2"></i> Media yang diupload akan tersedia untuk digunakan di blog dan foto bercerita.
             </div>
 
             <div class="flex gap-3">

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Galeri;
 use App\Models\Media;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class GaleriSeeder extends Seeder
 {
@@ -50,12 +51,25 @@ class GaleriSeeder extends Seeder
         ];
 
         foreach ($albums as $albumData) {
-            $galeri = Galeri::create([
-                'judul'     => $albumData['judul'],
-                'deskripsi' => $albumData['deskripsi'],
-                'user_id'   => $userId,
-            ]);
+            $slug = Str::slug($albumData['judul']);
 
+            $galeri = Galeri::withTrashed()->where('slug', $slug)->first();
+
+            if (!$galeri) {
+                $galeri = new Galeri();
+                $galeri->slug = $slug;
+            }
+
+            $galeri->judul = $albumData['judul'];
+            $galeri->deskripsi = $albumData['deskripsi'];
+            $galeri->user_id = $userId;
+            $galeri->save();
+
+            if ($galeri->trashed()) {
+                $galeri->restore();
+            }
+
+            $syncData = [];
             $attachedCount = 0;
 
             foreach ($albumData['images'] as $fileName) {
@@ -66,11 +80,18 @@ class GaleriSeeder extends Seeder
                     continue;
                 }
 
-                $galeri->media()->attach($mediaId);
+                $itemNumber = $attachedCount + 1;
+                $syncData[$mediaId] = [
+                    'judul_item' => 'Foto ' . $itemNumber,
+                    'keterangan_singkat' => 'Dokumentasi ' . $albumData['judul'] . ' #' . $itemNumber,
+                    'urutan' => $itemNumber,
+                ];
                 $attachedCount++;
             }
 
-            $this->command->info("Album \"{$galeri->judul}\" berhasil dibuat dengan {$attachedCount} foto.");
+            $galeri->media()->sync($syncData);
+
+            $this->command->info("Album \"{$galeri->judul}\" berhasil disinkronkan dengan {$attachedCount} foto.");
         }
     }
 }

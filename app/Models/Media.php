@@ -27,12 +27,19 @@ class Media extends Model
 
     public function berita()
     {
-        return $this->hasMany(Berita::class);
+        return $this->blog();
+    }
+
+    public function blog()
+    {
+        return $this->hasMany(Blog::class);
     }
 
     public function galeri()
     {
-        return $this->belongsToMany(Galeri::class, 'galeri_media');
+        return $this->belongsToMany(Galeri::class, 'galeri_media')
+            ->withPivot(['judul_item', 'keterangan_singkat', 'urutan'])
+            ->withTimestamps();
     }
 
     public function getFormattedSizeAttribute(): string

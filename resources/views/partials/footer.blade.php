@@ -1,5 +1,12 @@
 @php
     $waNumber = !empty($situs['sosmed_whatsapp']) ? preg_replace('/[^0-9]/', '', $situs['sosmed_whatsapp']) : null;
+    $sessionUser = session('user');
+    $footerAccountLabel = $sessionUser['name'] ?? 'Login';
+    $footerAccountUrl = match ($sessionUser['role'] ?? null) {
+        'admin_master' => route('admin.dashboard'),
+        'penulis' => route('penulis.dashboard'),
+        default => route('login'),
+    };
 @endphp
 
 @if ($waNumber)
@@ -53,8 +60,8 @@
                     <li><a href="{{ route('profil') }}" class="hover:text-primary-400 transition">Tentang Kami</a></li>
                     <li><a href="{{ route('program') }}" class="hover:text-primary-400 transition">Yang Kami Lakukan</a></li>
                     <li><a href="{{ route('mitra') }}" class="hover:text-primary-400 transition">Mitra</a></li>
-                    <li><a href="{{ route('berita') }}" class="hover:text-primary-400 transition">Artikel</a></li>
-                    <li><a href="{{ route('galeri') }}" class="hover:text-primary-400 transition">Galeri</a></li>
+                    <li><a href="{{ route('blog') }}" class="hover:text-primary-400 transition">Blog</a></li>
+                    <li><a href="{{ route('foto-bercerita') }}" class="hover:text-primary-400 transition">Foto Bercerita</a></li>
                 </ul>
             </div>
 
@@ -81,7 +88,14 @@
     <div class="border-t border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
             <p class="text-sm text-gray-400">&copy; {{ date('Y') }} {{ $situs['nama_situs'] ?? 'YALI Papua' }}. Hak Cipta Dilindungi.</p>
-            <p class="text-sm text-gray-400">Powered by <a href="https://nokensoft.com" target="_blank" class="text-primary-400 hover:text-primary-300 transition">Nokensoft.com</a></p>
+            <div class="flex items-center gap-3">
+                <a href="{{ $footerAccountUrl }}"
+                   class="inline-flex items-center px-4 py-1.5 rounded-full border border-white/20 text-sm text-gray-200 hover:text-white hover:border-primary-400 hover:bg-white/10 transition">
+                    <i class="fa-solid {{ $sessionUser ? 'fa-user' : 'fa-right-to-bracket' }} mr-2"></i>
+                    <span>{{ $footerAccountLabel }}</span>
+                </a>
+                <p class="text-sm text-gray-400">Powered by <a href="https://nokensoft.com" target="_blank" class="text-primary-400 hover:text-primary-300 transition">Nokensoft.com</a></p>
+            </div>
         </div>
     </div>
 </footer>

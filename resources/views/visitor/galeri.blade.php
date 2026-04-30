@@ -1,10 +1,10 @@
 @extends('layouts.visitor')
-@section('title', 'Galeri - ' . ($situs['nama_situs'] ?? 'YALI Papua'))
-@section('seo-title', 'Galeri Foto - ' . ($situs['nama_situs'] ?? 'YALI Papua'))
-@section('seo-description', 'Dokumentasi kegiatan dan galeri foto ' . ($situs['nama_situs'] ?? 'YALI Papua'))
+@section('title', 'Foto Bercerita - ' . ($situs['nama_situs'] ?? 'YALI Papua'))
+@section('seo-title', 'Foto Bercerita - ' . ($situs['nama_situs'] ?? 'YALI Papua'))
+@section('seo-description', 'Kumpulan foto bercerita kegiatan dan dampak pelestarian lingkungan ' . ($situs['nama_situs'] ?? 'YALI Papua'))
 
 @section('json-ld')
-<script type="application/ld+json">{!! json_encode(['@context'=>'https://schema.org','@type'=>'BreadcrumbList','itemListElement'=>[['@type'=>'ListItem','position'=>1,'name'=>'Beranda','item'=>route('beranda')],['@type'=>'ListItem','position'=>2,'name'=>'Galeri']]], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) !!}</script>
+<script type="application/ld+json">{!! json_encode(['@context'=>'https://schema.org','@type'=>'BreadcrumbList','itemListElement'=>[['@type'=>'ListItem','position'=>1,'name'=>'Beranda','item'=>route('beranda')],['@type'=>'ListItem','position'=>2,'name'=>'Foto Bercerita','item'=>route('foto-bercerita')]]], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) !!}</script>
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
         </div>
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
             <span class="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-sm rounded-full text-sm font-medium mb-4 border border-white/20">
-                <i class="fa-solid fa-camera mr-1"></i> Galeri
+                <i class="fa-solid fa-camera mr-1"></i> Foto Bercerita
             </span>
             <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Foto Bercerita</h1>
             <p class="text-gray-300 max-w-2xl mx-auto">Kisah visual dari lapangan — dokumentasi perjalanan, aksi, dan dampak pelestarian lingkungan di Papua.</p>
@@ -30,9 +30,9 @@
     <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-xl mx-auto mb-10">
-                <form method="GET" action="{{ route('galeri') }}">
+                <form method="GET" action="{{ route('foto-bercerita') }}">
                     <div class="relative">
-                        <input type="text" name="cari" value="{{ request('cari') }}" placeholder="Cari album galeri..."
+                        <input type="text" name="cari" value="{{ request('cari') }}" placeholder="Cari album foto bercerita..."
                             class="w-full border border-gray-200 rounded-full py-3 pl-12 pr-28 text-sm focus:border-primary-500 focus:ring-2 focus:ring-primary-100 focus:outline-none transition">
                         <button type="submit" class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary-600 transition">
                             <i class="fa-solid fa-search"></i>
@@ -46,7 +46,7 @@
                     <div class="mt-3 text-center text-sm text-gray-500">
                         Hasil pencarian:
                         <strong class="text-gray-900">"{{ request('cari') }}"</strong>
-                        <a href="{{ route('galeri') }}" class="ml-2 text-primary-700 hover:text-primary-800 font-semibold transition">
+                        <a href="{{ route('foto-bercerita') }}" class="ml-2 text-primary-700 hover:text-primary-800 font-semibold transition">
                             <i class="fa-solid fa-xmark mr-1"></i>Reset
                         </a>
                     </div>
@@ -54,13 +54,14 @@
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                @forelse ($galeriList as $album)
+                @forelse ($fotoBerceritaList as $album)
                     @php
                         $cover = $album->media->first();
                         $mediaCount = $album->media_count ?? $album->media->count();
                         $tanggal = $album->created_at ? $album->created_at->translatedFormat('M Y') : null;
+                        $ringkasan = $album->deskripsi ?: ($cover?->pivot->keterangan_singkat ?? null);
                     @endphp
-                    <a href="{{ route('galeri.detail', $album->slug) }}"
+                    <a href="{{ route('foto-bercerita.detail', $album->slug) }}"
                         class="group block bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                         <div class="h-48 relative overflow-hidden bg-gray-100">
                             @if ($cover && $cover->tipe === 'video')
@@ -77,7 +78,7 @@
                                 </div>
                             @endif
                             <div class="absolute bottom-3 right-3 bg-black/40 backdrop-blur-sm text-white text-xs px-2.5 py-1 rounded-full">
-                                <i class="fa-solid fa-images mr-1"></i> {{ $mediaCount }} Foto
+                                <i class="fa-solid fa-images mr-1"></i> {{ $mediaCount }} Item Foto
                             </div>
                         </div>
                         <div class="p-5">
@@ -85,19 +86,19 @@
                                 <span class="text-xs text-gray-400">{{ $tanggal }}</span>
                             @endif
                             <h3 class="text-base font-bold text-gray-900 mt-1 mb-2 group-hover:text-primary-700 transition line-clamp-2">{{ $album->judul }}</h3>
-                            <p class="text-sm text-gray-500 line-clamp-2">{{ $album->deskripsi ?: 'Dokumentasi kegiatan pelestarian lingkungan bersama masyarakat Papua.' }}</p>
+                            <p class="text-sm text-gray-500 line-clamp-2">{{ $ringkasan ?: 'Dokumentasi kegiatan pelestarian lingkungan bersama masyarakat Papua.' }}</p>
                         </div>
                     </a>
                 @empty
                     <div class="col-span-full text-center py-16 text-gray-400">
                         <i class="fa-solid fa-images text-5xl mb-4 block"></i>
-                        <p class="text-lg">Belum ada album di galeri.</p>
+                        <p class="text-lg">Belum ada album foto bercerita.</p>
                     </div>
                 @endforelse
             </div>
 
-            @if ($galeriList->hasPages())
-                <div class="mt-10">{{ $galeriList->links() }}</div>
+            @if ($fotoBerceritaList->hasPages())
+                <div class="mt-10">{{ $fotoBerceritaList->links() }}</div>
             @endif
         </div>
     </section>

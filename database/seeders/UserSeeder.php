@@ -11,15 +11,15 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name' => 'Administrator',
-            'email' => 'admin@yali-papua.org',
-            'password' => 'admin123',
+            'email' => 'admin@yalipapua.org',
+            'password' => 'admin@yalipapua.org',
             'role' => 'admin_master',
         ]);
 
         User::create([
             'name' => 'Penulis YALI',
-            'email' => 'penulis@yali-papua.org',
-            'password' => 'penulis123',
+            'email' => 'penulis@yalipapua.org',
+            'password' => 'penulis@yalipapua.org',
             'role' => 'penulis',
         ]);
     }

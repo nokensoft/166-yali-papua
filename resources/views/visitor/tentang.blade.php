@@ -21,10 +21,10 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid md:grid-cols-2 gap-16 items-center">
                 <div class="fade-in">
-                    <p class="text-lg font-semibold tracking-widest uppercase text-secondary mb-2"><i class="fa-solid fa-leaf mr-2"></i>Sejak 1988</p>
+                    <p class="text-lg font-semibold tracking-widest uppercase text-secondary mb-2"><i class="fa-solid fa-leaf mr-2"></i>Sejak 1994</p>
                     <h2 class="text-2xl md:text-3xl font-display font-bold text-neutral-900 mb-6">Organisasi Masyarakat Sipil di Tanah Papua</h2>
                     <p class="text-neutral-600 leading-relaxed mb-4">Yayasan Lingkungan Hidup Papua (YALI Papua) adalah bagian dari Civil Society Organisation (CSO) yang bergerak di bidang pengorganisasian dan penguatan masyarakat adat, berkaitan dengan kepastian hak dan ruang hidupnya untuk kemandirian dan kesejahteraannya.</p>
-                    <p class="text-neutral-600 leading-relaxed mb-6">Didirikan pada tahun 1988, lembaga ini mendampingi masyarakat adat Papua agar mampu mengorganisir diri dan merekonsiliasi hubungan dengan Tuhan dan alam semesta Papua untuk kehidupan yang berdaulat dan berkelanjutan.</p>
+                    <p class="text-neutral-600 leading-relaxed mb-6">Didirikan pada 26 Oktober 1994, lembaga ini mendampingi masyarakat adat Papua agar mampu mengorganisir diri dan merekonsiliasi hubungan dengan Tuhan dan alam semesta Papua untuk kehidupan yang berdaulat dan berkelanjutan.</p>
                     <div class="flex flex-wrap gap-3">
                         <a href="{{ route('sejarah') }}" class="bg-secondary text-white px-5 py-2.5 text-lg font-semibold hover:bg-secondary transition-colors">
                             <i class="fa-solid fa-clock-rotate-left mr-2"></i>Baca Sejarah

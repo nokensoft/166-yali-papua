@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Berita;
+use App\Models\Blog;
 use App\Models\KunjunganSitus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +25,7 @@ class StatistikPengunjungController extends Controller
             'bulan_ini' => KunjunganSitus::whereMonth('tanggal', now()->month)
                 ->whereYear('tanggal', now()->year)->count(),
             'total' => KunjunganSitus::count(),
-            'total_pembaca' => (int) Berita::sum('jumlah_dibaca'),
+            'total_pembaca' => (int) Blog::sum('jumlah_dibaca'),
         ];
 
         return view('admin.statistik-pengunjung', compact('data', 'filter', 'ringkasan'));

@@ -1,15 +1,18 @@
 @extends('layouts.dashboard')
-@section('title', 'Galeri')
-@section('page-title', 'Galeri')
+@section('title', 'Foto Bercerita')
+@section('page-title', 'Foto Bercerita')
 @section('content')
     @include('partials.crud-index', [
-        'title' => 'Galeri',
-        'createRoute' => route('penulis.galeri.create'),
-        'trashedRoute' => route('penulis.galeri.index'),
-        'columns' => ['Cover', 'Judul Album', 'Jumlah Media', 'Publik', 'Tanggal'],
+        'title' => 'Foto Bercerita',
+        'createRoute' => route('penulis.foto-bercerita.create'),
+        'trashedRoute' => route('penulis.foto-bercerita.index'),
+        'columns' => ['Cover', 'Judul Cerita', 'Jumlah Item Foto', 'Publik', 'Tanggal'],
         'paginator' => $galeri,
         'rows' => $galeri->map(function ($g) {
             $cover = $g->media->first();
+            $publicUrl = (!$g->trashed() && $g->is_publik && !empty($g->slug))
+                ? route('foto-bercerita.detail', $g->slug)
+                : null;
             if ($cover && $cover->tipe === 'video') {
                 $preview = new \Illuminate\Support\HtmlString(
                     '<img src="https://img.youtube.com/vi/' . e($cover->file_name) . '/default.jpg" alt="' . e($g->judul) . '" class="w-16 h-12 object-cover border border-gray-200" onerror="this.outerHTML=\'<span class=&quot;text-gray-400 text-xl&quot;><i class=&quot;fab fa-youtube&quot;></i></span>\'">' .
@@ -31,7 +34,7 @@
                 );
             } else {
                 $publikCell = new \Illuminate\Support\HtmlString(
-                    '<form action="' . route('penulis.galeri.toggle-publik', $g->id) . '" method="POST" class="inline">' .
+                    '<form action="' . route('penulis.foto-bercerita.toggle-publik', $g->id) . '" method="POST" class="inline">' .
                     csrf_field() . method_field('PATCH') .
                     '<button type="submit" title="' . ($g->is_publik ? 'Sembunyikan dari publik' : 'Tampilkan di publik') . '"' .
                     ' class="inline-flex items-center justify-center w-8 h-8 transition ' .
@@ -45,14 +48,20 @@
                 'cells' => [
                     $preview,
                     $g->judul,
-                    $g->media_count . ' media',
+                    $g->media_count . ' item',
                     $publikCell,
                     $g->created_at->format('d M Y'),
                 ],
-                'editRoute' => $g->trashed() ? null : route('penulis.galeri.edit', $g->id),
-                'deleteRoute' => $g->trashed() ? null : route('penulis.galeri.destroy', $g->id),
-                'restoreRoute' => $g->trashed() ? route('penulis.galeri.restore', $g->id) : null,
-                'forceDeleteRoute' => $g->trashed() ? route('penulis.galeri.force-delete', $g->id) : null,
+                'viewRoute' => $publicUrl,
+                'viewLabel' => 'Tampilkan Detail',
+                'viewTarget' => '_blank',
+                'copyUrl' => $publicUrl,
+                'copyLabel' => 'Copy URL Publik',
+                'copySuccessMessage' => 'URL publik foto bercerita berhasil disalin!',
+                'editRoute' => $g->trashed() ? null : route('penulis.foto-bercerita.edit', $g->id),
+                'deleteRoute' => $g->trashed() ? null : route('penulis.foto-bercerita.destroy', $g->id),
+                'restoreRoute' => $g->trashed() ? route('penulis.foto-bercerita.restore', $g->id) : null,
+                'forceDeleteRoute' => $g->trashed() ? route('penulis.foto-bercerita.force-delete', $g->id) : null,
                 'trashed' => $g->trashed(),
             ];
         })->toArray(),

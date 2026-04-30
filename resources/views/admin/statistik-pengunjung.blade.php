@@ -9,7 +9,7 @@
             ['icon' => 'fa-eye', 'label' => 'Hari Ini', 'value' => $ringkasan['hari_ini'], 'color' => 'bg-blue-600'],
             ['icon' => 'fa-calendar', 'label' => 'Bulan Ini', 'value' => $ringkasan['bulan_ini'], 'color' => 'bg-green-600'],
             ['icon' => 'fa-users', 'label' => 'Total Pengunjung', 'value' => $ringkasan['total'], 'color' => 'bg-primary'],
-            ['icon' => 'fa-newspaper', 'label' => 'Total Pembaca Berita', 'value' => $ringkasan['total_pembaca'], 'color' => 'bg-orange-500'],
+            ['icon' => 'fa-newspaper', 'label' => 'Total Pembaca Blog', 'value' => $ringkasan['total_pembaca'], 'color' => 'bg-orange-500'],
         ] as $card)
             <div class="bg-white shadow-sm p-5">
                 <div class="flex items-center space-x-4">

@@ -1,7 +1,7 @@
 @extends('layouts.visitor')
-@section('title', $galeri->judul . ' - Galeri - ' . ($situs['nama_situs'] ?? 'YALI Papua'))
-@section('seo-title', $galeri->judul . ' - Galeri Foto')
-@section('seo-description', $galeri->deskripsi ?: 'Album galeri foto ' . $galeri->judul)
+@section('title', $galeri->judul . ' - Foto Bercerita - ' . ($situs['nama_situs'] ?? 'YALI Papua'))
+@section('seo-title', $galeri->judul . ' - Foto Bercerita')
+@section('seo-description', $galeri->deskripsi ?: 'Album foto bercerita ' . $galeri->judul)
 @if ($galeri->media->first())
     @section('seo-image', $galeri->media->first()->tipe === 'video' ? 'https://img.youtube.com/vi/' . $galeri->media->first()->file_name . '/hqdefault.jpg' : asset('storage/' . $galeri->media->first()->file_path))
 @endif
@@ -10,10 +10,10 @@
 @php
 $_bc = ['@context'=>'https://schema.org','@type'=>'BreadcrumbList','itemListElement'=>[
     ['@type'=>'ListItem','position'=>1,'name'=>'Beranda','item'=>route('beranda')],
-    ['@type'=>'ListItem','position'=>2,'name'=>'Galeri','item'=>route('galeri')],
+    ['@type'=>'ListItem','position'=>2,'name'=>'Foto Bercerita','item'=>route('foto-bercerita')],
     ['@type'=>'ListItem','position'=>3,'name'=>$galeri->judul],
 ]];
-$_ig = ['@context'=>'https://schema.org','@type'=>'ImageGallery','name'=>$galeri->judul,'description'=>$galeri->deskripsi ?? 'Album galeri foto '.$galeri->judul,'url'=>route('galeri.detail',$galeri->slug),'numberOfItems'=>$galeri->media->count()];
+$_ig = ['@context'=>'https://schema.org','@type'=>'ImageGallery','name'=>$galeri->judul,'description'=>$galeri->deskripsi ?? 'Album foto bercerita '.$galeri->judul,'url'=>route('foto-bercerita.detail',$galeri->slug),'numberOfItems'=>$galeri->media->count()];
 $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
 @endphp
 <script type="application/ld+json">{!! json_encode($_bc, $_f) !!}</script>
@@ -29,7 +29,7 @@ $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
             <nav class="flex items-center gap-2 text-sm text-gray-300 mb-4">
                 <a href="{{ route('beranda') }}" class="hover:text-white transition">Beranda</a>
                 <i class="fa-solid fa-chevron-right text-xs"></i>
-                <a href="{{ route('galeri') }}" class="hover:text-white transition">Foto Bercerita</a>
+                <a href="{{ route('foto-bercerita') }}" class="hover:text-white transition">Foto Bercerita</a>
                 <i class="fa-solid fa-chevron-right text-xs"></i>
                 <span class="text-white font-semibold">Album</span>
             </nav>
@@ -39,8 +39,6 @@ $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
     <section class="py-12 bg-gray-50">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             @php
-                $fotoCount = $galeri->media->where('tipe', 'foto')->count();
-                $videoCount = $galeri->media->where('tipe', 'video')->count();
                 $totalCount = $galeri->media->count();
                 $tanggal = $galeri->created_at ? $galeri->created_at->translatedFormat('d F Y') : '-';
                 $mediaItems = $galeri->media->values();
@@ -49,10 +47,7 @@ $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 mb-8">
                 <div class="flex flex-wrap items-center gap-3 mb-3 text-sm text-gray-400">
                     <span><i class="fa-solid fa-calendar mr-1"></i> {{ $tanggal }}</span>
-                    <span><i class="fa-solid fa-images mr-1"></i> {{ $totalCount }} Media</span>
-                    @if ($videoCount > 0)
-                        <span><i class="fa-brands fa-youtube mr-1 text-red-500"></i> {{ $videoCount }} Video</span>
-                    @endif
+                    <span><i class="fa-solid fa-images mr-1"></i> {{ $totalCount }} Item Foto</span>
                 </div>
                 <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 mb-4">{{ $galeri->judul }}</h1>
                 <p class="text-gray-600 leading-relaxed">{{ $galeri->deskripsi ?: 'Dokumentasi visual kegiatan pelestarian lingkungan dan pemberdayaan masyarakat di Papua.' }}</p>
@@ -60,6 +55,10 @@ $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
 
             <div class="space-y-8">
                 @forelse ($mediaItems as $index => $m)
+                    @php
+                        $itemJudul = $m->pivot->judul_item ?: ('Foto ' . ($index + 1));
+                        $itemKeterangan = $m->pivot->keterangan_singkat ?: ($m->judul ?: 'Dokumentasi kegiatan lapangan YALI Papua.');
+                    @endphp
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="h-64 sm:h-80 lg:h-96 relative overflow-hidden bg-gray-100">
                             @if ($m->tipe === 'video')
@@ -79,14 +78,12 @@ $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
                                     onerror="this.onerror=null;this.src='https://placehold.co/1200x800'">
                             @endif
                             <div class="absolute top-4 left-4 bg-black/40 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-full font-semibold">
-                                Media {{ $index + 1 }} / {{ $totalCount }}
+                                Item {{ $index + 1 }} / {{ $totalCount }}
                             </div>
                         </div>
                         <div class="p-6 sm:p-8">
-                            <h3 class="text-lg font-bold text-gray-900 mb-3">{{ $m->tipe === 'video' ? 'Video' : 'Foto' }} {{ $index + 1 }}</h3>
-                            <p class="text-gray-600 leading-relaxed">
-                                {{ $m->deskripsi ?? $m->keterangan ?? ($m->tipe === 'video' ? 'Dokumentasi video kegiatan lapangan YALI Papua.' : 'Dokumentasi foto kegiatan lapangan YALI Papua.') }}
-                            </p>
+                            <h3 class="text-lg font-bold text-gray-900 mb-3">{{ $itemJudul }}</h3>
+                            <p class="text-gray-600 leading-relaxed">{{ $itemKeterangan }}</p>
                             @if ($m->tipe === 'video')
                                 <a href="{{ 'https://www.youtube.com/watch?v=' . $m->file_name }}" target="_blank" rel="noopener noreferrer"
                                     class="inline-flex items-center mt-4 text-sm font-semibold text-red-600 hover:text-red-700 transition">
@@ -106,18 +103,18 @@ $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
             <div class="mt-8 flex flex-wrap items-center justify-between gap-4">
                 <div class="flex items-center gap-3">
                     <span class="text-sm font-semibold text-gray-700"><i class="fa-solid fa-share-nodes mr-1"></i> Bagikan:</span>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('galeri.detail', $galeri->slug)) }}" target="_blank" rel="noopener noreferrer" class="w-9 h-9 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center justify-center transition text-sm">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('foto-bercerita.detail', $galeri->slug)) }}" target="_blank" rel="noopener noreferrer" class="w-9 h-9 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center justify-center transition text-sm">
                         <i class="fa-brands fa-facebook-f"></i>
                     </a>
-                    <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('galeri.detail', $galeri->slug)) }}&text={{ urlencode($galeri->judul) }}" target="_blank" rel="noopener noreferrer" class="w-9 h-9 bg-black hover:bg-gray-800 text-white rounded-lg flex items-center justify-center transition text-sm">
+                    <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('foto-bercerita.detail', $galeri->slug)) }}&text={{ urlencode($galeri->judul) }}" target="_blank" rel="noopener noreferrer" class="w-9 h-9 bg-black hover:bg-gray-800 text-white rounded-lg flex items-center justify-center transition text-sm">
                         <i class="fa-brands fa-x-twitter"></i>
                     </a>
-                    <a href="https://wa.me/?text={{ urlencode($galeri->judul . ' - ' . route('galeri.detail', $galeri->slug)) }}" target="_blank" rel="noopener noreferrer" class="w-9 h-9 bg-green-600 hover:bg-green-700 text-white rounded-lg flex items-center justify-center transition text-sm">
+                    <a href="https://wa.me/?text={{ urlencode($galeri->judul . ' - ' . route('foto-bercerita.detail', $galeri->slug)) }}" target="_blank" rel="noopener noreferrer" class="w-9 h-9 bg-green-600 hover:bg-green-700 text-white rounded-lg flex items-center justify-center transition text-sm">
                         <i class="fa-brands fa-whatsapp"></i>
                     </a>
                 </div>
-                <a href="{{ route('galeri') }}" class="inline-flex items-center px-6 py-2.5 border-2 border-primary-600 text-primary-600 font-semibold rounded-full hover:bg-primary-600 hover:text-white transition text-sm">
-                    <i class="fa-solid fa-arrow-left mr-2"></i> Kembali ke Galeri
+                <a href="{{ route('foto-bercerita') }}" class="inline-flex items-center px-6 py-2.5 border-2 border-primary-600 text-primary-600 font-semibold rounded-full hover:bg-primary-600 hover:text-white transition text-sm">
+                    <i class="fa-solid fa-arrow-left mr-2"></i> Kembali ke Foto Bercerita
                 </a>
             </div>
         </div>

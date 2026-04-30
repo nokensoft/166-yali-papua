@@ -27,7 +27,7 @@
         {{-- Header --}}
         <div id="sec-header" class="bg-white shadow-sm p-6 mb-6">
             <h2 class="text-2xl font-extrabold text-dark mb-1">YALI Papua</h2>
-            <p class="text-gray-500">Website resmi Yayasan Pembangunan Masyarakat Desa Irian Jaya (YALI Papua) — LSM pertama di Tanah Papua sejak 1984. Menampilkan informasi program pemberdayaan masyarakat adat, buletin Blog YALI (KDK), berita Blog, galeri kegiatan, dan donasi.</p>
+            <p class="text-gray-500">Website resmi YALI Papua — organisasi masyarakat sipil untuk pengkajian dan pemberdayaan masyarakat adat Papua. Menampilkan informasi program pemberdayaan masyarakat adat, konten blog, foto bercerita kegiatan, dan donasi.</p>
         </div>
 
         {{-- Informasi Proyek (Copyable Table) --}}
@@ -49,7 +49,7 @@
                             ['Icon', 'Font Awesome 7'],
                             ['Font', 'Frank Ruhl Libre (display), Rubik (body)'],
                             ['Autentikasi', 'Custom middleware, role-based access (admin_master, penulis)'],
-                            ['Fitur Utama', 'CMS Halaman, Blog, Galeri, Donasi, SEO, Profil, Statistik Pengunjung, Aktivitas Login, Peta Situs'],
+                            ['Fitur Utama', 'CMS Halaman, Blog, Foto Bercerita, Donasi, SEO, Profil, Statistik Pengunjung, Aktivitas Login, Peta Situs'],
                             ['Developer', 'Nokensoft — PT Noken Inovasi Teknologi Informasi'],
                             ['Website Developer', 'www.nokensoft.com'],
                             ['Kontak Developer', 'info@nokensoft.com | 082199558191'],
@@ -131,16 +131,16 @@
                 <div class="space-y-0">
                     @php
                     $fiturVisitor = [
-                            ['icon' => 'fa-home', 'title' => 'Beranda', 'desc' => 'Statistik organisasi, blog terbaru, program unggulan, galeri, mitra kerja'],
+                            ['icon' => 'fa-home', 'title' => 'Beranda', 'desc' => 'Statistik organisasi, blog terbaru, program unggulan, foto bercerita, mitra kerja'],
                             ['icon' => 'fa-landmark', 'title' => 'Sejarah', 'desc' => 'Sejarah pendirian YALI Papua sejak 1988 (halaman dinamis CMS)'],
                             ['icon' => 'fa-building', 'title' => 'Profil', 'desc' => 'Profil organisasi yayasan (halaman dinamis CMS)'],
                             ['icon' => 'fa-handshake', 'title' => 'Mitra Kerja', 'desc' => 'Daftar mitra dan sponsor YALI Papua (halaman dinamis CMS)'],
                             ['icon' => 'fa-briefcase', 'title' => 'Bidang Kerja', 'desc' => 'Informasi bidang kerja yayasan (halaman dinamis CMS)'],
                             ['icon' => 'fa-users', 'title' => 'Tokoh', 'desc' => 'Tokoh-tokoh pendiri dan pengurus yayasan'],
                             ['icon' => 'fa-list-check', 'title' => 'Program', 'desc' => 'Program unggulan: Informasi, Ekonomi Kerakyatan, Clean Water, Promosi Usaha'],
-                            ['icon' => 'fa-newspaper', 'title' => 'Blog', 'desc' => 'Artikel dan berita dengan filter kategori, pencarian, counter pembaca, dan artikel terkait'],
-                            ['icon' => 'fa-heart', 'title' => 'Donasi', 'desc' => 'Form donasi dengan pilihan program, upload bukti transfer, opsi anonim, testimoni donatur publik'],
-                            ['icon' => 'fa-images', 'title' => 'Galeri', 'desc' => 'Album foto kegiatan dengan pencarian dan halaman detail'],
+                            ['icon' => 'fa-newspaper', 'title' => 'Blog', 'desc' => 'Konten blog dengan filter kategori, pencarian, counter pembaca, dan blog terkait'],
+                            ['icon' => 'fa-heart', 'title' => 'Donasi', 'desc' => 'Halaman donasi statis berisi informasi rekening resmi dan FAQ donasi'],
+                            ['icon' => 'fa-images', 'title' => 'Foto Bercerita', 'desc' => 'Album foto kegiatan dengan pencarian dan halaman detail'],
                             ['icon' => 'fa-envelope', 'title' => 'Kontak', 'desc' => 'Informasi kontak dan media sosial YALI Papua'],
                             ['icon' => 'fa-sitemap', 'title' => 'Peta Situs', 'desc' => 'Halaman peta situs (HTML sitemap) untuk navigasi lengkap'],
                             ['icon' => 'fa-robot', 'title' => 'SEO', 'desc' => 'Dynamic robots.txt dan XML sitemap otomatis untuk seluruh halaman publik'],
@@ -169,7 +169,7 @@
                     <p class="text-lg font-bold uppercase tracking-widest text-gray-400 mb-2">Admin Master</p>
                     @php
                         $fiturAdmin = [
-                            ['icon' => 'fa-tachometer-alt', 'title' => 'Dasbor', 'desc' => 'Ringkasan data lengkap (pengguna, halaman, blog, galeri, media, donasi, pengunjung), aktivitas login, blog terbaru, donasi terbaru, aksi cepat, info sistem'],
+                            ['icon' => 'fa-tachometer-alt', 'title' => 'Dasbor', 'desc' => 'Ringkasan data lengkap (pengguna, halaman, blog, foto bercerita, media, pengunjung), aktivitas login, blog terbaru, aksi cepat, info sistem'],
                             ['icon' => 'fa-file-alt', 'title' => 'Halaman (CMS)', 'desc' => 'Kelola halaman dinamis: sejarah, profil, mitra, bidang kerja, soft delete & restore'],
                             ['icon' => 'fa-cog', 'title' => 'Pengaturan Situs', 'desc' => 'Nama, deskripsi, kontak, sosmed, logo, peta lokasi, SEO'],
                             ['icon' => 'fa-database', 'title' => 'Backup Database', 'desc' => 'Buat, download, hapus, dan restore backup SQL'],
@@ -195,12 +195,10 @@
                     <p class="text-lg font-bold uppercase tracking-widest text-gray-400 mt-4 mb-2">Penulis</p>
                     @php
                         $fiturPenulis = [
-                            ['icon' => 'fa-newspaper', 'title' => 'Artikel / Blog', 'desc' => 'CRUD berita dengan status terbit/draft, soft delete, restore & force delete'],
-                            ['icon' => 'fa-tags', 'title' => 'Kategori Berita', 'desc' => 'CRUD kategori berita dengan soft delete, restore & force delete'],
+                            ['icon' => 'fa-newspaper', 'title' => 'Blog', 'desc' => 'CRUD blog dengan status terbit/draft, soft delete, restore & force delete'],
+                            ['icon' => 'fa-tags', 'title' => 'Kategori Blog', 'desc' => 'CRUD kategori blog dengan soft delete, restore & force delete'],
                             ['icon' => 'fa-photo-video', 'title' => 'Media', 'desc' => 'Upload & kelola media (gambar/video), konversi otomatis ke WebP, AJAX upload, soft delete & restore'],
-                            ['icon' => 'fa-images', 'title' => 'Galeri', 'desc' => 'CRUD album galeri dengan relasi media, toggle publik, soft delete & restore'],
-                            ['icon' => 'fa-hand-holding-heart', 'title' => 'Program Donasi', 'desc' => 'CRUD program donasi dengan soft delete, restore & force delete'],
-                            ['icon' => 'fa-heart', 'title' => 'Kelola Donasi', 'desc' => 'Lihat detail, konfirmasi, tolak, edit pesan, toggle publik/anonim, bukti transfer, soft delete & restore'],
+                            ['icon' => 'fa-images', 'title' => 'Foto Bercerita', 'desc' => 'CRUD album foto bercerita dengan relasi media, toggle publik, soft delete & restore'],
                             ['icon' => 'fa-chart-bar', 'title' => 'Statistik Pengunjung', 'desc' => 'Grafik kunjungan situs'],
                             ['icon' => 'fa-history', 'title' => 'Aktivitas Login', 'desc' => 'Log riwayat login penulis'],
                             ['icon' => 'fa-user-edit', 'title' => 'Profil', 'desc' => 'Edit profil akun (nama, email, password, nomor HP, keterangan singkat)'],

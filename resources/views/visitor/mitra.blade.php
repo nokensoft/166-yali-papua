@@ -1,245 +1,129 @@
 @extends('layouts.visitor')
-@section('title', 'Mitra Kerja - ' . ($situs['nama_situs'] ?? 'YALI Papua'))
-@section('seo-title', 'Mitra Kerja & Sponsor YALI Papua')
-@section('seo-description', $halaman->keterangan ?? 'Daftar 49 jaringan mitra kerja YALI Papua dalam skala lokal, nasional, dan internasional.')
+@section('title', 'Mitra - ' . ($situs['nama_situs'] ?? 'YALI Papua'))
+@section('seo-title', 'Mitra - ' . ($situs['nama_situs'] ?? 'YALI Papua'))
+@section('seo-description', 'Bersama mitra, kami memperkuat gerakan pelestarian lingkungan dan pemberdayaan masyarakat adat Papua.')
 
 @section('json-ld')
-<script type="application/ld+json">{!! json_encode(['@context'=>'https://schema.org','@type'=>'BreadcrumbList','itemListElement'=>[['@type'=>'ListItem','position'=>1,'name'=>'Beranda','item'=>route('beranda')],['@type'=>'ListItem','position'=>2,'name'=>'Tentang','item'=>route('profil')],['@type'=>'ListItem','position'=>3,'name'=>'Mitra Kerja']]], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) !!}</script>
+<script type="application/ld+json">{!! json_encode(['@context'=>'https://schema.org','@type'=>'BreadcrumbList','itemListElement'=>[['@type'=>'ListItem','position'=>1,'name'=>'Beranda','item'=>route('beranda')],['@type'=>'ListItem','position'=>2,'name'=>'Mitra','item'=>route('mitra')]]], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) !!}</script>
 @endsection
 
-@php
-$mitraData = [
-    'pemerintah' => [
-        'label'      => 'Pemerintah',
-        'icon'       => 'fa-landmark',
-        'badge'      => 'bg-blue-50 text-blue-700',
-        'mitra' => [
-            [1,  'Menteri Kehutanan',  '',  'https://www.kehutanan.go.id/'],
-            [2,  'Kabupaten Jayapura', '',  'jayapurakab.go.id'],
-            [3,  'Kabupaten Mappi',    '',  'https://mappikab.go.id/'],
-            [4,  'Kabupaten Sarmi',    '',  'https://www.sarmikab.go.id'],
-        ],
-    ],
-    'adat' => [
-        'label'      => 'Adat & Komunitas',
-        'icon'       => 'fa-users',
-        'badge'      => 'bg-amber-50 text-amber-700',
-        'mitra' => [
-            [5,  'Dewan Adat Suku di Kabupaten Jayapura', 'Ada 9 dewan adat suku di Kab. Jayapura', ''],
-            [6,  'Dewan Adat Suku di Kabupaten Sarmi',    'Ada 5 suku besar di Kabupaten Sarmi',    ''],
-            [7,  'Ikatan Perempuan Mappi',                '',                                        ''],
-            [8,  'Organisasi Perempuan Adat Namblong',    'ORPA Namblong',                           ''],
-            [9,  'LMA Kabupaten Mappi',                   'Lembaga Masyarakat Adat Kab. Mappi',      ''],
-            [10, 'LMA Kabupaten Sarmi',                   'Lembaga Masyarakat Adat Kab. Sarmi',      ''],
-        ],
-    ],
-    'ngo_lokal' => [
-        'label'      => 'NGO Lokal Papua',
-        'icon'       => 'fa-hand-holding-heart',
-        'badge'      => 'bg-green-50 text-green-700',
-        'mitra' => [
-            [11, 'KIPRa Papua',        'Yayasan Konsultasi Independen Pemberdayaan Masyarakat Papua', 'https://www.instagram.com/kipra_papua/'],
-            [12, 'JERAT Papua',        'Jaringan Kerja Rakyat Papua',                                'https://www.jeratpapua.org/'],
-            [13, 'WALHI Papua',        'Wahana Lingkungan Hidup Papua',                              'https://www.instagram.com/walhi_papua/'],
-            [14, 'FOKER Papua',        'Forum Kerjasama LSM Papua',                                  'https://www.tanahpapua.org/'],
-            [15, 'YALI Papua',         'Yayasan Lingkungan Hidup Papua',                             'https://yalipapua.org/'],
-            [16, 'INTSIA Papua',       '',                                                            'intsiapapua.org'],
-            [17, 'LEKAT',              'Lembaga Pengkajian dan Pemberdayaan Masyarakat Adat',         'https://lekatpapua.org/'],
-            [18, 'RUMSRAM',            '',                                                            'rumsram.org'],
-            [19, 'YPMD Papua',         'Yayasan Pengembangan Masyarakat Desa Papua',                 'ypmdpapua.or.id'],
-            [20, 'WWF Regional Papua', 'World Wide Fund for Nature Regional Papua',                   'wwf.id'],
-            [21, 'KIPAS',              'Komunitas Masyarakat Peduli Alam dan Lingkungan',             ''],
-            [22, 'YWSS',               'Yayasan Wahana Sejahtera Sorong',                            ''],
-        ],
-    ],
-    'ngo_nasional' => [
-        'label'      => 'NGO Nasional',
-        'icon'       => 'fa-globe',
-        'badge'      => 'bg-purple-50 text-purple-700',
-        'mitra' => [
-            [23, 'JKPP',                         'Jaringan Kerja Pemetaan Partisipatif',                   'https://jkpp.org/'],
-            [24, 'BRWA',                         'Badan Registrasi Wilayah Adat',                          'brwa.or.id'],
-            [25, 'KEMITRAAN Indonesia',           '',                                                       'kemitraan.or.id'],
-            [26, 'HUMA',                         'Perkumpulan untuk Pembaharuan Hukum Berbasis Masyarakat', 'huma.or.id'],
-            [27, 'The Samdhana Institute',        '',                                                       'samdhana.org'],
-            [28, 'LP3AP',                        'Lembaga Pengkajian Pemberdayaan Perempuan & Anak Papua',  ''],
-            [29, 'YAPPIKA',                      '',                                                       'yappika-actionaid.or.id'],
-            [30, 'LINGKAR MADANI',               'Lingkar Madani Indonesia',                               'lingkarmadani.org'],
-            [31, 'PATTIRO',                      'Pusat Telaah dan Informasi Regional',                    'pattiro.org'],
-            [32, 'PERNIK',                       'Perkumpulan untuk Pemberdayaan dan Pendidikan',          ''],
-            [33, 'PUSAKA',                       'Yayasan Pusaka Bentala Rakyat',                          'pusaka.or.id'],
-            [34, 'WALHI Nasional',               'Wahana Lingkungan Hidup Indonesia',                      'walhi.or.id'],
-            [35, 'TLE',                          'The Local Enablers',                                     'thelocalenablers.id'],
-            [36, 'Greenpeace Indonesia',          '',                                                       'greenpeace.org/indonesia'],
-            [37, 'EcoNusa',                      'Yayasan Ekosistem Nusantara Berkelanjutan',              'econusa.id'],
-            [38, 'YADUPA',                       'Yayasan Pendidikan Kebudayaan Papua',                    'yadupa.org'],
-            [39, 'Dewan Adat TABI',              '',                                                       ''],
-            [40, 'Dewan Adat Papua',             '',                                                       'dewanadatpapua.org'],
-            [41, 'Solidaritas Perempuan Adat Papua', 'SPP',                                               '@solidaritasperempuan'],
-            [42, 'JUBI',                         '',                                                       'jubi.id'],
-            [43, 'Yayasan SATUNAMA',             'Yogyakarta',                                             'satunama.org'],
-            [44, 'SKALA',                        'Sinergi Kapasitas Lintas Organisasi',                    'skala.or.id'],
-            [45, 'WGGI',                         'Working Group on Forest Tenures',                        'wggt.or.id'],
-            [46, 'AMAN',                         'Aliansi Masyarakat Adat Nusantara',                     'aman.or.id'],
-            [47, 'PUTER',                        'Yayasan Puter Indonesia',                                'puter.or.id'],
-            [48, 'KPA',                          'Konsorsium Pembaruan Agraria',                           'kpa.or.id'],
-            [49, 'PENABULU',                     'Yayasan Penabulu',                                       'penabulu.id'],
-        ],
-    ],
-];
-@endphp
-
 @section('content')
-    @include('partials.page-banner', [
-        'title' => 'Jaringan Mitra',
-        'breadcrumb' => '<a href="' . route('profil') . '" class="hover:text-white transition">Tentang</a> <i class="fa-solid fa-chevron-right text-xs mx-1"></i> Mitra Kerja',
-    ])
-
-    {{-- Stats Bar --}}
-    <div class="bg-white border-b border-neutral-100 py-6">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <div class="text-center">
-                    <p class="text-3xl font-black text-secondary">49</p>
-                    <p class="text-sm font-semibold uppercase tracking-wider text-neutral-500 mt-0.5">Total Mitra</p>
-                </div>
-                <div class="text-center">
-                    <p class="text-3xl font-black text-blue-600">4</p>
-                    <p class="text-sm font-semibold uppercase tracking-wider text-neutral-500 mt-0.5">Pemerintah</p>
-                </div>
-                <div class="text-center">
-                    <p class="text-3xl font-black text-green-600">12</p>
-                    <p class="text-sm font-semibold uppercase tracking-wider text-neutral-500 mt-0.5">NGO Lokal</p>
-                </div>
-                <div class="text-center">
-                    <p class="text-3xl font-black text-purple-600">27</p>
-                    <p class="text-sm font-semibold uppercase tracking-wider text-neutral-500 mt-0.5">NGO Nasional</p>
+    <section class="relative bg-gradient-to-br from-primary-800 via-primary-900 to-secondary-900 py-20 overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 right-10 w-80 h-80 bg-secondary-400 rounded-full blur-3xl"></div>
+        </div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+            <div class="text-center">
+                <span class="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-sm rounded-full text-sm font-medium mb-4 border border-white/20">
+                    <i class="fa-solid fa-handshake mr-1"></i> Kemitraan
+                </span>
+                <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Mitra Utama Kami</h1>
+                <p class="text-gray-300 max-w-2xl mx-auto">Bersama mitra, kami memperkuat gerakan pelestarian lingkungan dan pemberdayaan masyarakat adat Papua.</p>
+            </div>
+            <div class="mt-10 max-w-5xl mx-auto bg-white/10 backdrop-blur-sm border border-white/20 rounded-3xl p-6 sm:p-8 shadow-2xl">
+                <div class="grid lg:grid-cols-[1.25fr_auto] gap-8 items-center">
+                    <div class="text-center lg:text-left">
+                        <p class="text-primary-200 uppercase tracking-[0.2em] text-xs font-semibold mb-3">Mitra Utama</p>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-3">The David & Lucile Packard Foundation</h2>
+                        <p class="text-gray-200 leading-relaxed">Mitra utama YALI Papua dalam mendukung inisiatif pelestarian lingkungan, penguatan masyarakat adat, dan pembangunan berkelanjutan di Papua.</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-xl">
+                        <img src="{{ asset('img/mitra/David and Lucile Packard Foundation.png') }}" alt="The David & Lucile Packard Foundation" class="h-20 sm:h-24 w-auto mx-auto">
+                    </div>
                 </div>
             </div>
+            <nav class="mt-6 flex items-center justify-center gap-2 text-sm text-gray-300">
+                <a href="{{ route('beranda') }}" class="hover:text-white transition">Beranda</a>
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+                <span class="text-white font-semibold">Mitra</span>
+            </nav>
         </div>
-    </div>
+    </section>
 
-    {{-- Accordion + Tab Sidebar --}}
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col-reverse lg:flex-row gap-8 items-start"
-                 x-data="{
-                     active: 'semua',
-                     open: { pemerintah: true, adat: true, ngo_lokal: true, ngo_nasional: true },
-                     setTab(cat) {
-                         this.active = cat;
-                         if (cat === 'semua') {
-                             Object.keys(this.open).forEach(k => this.open[k] = true);
-                         } else {
-                             Object.keys(this.open).forEach(k => this.open[k] = (k === cat));
-                         }
-                     }
-                 }">
-
-                {{-- Kiri: Accordion --}}
-                <div class="flex-1 min-w-0 space-y-3">
-
-                    @foreach ($mitraData as $key => $cat)
-                    <div class="rounded-lg border border-neutral-200 overflow-hidden fade-in"
-                         x-show="active === 'semua' || active === '{{ $key }}'"
-                         x-transition:enter="transition ease-out duration-200"
-                         x-transition:enter-start="opacity-0 -translate-y-1"
-                         x-transition:enter-end="opacity-100 translate-y-0">
-
-                        {{-- Header Accordion --}}
-                        <button type="button"
-                                @click="open['{{ $key }}'] = !open['{{ $key }}']"
-                                class="w-full flex items-center justify-between px-5 py-4 bg-neutral-50 hover:bg-neutral-100 transition text-left">
-                            <div class="flex items-center gap-3">
-                                <div class="w-9 h-9 bg-secondary/10 text-secondary flex items-center justify-center rounded-lg shrink-0">
-                                    <i class="fa-solid {{ $cat['icon'] }} text-base"></i>
-                                </div>
-                                <div>
-                                    <span class="font-display font-bold text-neutral-900 text-lg">{{ $cat['label'] }}</span>
-                                    <span class="ml-2 text-sm text-neutral-400 font-normal">{{ count($cat['mitra']) }} organisasi</span>
-                                </div>
-                            </div>
-                            <i class="fa-solid fa-chevron-down text-neutral-400 text-sm transition-transform duration-200 shrink-0"
-                               :class="open['{{ $key }}'] ? 'rotate-180' : ''"></i>
-                        </button>
-
-                        {{-- Konten Accordion --}}
-                        <div x-show="open['{{ $key }}']"
-                             x-transition:enter="transition ease-out duration-200"
-                             x-transition:enter-start="opacity-0"
-                             x-transition:enter-end="opacity-100">
-                            <div class="p-5 grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
-                                @foreach ($cat['mitra'] as [$no, $nama, $fn, $web])
-                                <div class="rounded-lg bg-white border border-neutral-100 p-4 hover:border-secondary/40 hover:shadow-card transition">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <span class="text-xs font-mono text-neutral-300">#{{ sprintf('%02d', $no) }}</span>
-                                        <span class="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded-full {{ $cat['badge'] }}">
-                                            {{ Str::words($cat['label'], 1, '') }}
-                                        </span>
-                                    </div>
-                                    <h4 class="font-display font-bold text-neutral-900 text-base leading-tight">{{ $nama }}</h4>
-                                    @if($fn)
-                                        <p class="text-neutral-500 text-sm mt-0.5">{{ $fn }}</p>
-                                    @endif
-                                    @if($web)
-                                        @php
-                                            $isIg = str_starts_with($web, '@');
-                                            $url  = $isIg ? 'https://www.instagram.com/'.ltrim($web,'@') : (str_starts_with($web,'http') ? $web : 'https://'.$web);
-                                            $lbl  = $isIg ? $web : rtrim(preg_replace('#^https?://(www\.)?#','',$url),'/');
-                                        @endphp
-                                        <a href="{{ $url }}" target="_blank" rel="noopener noreferrer"
-                                           class="inline-flex items-center gap-1 text-secondary text-sm hover:underline mt-1.5">
-                                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> {{ $lbl }}
-                                        </a>
-                                    @endif
-                                </div>
-                                @endforeach
-                            </div>
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Kategori Mitra Lainnya</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">Selain mitra utama, YALI Papua didukung jaringan mitra lainnya dalam berbagai kategori berikut.</p>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" x-data="{
+                categories: [
+                    { name:'Internasional', count:3, examples:'ICRAF, EU, CGIAR' },
+                    { name:'Pemerintah/Nasional', count:3, examples:'PLCD-TF, Unibraw, BRG' },
+                    { name:'LSM Lokal/Nasional', count:6, examples:'WALHI, FOKER, Jerat, Paradisea, YKPM, LBH' },
+                    { name:'Koalisi Sipil', count:1, examples:'KO MASI' },
+                    { name:'Akademik', count:1, examples:'USTJ' }
+                ]
+            }">
+                <template x-for="(c, i) in categories" :key="i">
+                    <div class="bg-gray-50 rounded-2xl border border-gray-100 p-6 hover:shadow-lg transition">
+                        <div class="flex items-start justify-between gap-4 mb-3">
+                            <h3 class="text-lg font-bold text-gray-900" x-text="c.name"></h3>
+                            <span class="inline-flex items-center px-3 py-1 rounded-full bg-primary-100 text-primary-700 text-xs font-bold whitespace-nowrap">
+                                <span x-text="c.count"></span>&nbsp;Mitra
+                            </span>
                         </div>
+                        <p class="text-sm text-gray-500 leading-relaxed" x-text="c.examples"></p>
                     </div>
-                    @endforeach
-
-                </div>
-
-                {{-- Kanan: Tab Sidebar --}}
-                <div class="w-full lg:w-56 shrink-0">
-                    <div class="sticky top-24 rounded-lg border border-neutral-200 overflow-hidden">
-                        <div class="bg-neutral-50 px-4 py-3 border-b border-neutral-200">
-                            <p class="text-xs font-bold uppercase tracking-widest text-neutral-500">Filter Kategori</p>
-                        </div>
-                        <nav class="divide-y divide-neutral-100">
-
-                            {{-- Semua --}}
-                            <button type="button" @click="setTab('semua')"
-                                    :class="active === 'semua' ? 'bg-secondary text-white' : 'bg-white text-neutral-700 hover:bg-neutral-50'"
-                                    class="w-full flex items-center justify-between px-4 py-3 text-left transition">
-                                <div class="flex items-center gap-2.5">
-                                    <i class="fa-solid fa-border-all text-sm w-4 text-center"></i>
-                                    <span class="text-sm font-semibold">Semua</span>
-                                </div>
-                                <span class="text-xs font-bold px-1.5 py-0.5 rounded"
-                                      :class="active === 'semua' ? 'bg-white/20 text-white' : 'bg-neutral-100 text-neutral-500'">49</span>
-                            </button>
-
-                            @foreach ($mitraData as $key => $cat)
-                            <button type="button" @click="setTab('{{ $key }}')"
-                                    :class="active === '{{ $key }}' ? 'bg-secondary text-white' : 'bg-white text-neutral-700 hover:bg-neutral-50'"
-                                    class="w-full flex items-center justify-between px-4 py-3 text-left transition">
-                                <div class="flex items-center gap-2.5">
-                                    <i class="fa-solid {{ $cat['icon'] }} text-sm w-4 text-center"></i>
-                                    <span class="text-sm font-semibold">{{ $cat['label'] }}</span>
-                                </div>
-                                <span class="text-xs font-bold px-1.5 py-0.5 rounded"
-                                      :class="active === '{{ $key }}' ? 'bg-white/20 text-white' : 'bg-neutral-100 text-neutral-500'">{{ count($cat['mitra']) }}</span>
-                            </button>
-                            @endforeach
-
-                        </nav>
-                    </div>
-                </div>
-
+                </template>
             </div>
         </div>
     </section>
 
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14">
+                <span class="inline-block px-4 py-1 bg-secondary-100 text-secondary-700 rounded-full text-sm font-semibold mb-4">
+                    <i class="fa-solid fa-handshake mr-1"></i> Bermitra
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Bentuk Kemitraan</h2>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-2xl p-6 text-center border border-gray-100 hover:shadow-lg transition">
+                    <div class="w-14 h-14 bg-primary-100 text-primary-700 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-diagram-project text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">Program Bersama</h3>
+                    <p class="text-sm text-gray-500">Kerjasama program dan proyek pelestarian lingkungan.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 text-center border border-gray-100 hover:shadow-lg transition">
+                    <div class="w-14 h-14 bg-secondary-100 text-secondary-700 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-coins text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">Pendanaan</h3>
+                    <p class="text-sm text-gray-500">Dukungan pendanaan dan sumber daya untuk program kami.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 text-center border border-gray-100 hover:shadow-lg transition">
+                    <div class="w-14 h-14 bg-primary-100 text-primary-700 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-flask text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">Riset</h3>
+                    <p class="text-sm text-gray-500">Kolaborasi riset dan publikasi ilmiah.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 text-center border border-gray-100 hover:shadow-lg transition">
+                    <div class="w-14 h-14 bg-secondary-100 text-secondary-700 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-user-group text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">Volunteer</h3>
+                    <p class="text-sm text-gray-500">Volunteer dan tenaga ahli untuk program lapangan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gradient-to-br from-primary-600 to-secondary-700 text-white text-center">
+        <div class="max-w-3xl mx-auto px-4">
+            <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">Mari Bermitra untuk Papua</h2>
+            <p class="text-gray-200 mb-8">Hubungi kami untuk mendiskusikan peluang kemitraan.</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="{{ route('kontak') }}" class="px-8 py-3.5 bg-white text-primary-700 font-bold rounded-full hover:bg-primary-50 transition shadow-xl">
+                    <i class="fa-solid fa-envelope mr-2"></i>Hubungi Kami
+                </a>
+                <a href="{{ route('mitra') }}" class="px-8 py-3.5 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-primary-700 transition">
+                    <i class="fa-solid fa-download mr-2"></i>Lihat Halaman Mitra
+                </a>
+            </div>
+        </div>
+    </section>
 @endsection

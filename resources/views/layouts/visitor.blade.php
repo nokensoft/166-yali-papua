@@ -201,6 +201,8 @@
     <main class="visitor-main">
         @yield('content')
     </main>
+    {{-- Global Visitor CTA --}}
+    <x-visitor.join-cta />
 
     {{-- Footer --}}
     @include('partials.footer')
