@@ -18,7 +18,7 @@ class VisitorController extends Controller
             ->take(3)
             ->get();
 
-        $fotoBerceritaTerbaru = Galeri::with('media')->where('is_publik', true)->latest()->take(6)->get();
+        $fotoBerceritaTerbaru = Galeri::with(['media', 'coverMedia'])->where('is_publik', true)->latest()->take(6)->get();
 
         return view('visitor.beranda', compact('blogTerbaru', 'fotoBerceritaTerbaru'));
     }
@@ -143,7 +143,7 @@ class VisitorController extends Controller
     public function fotoBercerita()
     {
         $query = Galeri::withCount('media')
-            ->with('media')
+            ->with(['media', 'coverMedia'])
             ->where('is_publik', true)
             ->latest();
 
@@ -160,7 +160,7 @@ class VisitorController extends Controller
 
     public function fotoBerceritaDetail(string $slug)
     {
-        $galeri = Galeri::with('media')->where('slug', $slug)->where('is_publik', true)->firstOrFail();
+        $galeri = Galeri::with(['media', 'coverMedia'])->where('slug', $slug)->where('is_publik', true)->firstOrFail();
 
         return view('visitor.galeri-detail', compact('galeri'));
     }

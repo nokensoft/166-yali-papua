@@ -9,7 +9,7 @@
         'columns' => ['Cover', 'Judul Cerita', 'Jumlah Item Foto', 'Publik', 'Tanggal'],
         'paginator' => $galeri,
         'rows' => $galeri->map(function ($g) {
-            $cover = $g->media->first();
+            $cover = $g->coverMedia ?: $g->media->first();
             $publicUrl = (!$g->trashed() && $g->is_publik && !empty($g->slug))
                 ? route('foto-bercerita.detail', $g->slug)
                 : null;

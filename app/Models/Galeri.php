@@ -16,6 +16,7 @@ class Galeri extends Model
         'judul',
         'slug',
         'deskripsi',
+        'cover_media_id',
         'is_publik',
         'user_id',
     ];
@@ -47,5 +48,10 @@ class Galeri extends Model
             ->withPivot(['judul_item', 'keterangan_singkat', 'urutan'])
             ->withTimestamps()
             ->orderBy('galeri_media.urutan');
+    }
+
+    public function coverMedia()
+    {
+        return $this->belongsTo(Media::class, 'cover_media_id');
     }
 }

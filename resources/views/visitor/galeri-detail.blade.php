@@ -1,9 +1,12 @@
 @extends('layouts.visitor')
 @section('title', $galeri->judul . ' - Foto Bercerita - ' . ($situs['nama_situs'] ?? 'YALI Papua'))
 @section('seo-title', $galeri->judul . ' - Foto Bercerita')
-@section('seo-description', $galeri->deskripsi ?: 'Album foto bercerita ' . $galeri->judul)
-@if ($galeri->media->first())
-    @section('seo-image', $galeri->media->first()->tipe === 'video' ? 'https://img.youtube.com/vi/' . $galeri->media->first()->file_name . '/hqdefault.jpg' : asset('storage/' . $galeri->media->first()->file_path))
+@section('seo-description', strip_tags($galeri->deskripsi ?: 'Album foto bercerita ' . $galeri->judul))
+@php
+    $seoCover = $galeri->coverMedia ?: $galeri->media->first();
+@endphp
+@if ($seoCover)
+    @section('seo-image', $seoCover->tipe === 'video' ? 'https://img.youtube.com/vi/' . $seoCover->file_name . '/hqdefault.jpg' : asset('storage/' . $seoCover->file_path))
 @endif
 
 @section('json-ld')
@@ -13,7 +16,7 @@ $_bc = ['@context'=>'https://schema.org','@type'=>'BreadcrumbList','itemListElem
     ['@type'=>'ListItem','position'=>2,'name'=>'Foto Bercerita','item'=>route('foto-bercerita')],
     ['@type'=>'ListItem','position'=>3,'name'=>$galeri->judul],
 ]];
-$_ig = ['@context'=>'https://schema.org','@type'=>'ImageGallery','name'=>$galeri->judul,'description'=>$galeri->deskripsi ?? 'Album foto bercerita '.$galeri->judul,'url'=>route('foto-bercerita.detail',$galeri->slug),'numberOfItems'=>$galeri->media->count()];
+$_ig = ['@context'=>'https://schema.org','@type'=>'ImageGallery','name'=>$galeri->judul,'description'=>strip_tags($galeri->deskripsi ?? 'Album foto bercerita '.$galeri->judul),'url'=>route('foto-bercerita.detail',$galeri->slug),'numberOfItems'=>$galeri->media->count()];
 $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
 @endphp
 <script type="application/ld+json">{!! json_encode($_bc, $_f) !!}</script>
@@ -42,7 +45,34 @@ $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
                 $totalCount = $galeri->media->count();
                 $tanggal = $galeri->created_at ? $galeri->created_at->translatedFormat('d F Y') : '-';
                 $mediaItems = $galeri->media->values();
+                $cover = $galeri->coverMedia ?: $galeri->media->first();
+                $defaultDeskripsi = '<p>Dokumentasi visual kegiatan pelestarian lingkungan dan pemberdayaan masyarakat di Papua.</p>';
             @endphp
+            @if ($cover)
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6">
+                    <div class="relative overflow-hidden bg-gray-100" style="aspect-ratio: 1720 / 1080;">
+                        @if ($cover->tipe === 'video')
+                            <img src="https://img.youtube.com/vi/{{ $cover->file_name }}/hqdefault.jpg"
+                                class="w-full h-full object-cover"
+                                alt="{{ $galeri->judul }} - Cover"
+                                onerror="this.onerror=null;this.src='https://placehold.co/1720x1080'">
+                            <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
+                                <span class="bg-red-600/90 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg">
+                                    <i class="fa-solid fa-play text-xl ml-1"></i>
+                                </span>
+                            </div>
+                        @else
+                            <img src="{{ asset('storage/' . $cover->file_path) }}"
+                                class="w-full h-full object-cover"
+                                alt="{{ $galeri->judul }} - Cover"
+                                onerror="this.onerror=null;this.src='https://placehold.co/1720x1080'">
+                        @endif
+                        <div class="absolute top-4 left-4 bg-black/40 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-full font-semibold">
+                            Foto Cover
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 mb-8">
                 <div class="flex flex-wrap items-center gap-3 mb-3 text-sm text-gray-400">
@@ -50,7 +80,9 @@ $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
                     <span><i class="fa-solid fa-images mr-1"></i> {{ $totalCount }} Item Foto</span>
                 </div>
                 <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 mb-4">{{ $galeri->judul }}</h1>
-                <p class="text-gray-600 leading-relaxed">{{ $galeri->deskripsi ?: 'Dokumentasi visual kegiatan pelestarian lingkungan dan pemberdayaan masyarakat di Papua.' }}</p>
+                <div class="prose max-w-none text-gray-600 leading-relaxed">
+                    {!! $galeri->deskripsi ?: $defaultDeskripsi !!}
+                </div>
             </div>
 
             <div class="space-y-8">
@@ -83,7 +115,9 @@ $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
                         </div>
                         <div class="p-6 sm:p-8">
                             <h3 class="text-lg font-bold text-gray-900 mb-3">{{ $itemJudul }}</h3>
-                            <p class="text-gray-600 leading-relaxed">{{ $itemKeterangan }}</p>
+                            <div class="prose max-w-none text-gray-600 leading-relaxed">
+                                {!! $itemKeterangan !!}
+                            </div>
                             @if ($m->tipe === 'video')
                                 <a href="{{ 'https://www.youtube.com/watch?v=' . $m->file_name }}" target="_blank" rel="noopener noreferrer"
                                     class="inline-flex items-center mt-4 text-sm font-semibold text-red-600 hover:text-red-700 transition">

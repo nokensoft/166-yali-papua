@@ -141,7 +141,7 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 @forelse ($fotoBerceritaTerbaru->take(4) as $album)
                     @php
-                        $cover = $album->media->first();
+                        $cover = $album->coverMedia ?: $album->media->first();
                         if ($cover && ($cover->tipe ?? '') === 'video') {
                             $coverUrl = 'https://img.youtube.com/vi/' . $cover->file_name . '/hqdefault.jpg';
                         } elseif ($cover) {
@@ -159,7 +159,7 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
                         </div>
                         <div class="p-4">
                             <h3 class="text-sm font-bold text-gray-900 group-hover:text-emerald-700 transition line-clamp-2">{{ $album->judul }}</h3>
-                            <p class="text-xs text-gray-500 mt-2 line-clamp-2">{{ \Illuminate\Support\Str::limit($album->deskripsi ?: 'Dokumentasi kegiatan YALI Papua.', 100) }}</p>
+                            <p class="text-xs text-gray-500 mt-2 line-clamp-2">{{ \Illuminate\Support\Str::limit(strip_tags($album->deskripsi ?: 'Dokumentasi kegiatan YALI Papua.'), 100) }}</p>
                         </div>
                     </a>
                 @empty

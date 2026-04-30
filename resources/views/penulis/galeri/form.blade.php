@@ -24,10 +24,12 @@
             'judul' => $m->judul,
             'preview' => asset('storage/' . $m->file_path),
         ])->values()->toArray();
+
+        $initialCoverMediaId = old('cover_media_id', $editMode ? $galeri->cover_media_id : '');
     @endphp
 
     <div class="bg-white shadow-sm p-6">
-        <form action="{{ $editMode ? route('penulis.foto-bercerita.update', $galeri->id) : route('penulis.foto-bercerita.store') }}" method="POST" class="space-y-6" x-data="galeriItemsForm(@js($initialItems), @js($mediaOptions))">
+        <form action="{{ $editMode ? route('penulis.foto-bercerita.update', $galeri->id) : route('penulis.foto-bercerita.store') }}" method="POST" class="space-y-6" x-data="galeriItemsForm(@js($initialItems), @js($mediaOptions), @js($initialCoverMediaId))">
             @csrf
             @if ($editMode) @method('PUT') @endif
 
@@ -43,6 +45,53 @@
             @endif
 
             <div class="max-w-4xl">
+                <label class="text-lg font-bold uppercase text-gray-500 block mb-2">Foto Cover</label>
+                <input type="hidden" name="cover_media_id" :value="cover_media_id">
+                <input type="file" id="cover-file-input" class="hidden" accept="image/*" @change="handleCoverFileInput($event)">
+                <div @click="triggerCoverFilePicker()"
+                     @dragover.prevent="setCoverDragOver(true)"
+                     @dragleave.prevent="setCoverDragOver(false)"
+                     @drop.prevent="handleCoverFileDrop($event)"
+                     :class="cover_drag_over ? 'border-primary bg-primary/5' : 'border-gray-200 bg-white'"
+                     class="border p-2 cursor-pointer transition no-round">
+                    <template x-if="previewUrl(cover_media_id)">
+                        <div class="w-full bg-gray-100 pointer-events-none" style="aspect-ratio: 1720 / 1080;">
+                            <img :src="previewUrl(cover_media_id)" alt="Preview cover" class="w-full h-full object-contain bg-gray-100">
+                        </div>
+                    </template>
+                    <template x-if="!previewUrl(cover_media_id)">
+                        <div class="w-full bg-gray-100 border-2 border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400" style="aspect-ratio: 1720 / 1080;">
+                            <i class="fas fa-image text-2xl mb-2"></i>
+                            <span class="text-xs uppercase tracking-wide">Drag & Drop Foto Cover di Sini</span>
+                            <span class="text-xs mt-1">atau klik untuk pilih file</span>
+                        </div>
+                    </template>
+                </div>
+                <div class="flex flex-wrap items-center gap-3 mt-2">
+                    <button type="button" @click.stop="openGalleryModalForCover()"
+                            class="text-xs font-bold uppercase tracking-wide text-primary hover:text-red-700 underline">
+                        Pilih dari Media
+                    </button>
+                    <button type="button" @click="triggerCoverFilePicker()"
+                            class="text-xs font-bold uppercase tracking-wide text-dark hover:text-gray-700 underline">
+                        Pilih File
+                    </button>
+                    <button type="button" @click="clearCoverMedia()" x-show="cover_media_id"
+                            class="text-red-600 hover:text-red-700 text-xs font-bold uppercase tracking-wide">
+                        <i class="fas fa-times mr-1"></i>Hapus Cover
+                    </button>
+                </div>
+                <p class="text-xs text-gray-500 mt-2" x-show="selectedMediaTitle(cover_media_id)">
+                    Cover dipilih: <span class="font-semibold" x-text="selectedMediaTitle(cover_media_id)"></span>
+                </p>
+                <p class="text-xs text-primary mt-2" x-show="cover_uploading">
+                    <i class="fas fa-spinner fa-spin mr-1"></i>Mengupload foto cover...
+                </p>
+                <p class="text-xs text-red-600 mt-2" x-show="cover_upload_error" x-text="cover_upload_error"></p>
+                @error('cover_media_id') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+            </div>
+
+            <div class="max-w-4xl">
                 <label class="text-lg font-bold uppercase text-gray-500 block mb-2">Judul Cerita</label>
                 <input type="text" name="judul" value="{{ old('judul', $editMode ? $galeri->judul : '') }}" required
                        class="w-full border border-gray-300 p-4 text-lg focus:border-primary focus:outline-none transition no-round"
@@ -52,7 +101,7 @@
 
             <div class="max-w-4xl">
                 <label class="text-lg font-bold uppercase text-gray-500 block mb-2">Deskripsi</label>
-                <textarea name="deskripsi" rows="3"
+                <textarea name="deskripsi" id="galeri-deskripsi-editor" data-rich-editor="galeri" rows="3"
                           class="w-full border border-gray-300 p-4 text-lg focus:border-primary focus:outline-none transition no-round resize-none"
                           placeholder="Deskripsi cerita (opsional)">{{ old('deskripsi', $editMode ? $galeri->deskripsi : '') }}</textarea>
             </div>
@@ -70,7 +119,7 @@
                     </p>
 
                     <div class="space-y-4">
-                        <template x-for="(item, index) in items" :key="index">
+                        <template x-for="(item, index) in items" :key="item.item_uid">
                             <div class="border border-gray-200 p-4 bg-gray-50">
                                 <div class="flex items-center justify-between mb-4">
                                     <h3 class="font-bold text-gray-700">Item Foto <span x-text="index + 1"></span></h3>
@@ -82,7 +131,7 @@
                                 <div class="mb-4">
                                     <label class="text-sm font-bold uppercase text-gray-500 block mb-2">Foto Item</label>
                                     <input type="hidden" :name="`items[${index}][media_id]`" :value="item.media_id">
-                                    <input type="file" :id="`item-file-input-${index}`" class="hidden" accept="image/*" @change="handleItemFileInput(index, $event)">
+                                    <input type="file" :id="`item-file-input-${item.item_uid}`" class="hidden" accept="image/*" @change="handleItemFileInput(index, $event)">
                                     <div @click="triggerItemFilePicker(index)"
                                          @dragover.prevent="setItemDragOver(index, true)"
                                          @dragleave.prevent="setItemDragOver(index, false)"
@@ -136,7 +185,7 @@
 
                                 <div>
                                     <label class="text-sm font-bold uppercase text-gray-500 block mb-2">Keterangan Singkat</label>
-                                    <textarea :name="`items[${index}][keterangan_singkat]`" x-model="item.keterangan_singkat" rows="3"
+                                    <textarea :name="`items[${index}][keterangan_singkat]`" :id="`item-keterangan-${item.item_uid}`" data-rich-editor="galeri" x-model="item.keterangan_singkat" rows="3"
                                               class="w-full border border-gray-300 p-3 text-sm focus:border-primary focus:outline-none transition no-round resize-none"
                                               placeholder="Keterangan singkat di bawah foto"></textarea>
                                 </div>
@@ -217,48 +266,79 @@
 @endsection
 
 @push('scripts')
+<script src="{{ asset('vendor/ckeditor5/ckeditor.js') }}"></script>
 <script>
-function galeriItemsForm(initialItems, mediaOptions) {
+function galeriItemsForm(initialItems, mediaOptions, initialCoverMediaId) {
+    const createItemUid = () => `item-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    const createItemState = (item = {}) => ({
+        item_uid: item.item_uid ?? createItemUid(),
+        media_id: item.media_id ? String(item.media_id) : '',
+        judul: item.judul ?? '',
+        keterangan_singkat: item.keterangan_singkat ?? '',
+        uploading: false,
+        upload_error: '',
+        drag_over: false,
+    });
     return {
-        items: (Array.isArray(initialItems) && initialItems.length ? initialItems : [{
-            media_id: '',
-            judul: '',
-            keterangan_singkat: '',
-        }]).map(item => ({
-            media_id: item.media_id ? String(item.media_id) : '',
-            judul: item.judul ?? '',
-            keterangan_singkat: item.keterangan_singkat ?? '',
-            uploading: false,
-            upload_error: '',
-            drag_over: false,
-        })),
+        items: (Array.isArray(initialItems) && initialItems.length ? initialItems : [{}]).map(createItemState),
         mediaOptions: Array.isArray(mediaOptions)
             ? mediaOptions.map(option => ({ ...option, id: String(option.id) }))
             : [],
+        cover_media_id: initialCoverMediaId ? String(initialCoverMediaId) : '',
+        cover_uploading: false,
+        cover_upload_error: '',
+        cover_drag_over: false,
         showGalleryModal: false,
         activeItemIndex: null,
+        activeCoverSelection: false,
         modalSelectedId: '',
-        addItem() {
-            this.items.push({
-                media_id: '',
-                judul: '',
-                keterangan_singkat: '',
-                uploading: false,
-                upload_error: '',
-                drag_over: false,
+        richTextEditors: {},
+        richTextToolbar: ['bold', 'italic', 'link', 'blockQuote', 'bulletedList', 'numberedList'],
+        init() {
+            this.$nextTick(() => this.initializeRichTextEditors());
+            this.$watch('items.length', () => {
+                this.$nextTick(() => this.initializeRichTextEditors());
             });
+            this.$el.addEventListener('submit', () => this.syncRichTextEditors());
+        },
+        addItem() {
+            this.items.push(createItemState());
         },
         removeItem(index) {
             if (this.items.length <= 1) return;
             this.items.splice(index, 1);
+            this.cleanupRichTextEditors();
             if (this.activeItemIndex === index) {
                 this.closeGalleryModal();
             } else if (this.activeItemIndex !== null && this.activeItemIndex > index) {
                 this.activeItemIndex -= 1;
             }
         },
+        triggerCoverFilePicker() {
+            const input = document.getElementById('cover-file-input');
+            if (input) input.click();
+        },
+        handleCoverFileInput(event) {
+            const file = event.target?.files?.[0];
+            if (file) {
+                this.uploadMediaForCover(file);
+            }
+            event.target.value = '';
+        },
+        setCoverDragOver(value) {
+            this.cover_drag_over = !!value;
+        },
+        handleCoverFileDrop(event) {
+            this.setCoverDragOver(false);
+            const file = event.dataTransfer?.files?.[0];
+            if (file) {
+                this.uploadMediaForCover(file);
+            }
+        },
         triggerItemFilePicker(index) {
-            const input = document.getElementById(`item-file-input-${index}`);
+            const item = this.items[index];
+            if (!item) return;
+            const input = document.getElementById(`item-file-input-${item.item_uid}`);
             if (input) input.click();
         },
         handleItemFileInput(index, event) {
@@ -279,51 +359,67 @@ function galeriItemsForm(initialItems, mediaOptions) {
                 this.uploadMediaForItem(index, file);
             }
         },
+        async uploadMediaFile(file, mediaTitle) {
+            if (!file.type || !file.type.startsWith('image/')) {
+                throw new Error('File harus berupa gambar.');
+            }
+
+            const formData = new FormData();
+            formData.append('judul', mediaTitle || 'Foto');
+            formData.append('file', file);
+
+            const response = await fetch('{{ route("penulis.media.upload-ajax") }}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Accept': 'application/json',
+                },
+                body: formData,
+            });
+
+            if (!response.ok) {
+                let errorMessage = 'Gagal upload foto baru.';
+                try {
+                    const errorData = await response.json();
+                    errorMessage = errorData.message
+                        || (errorData.errors && Object.values(errorData.errors).flat()[0])
+                        || errorMessage;
+                } catch (_) {}
+
+                throw new Error(errorMessage);
+            }
+
+            return response.json();
+        },
+        async uploadMediaForCover(file) {
+            this.cover_uploading = true;
+            this.cover_upload_error = '';
+
+            try {
+                const uploadedMedia = await this.uploadMediaFile(file, file.name.replace(/\.[^/.]+$/, '') || 'Cover');
+                this.upsertMediaOption(uploadedMedia);
+                this.cover_media_id = String(uploadedMedia.id);
+            } catch (error) {
+                this.cover_upload_error = error?.message || 'Terjadi kesalahan saat upload foto cover.';
+            } finally {
+                this.cover_uploading = false;
+                this.cover_drag_over = false;
+            }
+        },
         async uploadMediaForItem(index, file) {
             const item = this.items[index];
             if (!item) return;
-
-            if (!file.type || !file.type.startsWith('image/')) {
-                item.upload_error = 'File harus berupa gambar.';
-                return;
-            }
 
             item.uploading = true;
             item.upload_error = '';
 
             try {
-                const formData = new FormData();
                 const mediaTitle = (item.judul || '').trim() || file.name.replace(/\.[^/.]+$/, '');
-                formData.append('judul', mediaTitle || 'Foto');
-                formData.append('file', file);
-
-                const response = await fetch('{{ route("penulis.media.upload-ajax") }}', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                        'Accept': 'application/json',
-                    },
-                    body: formData,
-                });
-
-                if (!response.ok) {
-                    let errorMessage = 'Gagal upload foto baru.';
-                    try {
-                        const errorData = await response.json();
-                        errorMessage = errorData.message
-                            || (errorData.errors && Object.values(errorData.errors).flat()[0])
-                            || errorMessage;
-                    } catch (_) {}
-
-                    item.upload_error = errorMessage;
-                    return;
-                }
-
-                const uploadedMedia = await response.json();
+                const uploadedMedia = await this.uploadMediaFile(file, mediaTitle || 'Foto');
                 this.upsertMediaOption(uploadedMedia);
                 item.media_id = String(uploadedMedia.id);
-            } catch (_) {
-                item.upload_error = 'Terjadi kesalahan saat upload foto.';
+            } catch (error) {
+                item.upload_error = error?.message || 'Terjadi kesalahan saat upload foto.';
             } finally {
                 item.uploading = false;
                 item.drag_over = false;
@@ -342,8 +438,15 @@ function galeriItemsForm(initialItems, mediaOptions) {
             }
             this.mediaOptions[existingIndex] = option;
         },
+        openGalleryModalForCover() {
+            this.activeCoverSelection = true;
+            this.activeItemIndex = null;
+            this.modalSelectedId = this.cover_media_id ? String(this.cover_media_id) : '';
+            this.showGalleryModal = true;
+        },
         openGalleryModal(index) {
             if (!this.items[index]) return;
+            this.activeCoverSelection = false;
             this.activeItemIndex = index;
             this.modalSelectedId = this.items[index].media_id ? String(this.items[index].media_id) : '';
             this.showGalleryModal = true;
@@ -351,12 +454,19 @@ function galeriItemsForm(initialItems, mediaOptions) {
         closeGalleryModal() {
             this.showGalleryModal = false;
             this.activeItemIndex = null;
+            this.activeCoverSelection = false;
             this.modalSelectedId = '';
         },
         chooseModalMedia(mediaId) {
             this.modalSelectedId = String(mediaId);
         },
         confirmGallerySelection() {
+            if (this.activeCoverSelection) {
+                this.cover_media_id = this.modalSelectedId ? String(this.modalSelectedId) : '';
+                this.cover_upload_error = '';
+                this.closeGalleryModal();
+                return;
+            }
             if (this.activeItemIndex === null || !this.items[this.activeItemIndex]) {
                 this.closeGalleryModal();
                 return;
@@ -369,6 +479,10 @@ function galeriItemsForm(initialItems, mediaOptions) {
             this.items[index].media_id = '';
             this.items[index].upload_error = '';
         },
+        clearCoverMedia() {
+            this.cover_media_id = '';
+            this.cover_upload_error = '';
+        },
         selectedMedia(mediaId) {
             return this.mediaOptions.find(option => option.id === String(mediaId)) ?? null;
         },
@@ -379,6 +493,51 @@ function galeriItemsForm(initialItems, mediaOptions) {
         previewUrl(mediaId) {
             const selected = this.selectedMedia(mediaId);
             return selected ? selected.preview : '';
+        },
+        initializeRichTextEditors() {
+            if (typeof window.ClassicEditor === 'undefined') return;
+
+            this.cleanupRichTextEditors();
+
+            this.$el.querySelectorAll('textarea[data-rich-editor="galeri"]').forEach((textarea) => {
+                const key = textarea.id || textarea.name;
+                if (!key || this.richTextEditors[key]) return;
+
+                ClassicEditor.create(textarea, {
+                    toolbar: this.richTextToolbar,
+                    language: 'id',
+                })
+                    .then((editor) => {
+                        this.richTextEditors[key] = editor;
+                        editor.model.document.on('change:data', () => {
+                            textarea.value = editor.getData();
+                        });
+                    })
+                    .catch(() => {});
+            });
+        },
+        cleanupRichTextEditors() {
+            const activeKeys = new Set(
+                Array.from(this.$el.querySelectorAll('textarea[data-rich-editor="galeri"]'))
+                    .map((textarea) => textarea.id || textarea.name)
+                    .filter(Boolean)
+            );
+
+            Object.entries(this.richTextEditors).forEach(([key, editor]) => {
+                if (!activeKeys.has(key)) {
+                    if (editor && typeof editor.destroy === 'function') {
+                        editor.destroy();
+                    }
+                    delete this.richTextEditors[key];
+                }
+            });
+        },
+        syncRichTextEditors() {
+            Object.values(this.richTextEditors).forEach((editor) => {
+                if (editor && typeof editor.updateSourceElement === 'function') {
+                    editor.updateSourceElement();
+                }
+            });
         }
     };
 }

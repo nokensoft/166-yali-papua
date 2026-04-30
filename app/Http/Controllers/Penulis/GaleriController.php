@@ -13,7 +13,7 @@ class GaleriController extends Controller
     public function index(Request $request)
     {
         $query = Galeri::withCount('media')
-            ->with('media');
+            ->with(['media', 'coverMedia']);
 
         if ($request->filled('cari')) {
             $query->where('judul', 'like', "%{$request->cari}%");
@@ -41,7 +41,8 @@ class GaleriController extends Controller
 
         $galeri = Galeri::create([
             'judul' => $validated['judul'],
-            'deskripsi' => $validated['deskripsi'] ?? null,
+            'deskripsi' => $this->sanitizeRichText($validated['deskripsi'] ?? null),
+            'cover_media_id' => (int) $validated['cover_media_id'],
             'user_id' => session('user.id'),
         ]);
         $galeri->media()->sync($this->prepareMediaSyncData($validated['items']));
@@ -51,7 +52,7 @@ class GaleriController extends Controller
 
     public function edit(string $id)
     {
-        $galeri = Galeri::with('media')->findOrFail($id);
+        $galeri = Galeri::with(['media', 'coverMedia'])->findOrFail($id);
         $media = Media::where('tipe', 'foto')->latest()->get();
 
         return view('penulis.galeri.form', compact('galeri', 'media') + ['editMode' => true]);
@@ -64,7 +65,8 @@ class GaleriController extends Controller
 
         $galeri->update([
             'judul' => $validated['judul'],
-            'deskripsi' => $validated['deskripsi'] ?? null,
+            'deskripsi' => $this->sanitizeRichText($validated['deskripsi'] ?? null),
+            'cover_media_id' => (int) $validated['cover_media_id'],
         ]);
         $galeri->media()->sync($this->prepareMediaSyncData($validated['items']));
 
@@ -110,6 +112,13 @@ class GaleriController extends Controller
         return $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
+            'cover_media_id' => [
+                'required',
+                'integer',
+                Rule::exists('media', 'id')->where(static function ($query) {
+                    $query->where('tipe', 'foto')->whereNull('deleted_at');
+                }),
+            ],
             'items' => 'required|array|min:1',
             'items.*.media_id' => [
                 'required',
@@ -120,8 +129,10 @@ class GaleriController extends Controller
                 }),
             ],
             'items.*.judul' => 'required|string|max:255',
-            'items.*.keterangan_singkat' => 'nullable|string|max:500',
+            'items.*.keterangan_singkat' => 'nullable|string|max:5000',
         ], [
+            'cover_media_id.required' => 'Foto cover wajib dipilih dari Media.',
+            'cover_media_id.exists' => 'Foto cover harus berasal dari fitur Media.',
             'items.required' => 'Minimal tambahkan 1 item foto bercerita.',
             'items.min' => 'Minimal tambahkan 1 item foto bercerita.',
             'items.*.media_id.required' => 'Setiap item wajib memilih foto dari Media.',
@@ -138,11 +149,22 @@ class GaleriController extends Controller
         foreach (array_values($items) as $index => $item) {
             $syncData[(int) $item['media_id']] = [
                 'judul_item' => $item['judul'],
-                'keterangan_singkat' => $item['keterangan_singkat'] ?: null,
+                'keterangan_singkat' => $this->sanitizeRichText($item['keterangan_singkat'] ?? null),
                 'urutan' => $index + 1,
             ];
         }
 
         return $syncData;
+    }
+
+    private function sanitizeRichText(?string $value): ?string
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        $clean = trim(strip_tags($value, '<p><br><strong><b><em><i><a><blockquote><ul><ol><li>'));
+
+        return $clean !== '' ? $clean : null;
     }
 }

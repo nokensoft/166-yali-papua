@@ -63,6 +63,7 @@ class GaleriSeeder extends Seeder
             $galeri->judul = $albumData['judul'];
             $galeri->deskripsi = $albumData['deskripsi'];
             $galeri->user_id = $userId;
+            $galeri->cover_media_id = null;
             $galeri->save();
 
             if ($galeri->trashed()) {
@@ -90,6 +91,8 @@ class GaleriSeeder extends Seeder
             }
 
             $galeri->media()->sync($syncData);
+            $galeri->cover_media_id = !empty($syncData) ? (int) array_key_first($syncData) : null;
+            $galeri->save();
 
             $this->command->info("Album \"{$galeri->judul}\" berhasil disinkronkan dengan {$attachedCount} foto.");
         }

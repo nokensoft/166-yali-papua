@@ -56,10 +56,10 @@
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 @forelse ($fotoBerceritaList as $album)
                     @php
-                        $cover = $album->media->first();
+                        $cover = $album->coverMedia ?: $album->media->first();
                         $mediaCount = $album->media_count ?? $album->media->count();
                         $tanggal = $album->created_at ? $album->created_at->translatedFormat('M Y') : null;
-                        $ringkasan = $album->deskripsi ?: ($cover?->pivot->keterangan_singkat ?? null);
+                        $ringkasan = $album->deskripsi ?: ($album->media->first()?->pivot->keterangan_singkat ?? null);
                     @endphp
                     <a href="{{ route('foto-bercerita.detail', $album->slug) }}"
                         class="group block bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
@@ -86,7 +86,7 @@
                                 <span class="text-xs text-gray-400">{{ $tanggal }}</span>
                             @endif
                             <h3 class="text-base font-bold text-gray-900 mt-1 mb-2 group-hover:text-primary-700 transition line-clamp-2">{{ $album->judul }}</h3>
-                            <p class="text-sm text-gray-500 line-clamp-2">{{ $ringkasan ?: 'Dokumentasi kegiatan pelestarian lingkungan bersama masyarakat Papua.' }}</p>
+                            <p class="text-sm text-gray-500 line-clamp-2">{{ strip_tags($ringkasan ?: 'Dokumentasi kegiatan pelestarian lingkungan bersama masyarakat Papua.') }}</p>
                         </div>
                     </a>
                 @empty
