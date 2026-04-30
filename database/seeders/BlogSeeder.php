@@ -13,10 +13,10 @@ class BlogSeeder extends Seeder
 {
     public function run(): void
     {
-        $sourceDir = public_path('blog');
+        $sourceDir = public_path('blogs');
 
         if (!File::isDirectory($sourceDir)) {
-            $this->command->warn('Direktori public/blog/ tidak ditemukan.');
+            $this->command->warn('Direktori public/blogs/ tidak ditemukan.');
             return;
         }
 
@@ -26,7 +26,7 @@ class BlogSeeder extends Seeder
             ->values();
 
         if ($directories->isEmpty()) {
-            $this->command->warn('Tidak ada folder blog di public/blog/.');
+            $this->command->warn('Tidak ada folder blog di public/blogs/.');
             return;
         }
 
@@ -65,7 +65,7 @@ class BlogSeeder extends Seeder
                 ->first(fn ($file) => in_array(strtolower($file->getExtension()), ['jpg', 'jpeg', 'png', 'gif', 'webp'], true));
 
             $mediaId = $imageFile
-                ? Media::where('file_path', 'media/blog/' . $imageFile->getFilename())->value('id')
+                ? Media::where('file_path', 'media/blogs/' . $imageFile->getFilename())->value('id')
                 : null;
 
             $publishedAt = now()->subDays($total - $index - 1);
@@ -90,7 +90,7 @@ class BlogSeeder extends Seeder
             $created++;
         }
 
-        $this->command->info("BlogSeeder: {$created} postingan berhasil dibuat dari public/blog/.");
+        $this->command->info("BlogSeeder: {$created} postingan berhasil dibuat dari public/blogs/.");
     }
 
     private function extractTitleAndContent(string $rawMarkdown, string $fallbackTitle): array
