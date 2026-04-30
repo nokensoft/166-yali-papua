@@ -54,7 +54,7 @@ Route::middleware('track.visitor')->group(function () {
     Route::get('/sejarah',      fn () => app(VisitorController::class)->halaman('sejarah')     )->name('sejarah');
     Route::view('/profil', 'visitor.profil')->name('profil');
     Route::get('/pilar-kerja', fn () => app(VisitorController::class)->halaman('bidang-kerja'))->name('pilar-kerja');
-    Route::get('/faq',          fn () => app(VisitorController::class)->halaman('faq')         )->name('faq');
+    Route::view('/faq', 'visitor.faq')->name('faq');
     Route::get('/disclaimer',   fn () => app(VisitorController::class)->halaman('disclaimer')  )->name('disclaimer');
     Route::get('/mitra',        [VisitorController::class, 'mitra'])->name('mitra');
     Route::view('/kepengurusan', 'visitor.pengurusan')->name('kepengurusan');

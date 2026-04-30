@@ -24,6 +24,12 @@ class DashboardController extends Controller
             ->latest()
             ->take(5)
             ->get();
-        return view('penulis.dashboard', compact('stats', 'blogTerbaru'));
+
+        $fotoBerceritaTerbaru = Galeri::withCount('media')
+            ->latest()
+            ->take(5)
+            ->get();
+
+        return view('penulis.dashboard', compact('stats', 'blogTerbaru', 'fotoBerceritaTerbaru'));
     }
 }

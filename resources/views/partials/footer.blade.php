@@ -8,22 +8,73 @@
         default => route('login'),
     };
 @endphp
+<div x-data="{ developmentInfoOpen: false }">
 
 @if ($waNumber)
     <a href="https://wa.me/{{ $waNumber }}?text=Halo%20YALI%20Papua%2C%20saya%20ingin%20bertanya."
        target="_blank"
        rel="noopener noreferrer"
        aria-label="Chat CS WhatsApp"
-       class="fixed bottom-24 right-6 w-12 h-12 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg flex items-center justify-center transition z-50">
+       class="fixed bottom-6 right-6 w-12 h-12 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg flex items-center justify-center transition z-50">
         <i class="fa-brands fa-whatsapp text-2xl"></i>
     </a>
 @endif
+<div class="fixed bottom-24 right-6 z-50 flex items-center gap-2">
+    <span class="px-3 py-1.5 bg-white text-primary-800 text-xs font-semibold rounded-full border border-primary-100 shadow-lg">
+        Website dalam pengembangan
+    </span>
+    <button type="button"
+            @click="developmentInfoOpen = true"
+            aria-label="Informasi website dalam pengembangan"
+            class="w-12 h-12 bg-primary-700 hover:bg-primary-800 text-white rounded-full shadow-lg flex items-center justify-center transition">
+        <i class="fa-solid fa-circle-info text-xl"></i>
+    </button>
+</div>
 
 <button id="btnTop"
         onclick="window.scrollTo({top:0,behavior:'smooth'})"
-        class="fixed bottom-6 right-6 w-12 h-12 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-lg flex items-center justify-center transition z-50 opacity-0 translate-y-4 pointer-events-none">
+        class="fixed bottom-44 right-6 w-12 h-12 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-lg flex items-center justify-center transition z-50 opacity-0 translate-y-4 pointer-events-none">
     <i class="fa-solid fa-arrow-up"></i>
 </button>
+<div x-show="developmentInfoOpen"
+     x-cloak
+     @keydown.escape.window="developmentInfoOpen = false"
+     class="fixed inset-0 z-[70] flex items-center justify-center p-4"
+     x-transition.opacity>
+    <div class="absolute inset-0 bg-black/50" @click="developmentInfoOpen = false"></div>
+    <div class="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden" x-transition.scale>
+        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+            <h3 class="text-lg font-bold text-neutral-900">Informasi Disclaimer</h3>
+            <button type="button"
+                    @click="developmentInfoOpen = false"
+                    class="text-gray-400 hover:text-gray-600 transition"
+                    aria-label="Tutup modal disclaimer">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+        <div class="px-6 py-5">
+            <p class="text-neutral-700 leading-relaxed">
+                Ini merupakan tampilan website baru dari YALI Papua. Konten teks, gambar, dan video masih dalam tahap pengembangan.
+            </p>
+            <p class="mt-4 text-sm text-neutral-500">
+                Powered by
+                <a href="https://nokensoft.com"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="text-primary-700 hover:text-primary-800 underline font-semibold">
+                    Nokensoft.com
+                </a>
+            </p>
+        </div>
+        <div class="px-6 pb-6">
+            <button type="button"
+                    @click="developmentInfoOpen = false"
+                    class="w-full inline-flex items-center justify-center px-4 py-2.5 bg-primary-700 hover:bg-primary-800 text-white font-semibold rounded-lg transition">
+                Tutup
+            </button>
+        </div>
+    </div>
+</div>
 
 <footer class="bg-primary-950 text-gray-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -99,3 +150,4 @@
         </div>
     </div>
 </footer>
+</div>

@@ -414,21 +414,7 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
                 Setiap kontribusi Anda sangat berarti untuk keberlangsungan program pelestarian lingkungan dan pemberdayaan masyarakat adat Papua.
             </p>
 
-            <div class="grid sm:grid-cols-3 gap-6 mb-10">
-                <div class="p-6 rounded-2xl border-2 border-gray-200 text-center hover:border-emerald-300 transition">
-                    <div class="text-3xl font-extrabold text-emerald-700 mb-1">Rp 50rb</div>
-                    <p class="text-xs text-gray-500">Bibit pohon mangrove untuk pesisir Papua</p>
-                </div>
-                <div class="p-6 rounded-2xl border-2 border-emerald-600 bg-emerald-50 ring-2 ring-emerald-200 text-center relative">
-                    <span class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-emerald-600 text-white text-xs font-bold rounded-full">Populer</span>
-                    <div class="text-3xl font-extrabold text-emerald-700 mb-1">Rp 150rb</div>
-                    <p class="text-xs text-gray-500">Pelatihan lingkungan untuk satu pemuda Papua</p>
-                </div>
-                <div class="p-6 rounded-2xl border-2 border-gray-200 text-center hover:border-emerald-300 transition">
-                    <div class="text-3xl font-extrabold text-emerald-700 mb-1">Rp 500rb</div>
-                    <p class="text-xs text-gray-500">Pemetaan wilayah adat satu kampung</p>
-                </div>
-            </div>
+            <x-visitor.donation-options class="mb-10" />
 
             <a href="{{ route('donasi') }}" class="inline-flex items-center px-10 py-4 bg-emerald-600 text-white text-lg font-bold rounded-full hover:bg-emerald-700 transition shadow-lg hover:shadow-xl">
                 <i class="fa-solid fa-heart mr-2"></i> Donasi Sekarang

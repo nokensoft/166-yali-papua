@@ -1,5 +1,5 @@
-{{-- Page Loading Overlay — Glowing Rings --}}
-<div id="page-loading" class="fixed inset-0 z-[9999] flex items-center justify-center bg-neutral-900 transition-opacity duration-500">
+{{-- Page Loading Overlay — White Glass Blur --}}
+<div id="page-loading" class="fixed inset-0 z-[9999] flex items-center justify-center bg-white/70 backdrop-blur-md transition-opacity duration-500">
     <div class="loading-rings">
         <div class="ring ring-outer"></div>
         <div class="ring ring-inner"></div>

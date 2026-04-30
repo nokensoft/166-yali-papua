@@ -83,15 +83,15 @@
              class="fixed inset-0 bg-black/50 z-40 lg:hidden" x-transition.opacity></div>
 
         {{-- Sidebar --}}
-        <aside :class="mobileSidebar ? 'translate-x-0' : '-translate-x-full'"
-               class="fixed inset-y-0 left-0 z-50 w-72 bg-dark text-white flex flex-col transition-transform duration-300 lg:translate-x-0">
+        <aside :class="[mobileSidebar ? 'translate-x-0' : '-translate-x-full', sidebarOpen ? 'lg:translate-x-0' : 'lg:-translate-x-full']"
+               class="fixed inset-y-0 left-0 z-50 w-72 bg-white text-gray-800 border-r border-gray-200 shadow-sm flex flex-col transition-transform duration-300">
 
             {{-- Logo --}}
-            <div class="px-6 py-5 border-b border-gray-800 flex items-center space-x-3">
+            <div class="px-6 py-5 border-b border-gray-200 flex items-center space-x-3">
                 <img src="{{ asset('img/logo-yali-papua.png') }}" alt="Logo {{ $situs['nama_situs'] ?? 'YALI Papua' }}" class="h-10 w-10 object-cover rounded-full ring-2 ring-primary/40 shrink-0">
                 <div>
                     <span class="font-bold text-lg leading-tight text-primary block">{{ $situs['nama_situs'] ?? 'YALI Papua' }}</span>
-                    <span class="text-lg font-medium tracking-widest uppercase text-gray-400 block">{{ session('user.role') === 'admin_master' ? 'Admin' : 'Penulis' }}</span>
+                    <span class="text-lg font-medium tracking-widest uppercase text-gray-500 block">{{ session('user.role') === 'admin_master' ? 'Admin' : 'Penulis' }}</span>
                 </div>
             </div>
 
@@ -104,12 +104,12 @@
                     <div>
                         <p class="text-lg font-bold uppercase tracking-widest text-gray-500 mb-3 px-3">Utama</p>
                         <a href="{{ route('admin.dashboard') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('admin.dashboard') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('admin.dashboard') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-primary/10 hover:text-primary' }}">
                             <i class="fas fa-tachometer-alt w-6 text-center"></i>
                             <span>Dasbor</span>
                         </a>
                         <a href="{{ route('beranda') }}" target="_blank"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round text-gray-300 hover:bg-gray-800 hover:text-white">
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round text-gray-700 hover:bg-primary/10 hover:text-primary">
                             <i class="fas fa-globe w-6 text-center"></i>
                             <span>Lihat Website</span>
                             <i class="fas fa-external-link-alt text-lg ml-auto opacity-50"></i>
@@ -118,7 +118,7 @@
                     <div>
                         <p class="text-lg font-bold uppercase tracking-widest text-gray-500 mb-3 px-3">Konten</p>
                         <a href="{{ route('admin.halaman.index') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('admin.halaman.*') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('admin.halaman.*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-primary/10 hover:text-primary' }}">
                             <i class="fas fa-file-alt w-6 text-center"></i>
                             <span>Halaman</span>
                         </a>
@@ -126,17 +126,17 @@
                     <div>
                         <p class="text-lg font-bold uppercase tracking-widest text-gray-500 mb-3 px-3">Pengaturan</p>
                         <a href="{{ route('admin.pengaturan-situs') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('admin.pengaturan-situs') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('admin.pengaturan-situs') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-primary/10 hover:text-primary' }}">
                             <i class="fas fa-cog w-6 text-center"></i>
                             <span>Pengaturan Situs</span>
                         </a>
                         <a href="{{ route('admin.backup-database') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('admin.backup-database') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('admin.backup-database') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-primary/10 hover:text-primary' }}">
                             <i class="fas fa-database w-6 text-center"></i>
                             <span>Backup Database</span>
                         </a>
                         <a href="{{ route('admin.backup-storage') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('admin.backup-storage') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('admin.backup-storage') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-primary/10 hover:text-primary' }}">
                             <i class="fas fa-folder-open w-6 text-center"></i>
                             <span>Backup Storage</span>
                         </a>
@@ -144,12 +144,12 @@
                     <div>
                         <p class="text-lg font-bold uppercase tracking-widest text-gray-500 mb-3 px-3">Pengguna</p>
                         <a href="{{ route('admin.pengguna.index') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('admin.pengguna.*') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('admin.pengguna.*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-primary/10 hover:text-primary' }}">
                             <i class="fas fa-users w-6 text-center"></i>
                             <span>Kelola Pengguna</span>
                         </a>
                         <a href="{{ route('admin.aktivitas-login') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('admin.aktivitas-login') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('admin.aktivitas-login') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-primary/10 hover:text-primary' }}">
                             <i class="fas fa-history w-6 text-center"></i>
                             <span>Aktivitas Login</span>
                         </a>
@@ -157,7 +157,7 @@
                     <div>
                         <p class="text-lg font-bold uppercase tracking-widest text-gray-500 mb-3 px-3">Laporan</p>
                         <a href="{{ route('admin.statistik-pengunjung') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('admin.statistik-pengunjung') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('admin.statistik-pengunjung') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-primary/10 hover:text-primary' }}">
                             <i class="fas fa-chart-bar w-6 text-center"></i>
                             <span>Statistik Pengunjung</span>
                         </a>
@@ -169,12 +169,12 @@
                     <div>
                         <p class="text-lg font-bold uppercase tracking-widest text-gray-500 mb-3 px-3">Utama</p>
                         <a href="{{ route('penulis.dashboard') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.dashboard') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.dashboard') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-primary/10 hover:text-primary' }}">
                             <i class="fas fa-tachometer-alt w-6 text-center"></i>
                             <span>Dasbor</span>
                         </a>
                         <a href="{{ route('beranda') }}" target="_blank"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round text-gray-300 hover:bg-gray-800 hover:text-white">
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round text-gray-700 hover:bg-primary/10 hover:text-primary">
                             <i class="fas fa-globe w-6 text-center"></i>
                             <span>Lihat Website</span>
                             <i class="fas fa-external-link-alt text-lg ml-auto opacity-50"></i>
@@ -183,12 +183,12 @@
                     <div>
                         <p class="text-lg font-bold uppercase tracking-widest text-gray-500 mb-3 px-3">Blog</p>
                         <a href="{{ route('penulis.blog.index') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.blog.*') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.blog.*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-primary/10 hover:text-primary' }}">
                             <i class="fas fa-newspaper w-6 text-center"></i>
                             <span>Blog</span>
                         </a>
                         <a href="{{ route('penulis.kategori-blog.index') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.kategori-blog.*') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.kategori-blog.*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-primary/10 hover:text-primary' }}">
                             <i class="fas fa-tags w-6 text-center"></i>
                             <span>Kategori Blog</span>
                         </a>
@@ -196,12 +196,12 @@
                     <div>
                         <p class="text-lg font-bold uppercase tracking-widest text-gray-500 mb-3 px-3">Media</p>
                         <a href="{{ route('penulis.media.index') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.media.*') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.media.*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-primary/10 hover:text-primary' }}">
                             <i class="fas fa-photo-video w-6 text-center"></i>
                             <span>Media</span>
                         </a>
                         <a href="{{ route('penulis.foto-bercerita.index') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.foto-bercerita.*') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.foto-bercerita.*') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-primary/10 hover:text-primary' }}">
                             <i class="fas fa-images w-6 text-center"></i>
                             <span>Foto Bercerita</span>
                         </a>
@@ -209,7 +209,7 @@
                     <div>
                         <p class="text-lg font-bold uppercase tracking-widest text-gray-500 mb-3 px-3">Laporan</p>
                         <a href="{{ route('penulis.statistik-pengunjung') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.statistik-pengunjung') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.statistik-pengunjung') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-primary/10 hover:text-primary' }}">
                             <i class="fas fa-chart-bar w-6 text-center"></i>
                             <span>Statistik Pengunjung</span>
                         </a>
@@ -217,7 +217,7 @@
                     <div>
                         <p class="text-lg font-bold uppercase tracking-widest text-gray-500 mb-3 px-3">Pengguna</p>
                         <a href="{{ route('penulis.aktivitas-login') }}"
-                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.aktivitas-login') ? 'bg-primary text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
+                           class="flex items-center space-x-3 px-3 py-3 text-lg font-medium transition no-round {{ request()->routeIs('penulis.aktivitas-login') ? 'bg-primary text-white' : 'text-gray-700 hover:bg-primary/10 hover:text-primary' }}">
                             <i class="fas fa-history w-6 text-center"></i>
                             <span>Aktivitas Login</span>
                         </a>
@@ -228,13 +228,18 @@
         </aside>
 
         {{-- Main Area --}}
-        <div class="flex-1 flex flex-col min-w-0 lg:ml-72">
+        <div :class="sidebarOpen ? 'lg:ml-72' : 'lg:ml-0'" class="flex-1 flex flex-col min-w-0 transition-all duration-300">
 
             {{-- Top Bar --}}
             <header class="bg-white shadow-sm px-6 py-4 flex items-center justify-between sticky top-0 z-30">
                 <div class="flex items-center space-x-4">
                     <button @click="mobileSidebar = !mobileSidebar" class="lg:hidden text-xl text-gray-600">
                         <i class="fas fa-bars"></i>
+                    </button>
+                    <button @click="sidebarOpen = !sidebarOpen"
+                            class="hidden lg:inline-flex items-center justify-center h-10 w-10 border border-gray-200 rounded-md text-gray-600 hover:bg-gray-100 transition"
+                            :title="sidebarOpen ? 'Sembunyikan sidebar' : 'Tampilkan sidebar'">
+                        <i class="fas" :class="sidebarOpen ? 'fa-angles-left' : 'fa-angles-right'"></i>
                     </button>
                     <h1 class="text-xl font-extrabold text-dark uppercase tracking-wide">@yield('page-title', 'Dashboard')</h1>
                 </div>
@@ -283,7 +288,6 @@
 
             {{-- Footer --}}
             @php
-                $faqPage = $halamanFooter->firstWhere('slug', 'faq');
                 $disclaimerPage = $halamanFooter->firstWhere('slug', 'disclaimer');
             @endphp
             <footer class="bg-white border-t border-gray-200 px-6 py-4">
@@ -291,10 +295,8 @@
                     <p>&copy; {{ date('Y') }} {{ $situs['nama_situs'] ?? 'YALI Papua' }}</p>
                     <div class="flex items-center gap-3">
                         <a href="{{ route("{$dashPrefix}.dokumentasi") }}" class="hover:text-primary transition-colors">Dokumentasi</a>
-                        @if ($faqPage)
-                            <span class="text-gray-300">|</span>
-                            <a href="{{ route('faq') }}" target="_blank" class="hover:text-primary transition-colors">FAQ</a>
-                        @endif
+                        <span class="text-gray-300">|</span>
+                        <a href="{{ route('faq') }}" target="_blank" class="hover:text-primary transition-colors">FAQ</a>
                         @if ($disclaimerPage)
                             <span class="text-gray-300">|</span>
                             <a href="{{ route('disclaimer') }}" target="_blank" class="hover:text-primary transition-colors">Disclaimer</a>

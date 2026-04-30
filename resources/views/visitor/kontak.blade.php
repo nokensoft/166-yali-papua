@@ -19,13 +19,13 @@
 
                 {{-- Kolom Kiri: Info Kontak --}}
                 <div class="fade-in space-y-4">
-                    <p class="text-lg font-semibold tracking-widest uppercase text-secondary mb-2">Informasi</p>
+                    <p class="text-lg font-semibold tracking-widest uppercase text-primary-700 mb-2">Informasi</p>
                     <h2 class="text-2xl font-display font-bold text-neutral-900 mb-6">Kontak Kami</h2>
 
                     {{-- Alamat --}}
                     @if (!empty($situs['alamat']))
-                    <div class="flex gap-4 p-5 bg-neutral-50 border-l-4 border-secondary rounded-lg">
-                        <div class="w-11 h-11 bg-secondary text-white flex items-center justify-center shrink-0">
+                    <div class="flex gap-4 p-5 bg-neutral-50 border-l-4 border-primary-700 rounded-lg">
+                        <div class="w-11 h-11 bg-primary-700 text-white flex items-center justify-center shrink-0">
                             <i class="fa-solid fa-map-marker-alt text-lg"></i>
                         </div>
                         <div>
@@ -38,10 +38,10 @@
                     </div>
                     @endif
 
-                    {{-- Telepon & Fax --}}
+                    {{-- Telepon & Fax 
                     @if (!empty($situs['telepon']) || !empty($situs['fax']))
-                    <div class="flex gap-4 p-5 bg-neutral-50 border-l-4 border-secondary rounded-lg">
-                        <div class="w-11 h-11 bg-secondary text-white flex items-center justify-center shrink-0">
+                    <div class="flex gap-4 p-5 bg-neutral-50 border-l-4 border-primary-700 rounded-lg">
+                        <div class="w-11 h-11 bg-primary-700 text-white flex items-center justify-center shrink-0">
                             <i class="fa-solid fa-phone text-lg"></i>
                         </div>
                         <div>
@@ -55,29 +55,30 @@
                         </div>
                     </div>
                     @endif
+                    --}}
 
                     {{-- WhatsApp --}}
                     @if (!empty($situs['whatsapp_direktur']) || !empty($situs['whatsapp_ketua']))
-                    <div class="flex gap-4 p-5 bg-neutral-50 border-l-4 border-secondary rounded-lg">
-                        <div class="w-11 h-11 bg-secondary text-white flex items-center justify-center shrink-0">
+                    <div class="flex gap-4 p-5 bg-neutral-50 border-l-4 border-primary-700 rounded-lg">
+                        <div class="w-11 h-11 bg-primary-700 text-white flex items-center justify-center shrink-0">
                             <i class="fa-brands fa-whatsapp text-lg"></i>
                         </div>
                         <div>
                             <p class="font-bold uppercase text-lg text-neutral-700 mb-1">WhatsApp</p>
                             @if (!empty($situs['whatsapp_direktur']))
                                 <p class="text-neutral-500 text-lg">
-                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $situs['whatsapp_direktur']) }}" target="_blank" class="hover:text-secondary transition">
+                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $situs['whatsapp_direktur']) }}" target="_blank" class="hover:text-primary-700 transition">
                                         {{ $situs['whatsapp_direktur'] }}
                                     </a>
-                                    <span class="text-neutral-400">(Direktur)</span>
+                                    <span class="text-neutral-400">(Utama)</span>
                                 </p>
                             @endif
                             @if (!empty($situs['whatsapp_ketua']))
                                 <p class="text-neutral-500 text-lg">
-                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $situs['whatsapp_ketua']) }}" target="_blank" class="hover:text-secondary transition">
+                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $situs['whatsapp_ketua']) }}" target="_blank" class="hover:text-primary-700 transition">
                                         {{ $situs['whatsapp_ketua'] }}
                                     </a>
-                                    <span class="text-neutral-400">(Ketua)</span>
+                                    <span class="text-neutral-400">(Alternatif)</span>
                                 </p>
                             @endif
                         </div>
@@ -86,44 +87,44 @@
 
                     {{-- Email --}}
                     @if (!empty($situs['email']) || !empty($situs['email_direktur']) || !empty($situs['email_ketua']))
-                    <div class="flex gap-4 p-5 bg-neutral-50 border-l-4 border-secondary rounded-lg">
-                        <div class="w-11 h-11 bg-secondary text-white flex items-center justify-center shrink-0">
+                    <div class="flex gap-4 p-5 bg-neutral-50 border-l-4 border-primary-700 rounded-lg">
+                        <div class="w-11 h-11 bg-primary-700 text-white flex items-center justify-center shrink-0">
                             <i class="fa-solid fa-envelope text-lg"></i>
                         </div>
                         <div>
                             <p class="font-bold uppercase text-lg text-neutral-700 mb-1">Email</p>
                             @if (!empty($situs['email']))
                                 <p class="text-neutral-500 text-lg">
-                                    <a href="mailto:{{ $situs['email'] }}" class="hover:text-secondary transition">{{ $situs['email'] }}</a>
-                                    <span class="text-neutral-400">(Organisasi)</span>
+                                    <a href="mailto:{{ $situs['email'] }}" class="hover:text-primary-700 transition">{{ $situs['email'] }}</a>
+                                    <span class="text-neutral-400">(Email Organisasi)</span>
                                 </p>
                             @endif
                             @if (!empty($situs['email_direktur']))
                                 <p class="text-neutral-500 text-lg">
-                                    <a href="mailto:{{ $situs['email_direktur'] }}" class="hover:text-secondary transition">{{ $situs['email_direktur'] }}</a>
-                                    <span class="text-neutral-400">(Direktur)</span>
+                                    <a href="mailto:{{ $situs['email_direktur'] }}" class="hover:text-primary-700 transition">{{ $situs['email_direktur'] }}</a>
+                                    <span class="text-neutral-400">(Email Direktur)</span>
                                 </p>
                             @endif
-                            @if (!empty($situs['email_ketua']))
+                            {{-- @if (!empty($situs['email_ketua']))
                                 <p class="text-neutral-500 text-lg">
-                                    <a href="mailto:{{ $situs['email_ketua'] }}" class="hover:text-secondary transition">{{ $situs['email_ketua'] }}</a>
-                                    <span class="text-neutral-400">(Ketua)</span>
+                                    <a href="mailto:{{ $situs['email_ketua'] }}" class="hover:text-primary-700 transition">{{ $situs['email_ketua'] }}</a>
+                                    <span class="text-neutral-400">(Email 2)</span>
                                 </p>
-                            @endif
+                            @endif --}}
                         </div>
                     </div>
                     @endif
 
                     {{-- Website --}}
                     @if (!empty($situs['website']))
-                    <div class="flex gap-4 p-5 bg-neutral-50 border-l-4 border-secondary rounded-lg">
-                        <div class="w-11 h-11 bg-secondary text-white flex items-center justify-center shrink-0">
+                    <div class="flex gap-4 p-5 bg-neutral-50 border-l-4 border-primary-700 rounded-lg">
+                        <div class="w-11 h-11 bg-primary-700 text-white flex items-center justify-center shrink-0">
                             <i class="fa-solid fa-globe text-lg"></i>
                         </div>
                         <div>
                             <p class="font-bold uppercase text-lg text-neutral-700 mb-1">Website</p>
                             <p class="text-neutral-500 text-lg">
-                                <a href="https://{{ ltrim($situs['website'], 'https://') }}" target="_blank" rel="noopener noreferrer" class="hover:text-secondary transition">
+                                <a href="https://{{ ltrim($situs['website'], 'https://') }}" target="_blank" rel="noopener noreferrer" class="hover:text-primary-700 transition">
                                     {{ $situs['website'] }}
                                 </a>
                             </p>
@@ -134,7 +135,7 @@
                     {{-- Media Sosial --}}
                     @php
                         $sosmedLinks = collect([
-                            ['key' => 'sosmed_facebook',  'icon' => 'fa-facebook-f', 'label' => 'Facebook',    'color' => 'bg-blue-600 hover:bg-blue-700'],
+                            ['key' => 'sosmed_facebook',  'icon' => 'fa-facebook-f', 'label' => 'Facebook',    'color' => 'bg-primary-700 hover:bg-primary-800'],
                             ['key' => 'sosmed_instagram', 'icon' => 'fa-instagram',  'label' => 'Instagram',   'color' => 'bg-pink-500 hover:bg-pink-600'],
                             ['key' => 'sosmed_youtube',   'icon' => 'fa-youtube',    'label' => 'YouTube',     'color' => 'bg-red-600 hover:bg-red-700'],
                             ['key' => 'sosmed_twitter',   'icon' => 'fa-x-twitter',  'label' => 'Twitter / X', 'color' => 'bg-neutral-900 hover:bg-black'],
@@ -142,8 +143,8 @@
                         ])->filter(fn ($item) => !empty($situs[$item['key']]));
                     @endphp
                     @if ($sosmedLinks->isNotEmpty())
-                    <div class="flex gap-4 p-5 bg-neutral-50 border-l-4 border-secondary rounded-lg">
-                        <div class="w-11 h-11 bg-secondary text-white flex items-center justify-center shrink-0">
+                    <div class="flex gap-4 p-5 bg-neutral-50 border-l-4 border-primary-700 rounded-lg">
+                        <div class="w-11 h-11 bg-primary-700 text-white flex items-center justify-center shrink-0">
                             <i class="fa-solid fa-share-nodes text-lg"></i>
                         </div>
                         <div class="flex-1">
@@ -165,7 +166,7 @@
 
                 {{-- Kolom Kanan: Peta --}}
                 <div class="fade-in">
-                    <p class="text-lg font-semibold tracking-widest uppercase text-secondary mb-2">Lokasi</p>
+                    <p class="text-lg font-semibold tracking-widest uppercase text-primary-700 mb-2">Lokasi</p>
                     <h2 class="text-2xl font-display font-bold text-neutral-900 mb-6">Temukan Kami</h2>
 
                     @if (!empty($situs['google_maps_embed']))
@@ -179,7 +180,7 @@
                     @if (!empty($situs['google_maps_link']))
                         <div class="mt-4 flex items-center gap-3">
                             <a href="{{ $situs['google_maps_link'] }}" target="_blank" rel="noopener noreferrer"
-                               class="inline-flex items-center gap-2 bg-secondary text-white px-5 py-3 text-lg font-semibold hover:bg-secondary/90 transition">
+                               class="inline-flex items-center gap-2 bg-primary-700 text-white px-5 py-3 text-lg font-semibold hover:bg-primary-800 transition">
                                 <i class="fa-solid fa-map-location-dot"></i>
                                 Buka di Google Maps
                             </a>

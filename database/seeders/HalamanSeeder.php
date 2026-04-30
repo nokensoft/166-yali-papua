@@ -435,64 +435,13 @@ HTML,
             ],
 
             // -------------------------------------------------------
-            // 5. FAQ — tetap di /halaman/faq
-            // -------------------------------------------------------
-            [
-                'judul'     => 'FAQ',
-                'slug'      => 'faq',
-                'keterangan'=> 'Pertanyaan yang sering diajukan seputar organisasi, program, donasi, dan blog YALI Papua',
-                'urutan'    => 5,
-                'konten'    => <<<'HTML'
-<section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="mb-12 fade-in text-center">
-            <p class="text-xs font-semibold tracking-widest uppercase text-secondary mb-2"><i class="fa-solid fa-circle-question mr-2"></i>Pusat Bantuan</p>
-            <h2 class="text-2xl md:text-3xl font-display font-bold text-neutral-900">Pertanyaan yang Sering Diajukan</h2>
-            <p class="text-neutral-500 mt-3 max-w-2xl mx-auto">Temukan jawaban atas pertanyaan umum seputar YALI Papua, program kerja, donasi, dan layanan kami.</p>
-        </div>
-        <div class="max-w-4xl mx-auto space-y-4">
-            <div class="rounded-lg overflow-hidden border border-neutral-200 fade-in">
-                <div class="p-5 bg-neutral-50"><h3 class="font-display font-bold text-neutral-900 flex items-center gap-3"><span class="w-7 h-7 bg-secondary text-white text-xs font-bold flex items-center justify-center flex-shrink-0">1</span>Apa itu YALI Papua?</h3></div>
-                <div class="p-5"><p class="text-neutral-600 leading-relaxed">YALI Papua (<em>Perkumpulan Terbatas untuk Pengkajian dan Pemberdayaan Masyarakat Adat Papua</em>) adalah organisasi masyarakat sipil (CSO) yang bergerak di bidang pengorganisasian dan penguatan masyarakat adat Papua. Didirikan pada tahun 1988, lembaga ini bekerja melalui 5 pilar program: Penguatan Masyarakat Adat (PMA), Kajian Pendidikan Publik (KPP), Pengembangan Ekonomi Masyarakat Adat (PEMA), Penguatan Perempuan Adat (PPA), dan Penguatan Institusi &amp; Sumber Daya (PISD).</p></div>
-            </div>
-            <div class="rounded-lg overflow-hidden border border-neutral-200 fade-in">
-                <div class="p-5 bg-neutral-50"><h3 class="font-display font-bold text-neutral-900 flex items-center gap-3"><span class="w-7 h-7 bg-secondary text-white text-xs font-bold flex items-center justify-center flex-shrink-0">2</span>Apa visi dan misi YALI Papua?</h3></div>
-                <div class="p-5"><p class="text-neutral-600 leading-relaxed">Visi YALI Papua adalah terwujudnya Masyarakat Adat Papua yang mampu mengorganisir diri dan merekonsiliasi hubungan dengan Tuhan dan alam semesta untuk kehidupan yang berdaulat dan berkelanjutan di tahun 2040. Misi kami mencakup penguatan kelembagaan adat, kajian kebijakan, pengembangan ekonomi, penguatan perempuan, dan penguatan institusi lembaga. Selengkapnya di halaman <a href="/profil" class="text-secondary underline font-semibold">Profil Lembaga</a>.</p></div>
-            </div>
-            <div class="rounded-lg overflow-hidden border border-neutral-200 fade-in">
-                <div class="p-5 bg-neutral-50"><h3 class="font-display font-bold text-neutral-900 flex items-center gap-3"><span class="w-7 h-7 bg-secondary text-white text-xs font-bold flex items-center justify-center flex-shrink-0">3</span>Di mana saja wilayah kerja YALI Papua?</h3></div>
-                <div class="p-5"><p class="text-neutral-600 leading-relaxed">YALI Papua berkantor pusat di Jl. Pramuka No. 18, Buper Waena, Kota Jayapura. Wilayah kerja meliputi Kabupaten Jayapura dan Kabupaten Sarmi (Provinsi Papua), serta Kabupaten Mappi (Provinsi Papua Selatan). Pendampingan juga dilakukan di 7 wilayah adat di Tanah Papua.</p></div>
-            </div>
-            <div class="rounded-lg overflow-hidden border border-neutral-200 fade-in">
-                <div class="p-5 bg-neutral-50"><h3 class="font-display font-bold text-neutral-900 flex items-center gap-3"><span class="w-7 h-7 bg-secondary text-white text-xs font-bold flex items-center justify-center flex-shrink-0">4</span>Bagaimana cara berdonasi untuk program YALI Papua?</h3></div>
-                <div class="p-5"><p class="text-neutral-600 leading-relaxed">Anda dapat berdonasi melalui halaman <a href="/donasi" class="text-secondary underline font-semibold">Donasi</a>. Lakukan transfer ke rekening resmi yang tertera, simpan bukti transfer, lalu hubungi admin melalui halaman <a href="/kontak" class="text-secondary underline font-semibold">Kontak</a> untuk konfirmasi manual. Seluruh donasi dikelola secara transparan dan akuntabel.</p></div>
-            </div>
-            <div class="rounded-lg overflow-hidden border border-neutral-200 fade-in">
-                <div class="p-5 bg-neutral-50"><h3 class="font-display font-bold text-neutral-900 flex items-center gap-3"><span class="w-7 h-7 bg-secondary text-white text-xs font-bold flex items-center justify-center flex-shrink-0">5</span>Apakah konten blog berasal dari YALI Papua sendiri?</h3></div>
-                <div class="p-5"><p class="text-neutral-600 leading-relaxed">Blog YALI Papua memuat artikel asli yang ditulis oleh tim kami, serta artikel yang di-<em>repost</em> dari media dan portal berita tepercaya seperti Antara News, Mongabay Indonesia, Jubi, dan lainnya. Setiap artikel yang bersumber dari pihak ketiga selalu mencantumkan nama sumber dan tautan asli sebagai bentuk penghormatan terhadap hak cipta dan transparansi informasi.</p></div>
-            </div>
-            <div class="rounded-lg overflow-hidden border border-neutral-200 fade-in">
-                <div class="p-5 bg-neutral-50"><h3 class="font-display font-bold text-neutral-900 flex items-center gap-3"><span class="w-7 h-7 bg-secondary text-white text-xs font-bold flex items-center justify-center flex-shrink-0">6</span>Bagaimana cara bermitra dengan YALI Papua?</h3></div>
-                <div class="p-5"><p class="text-neutral-600 leading-relaxed">YALI Papua terbuka untuk kemitraan dengan lembaga internasional, pemerintah, organisasi masyarakat sipil, dan sektor swasta yang memiliki komitmen terhadap pemberdayaan masyarakat adat Papua. Silakan hubungi kami melalui halaman <a href="/kontak" class="text-secondary underline font-semibold">Kontak</a> atau WhatsApp di <strong>+62 821-9750-1692</strong>.</p></div>
-            </div>
-            <div class="rounded-lg overflow-hidden border border-neutral-200 fade-in">
-                <div class="p-5 bg-neutral-50"><h3 class="font-display font-bold text-neutral-900 flex items-center gap-3"><span class="w-7 h-7 bg-secondary text-white text-xs font-bold flex items-center justify-center flex-shrink-0">7</span>Apakah website ini menyediakan sitemap untuk SEO?</h3></div>
-                <div class="p-5"><p class="text-neutral-600 leading-relaxed">Ya, kami menyediakan <a href="/sitemap.xml" class="text-secondary underline font-semibold">sitemap XML</a> untuk membantu mesin pencari mengindeks seluruh halaman publik. Kami juga memiliki halaman <a href="/peta-situs" class="text-secondary underline font-semibold">Peta Situs</a> yang menampilkan daftar lengkap halaman untuk navigasi pengunjung.</p></div>
-            </div>
-        </div>
-    </div>
-</section>
-HTML,
-            ],
-
-            // -------------------------------------------------------
-            // 6. Disclaimer — tetap di /halaman/disclaimer
+            // 5. Disclaimer — tetap di /halaman/disclaimer
             // -------------------------------------------------------
             [
                 'judul'     => 'Disclaimer',
                 'slug'      => 'disclaimer',
                 'keterangan'=> 'Syarat penggunaan, hak cipta, kebijakan konten reposted, dan informasi hukum website YALI Papua',
-                'urutan'    => 6,
+                'urutan'    => 5,
                 'konten'    => <<<'HTML'
 <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-6">
