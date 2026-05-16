@@ -424,7 +424,7 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
                 <div class="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                    <div class="aspect-[4/5] overflow-hidden"><img src="{{ asset('img/merchandise/mockup-tshirst-yali-papua.png') }}" alt="Kaos YALI Papua" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"></div>
+                    <div class="aspect-[4/5] overflow-hidden"><img src="{{ asset('img/merchandise/mockup-tshirst-yali-papua2.png') }}" alt="Kaos YALI Papua" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"></div>
                     <div class="p-5 text-center">
                         <h3 class="font-bold text-gray-900 mb-1">Kaos YALI Papua</h3>
                         {{-- <p class="text-xs text-gray-500 mb-3">Kaos katun premium dengan logo YALI Papua</p> --}}
@@ -440,7 +440,7 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
                     </div>
                 </div>
                 <div class="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                    <div class="aspect-[4/5] overflow-hidden"><img src="{{ asset('img/merchandise/mockup-tas-putih-yali-papua.png') }}" alt="Tote Bag YALI Papua" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"></div>
+                    <div class="aspect-[4/5] overflow-hidden"><img src="{{ asset('img/merchandise/mockup-tas-putih-yali-papua2.png') }}" alt="Tote Bag YALI Papua" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"></div>
                     <div class="p-5 text-center">
                         <h3 class="font-bold text-gray-900 mb-1">Tote Bag YALI Papua</h3>
                         {{-- <p class="text-xs text-gray-500 mb-3">Tote bag kanvas ramah lingkungan</p> --}}
@@ -448,7 +448,7 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
                     </div>
                 </div>
                 <div class="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                    <div class="aspect-[4/5] overflow-hidden"><img src="{{ asset('img/merchandise/mockup-gelas-yali-papua.png') }}" alt="Gelas Mug YALI Papua" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"></div>
+                    <div class="aspect-[4/5] overflow-hidden"><img src="{{ asset('img/merchandise/mockup-gelas-yali-papua2.png') }}" alt="Gelas Mug YALI Papua" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"></div>
                     <div class="p-5 text-center">
                         <h3 class="font-bold text-gray-900 mb-1">Gelas Mug YALI Papua</h3>
                         {{-- <p class="text-xs text-gray-500 mb-3">Mug keramik dengan logo YALI Papua</p> --}}
@@ -456,7 +456,7 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
                     </div>
                 </div>
                 <div class="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                    <div class="aspect-[4/5] overflow-hidden"><img src="{{ asset('img/merchandise/mockup-topi-bucket-yali-papua.png') }}" alt="Topi Bucket YALI Papua" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"></div>
+                    <div class="aspect-[4/5] overflow-hidden"><img src="{{ asset('img/merchandise/mockup-topi-bucket-yali-papua2.png') }}" alt="Topi Bucket YALI Papua" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"></div>
                     <div class="p-5 text-center">
                         <h3 class="font-bold text-gray-900 mb-1">Topi Bucket YALI Papua</h3>
                         {{-- <p class="text-xs text-gray-500 mb-3">Topi bucket untuk kegiatan outdoor</p> --}}
