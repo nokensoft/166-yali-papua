@@ -138,7 +138,7 @@
     </div>
     <div class="border-t border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p class="text-sm text-gray-400">&copy; {{ date('Y') }} {{ $situs['nama_situs'] ?? 'YALI Papua' }}. Hak Cipta Dilindungi.</p>
+            <p class="text-sm text-gray-400">&copy; {{ date('Y') }} {{ $situs['nama_situs'] ?? 'YALI Papua' }}. All right reserved.</p>
             <div class="flex items-center gap-3">
                 <a href="{{ $footerAccountUrl }}"
                    class="inline-flex items-center px-4 py-1.5 rounded-full border border-white/20 text-sm text-gray-200 hover:text-white hover:border-primary-400 hover:bg-white/10 transition">

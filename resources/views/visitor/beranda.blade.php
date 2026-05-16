@@ -227,24 +227,7 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
                 <div class="relative">
                     <div class="bg-gradient-to-br from-emerald-100 to-sky-100 rounded-3xl p-8">
                         <div class="bg-white rounded-2xl shadow-lg p-8">
-                            <div class="grid grid-cols-2 gap-6 text-center">
-                                <div>
-                                    <div class="text-4xl font-extrabold text-emerald-700">15+</div>
-                                    <p class="text-sm text-gray-500 mt-1">Tahun Berdiri</p>
-                                </div>
-                                <div>
-                                    <div class="text-4xl font-extrabold text-sky-600">50+</div>
-                                    <p class="text-sm text-gray-500 mt-1">Program Terlaksana</p>
-                                </div>
-                                <div>
-                                    <div class="text-4xl font-extrabold text-emerald-700">200+</div>
-                                    <p class="text-sm text-gray-500 mt-1">Kampung Dampingan</p>
-                                </div>
-                                <div>
-                                    <div class="text-4xl font-extrabold text-sky-600">5.000+</div>
-                                    <p class="text-sm text-gray-500 mt-1">Masyarakat Terbantu</p>
-                                </div>
-                            </div>
+                            <img src="{{ asset('img/logo-yali-papua.png') }}" class="w-full" />
                         </div>
                     </div>
                 </div>
@@ -316,7 +299,7 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
         </div>
     </section>
 
-    {{-- INFO GRAFIS --}}
+    {{-- INFO GRAFIS 
     <section class="py-20 bg-gradient-to-br from-emerald-800 via-emerald-900 to-sky-900 text-white relative overflow-hidden">
         <div class="absolute inset-0 opacity-10">
             <div class="absolute top-10 right-10 w-64 h-64 bg-sky-400 rounded-full blur-3xl"></div>
@@ -360,6 +343,7 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
             </div>
         </div>
     </section>
+    --}}
 
     {{-- CTA BERMITRA --}}
     <section id="mitra" class="py-20 bg-gray-50">
@@ -406,7 +390,7 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
         </div>
     </section>
 
-    {{-- DONASI --}}
+    {{-- DONASI
     <section id="donasi" class="py-20 bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <span class="inline-block px-4 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold mb-4">
@@ -425,6 +409,7 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
             <p class="text-xs text-gray-400 mt-4">Donasi Anda akan dikelola secara transparan dan akuntabel.</p>
         </div>
     </section>
+     --}}
 
     {{-- CENDERA MATA --}}
     <section id="cendera-mata" class="py-20 bg-gray-50">
@@ -437,36 +422,44 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
                 <p class="text-gray-500 max-w-2xl mx-auto">Produk eksklusif YALI Papua. Setiap pembelian ikut mendukung program pelestarian lingkungan.</p>
             </div>
 
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
                 <div class="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                    <div class="h-48 overflow-hidden"><img src="{{ asset('img/merchandise/mockup-tshirst-yali-papua.png') }}" alt="Kaos YALI Papua" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"></div>
+                    <div class="aspect-[4/5] overflow-hidden"><img src="{{ asset('img/merchandise/mockup-tshirst-yali-papua.png') }}" alt="Kaos YALI Papua" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"></div>
                     <div class="p-5 text-center">
                         <h3 class="font-bold text-gray-900 mb-1">Kaos YALI Papua</h3>
-                        <p class="text-xs text-gray-500 mb-3">Kaos katun premium dengan logo YALI Papua</p>
+                        {{-- <p class="text-xs text-gray-500 mb-3">Kaos katun premium dengan logo YALI Papua</p> --}}
                         <a href="{{ route('kontak') }}" class="inline-flex items-center px-5 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-full hover:bg-emerald-700 transition"><i class="fa-solid fa-envelope mr-1"></i> Pesan</a>
                     </div>
                 </div>
                 <div class="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                    <div class="h-48 overflow-hidden"><img src="{{ asset('img/merchandise/mockup-tas-putih-yali-papua.png') }}" alt="Tote Bag YALI Papua" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"></div>
+                    <div class="aspect-[4/5] overflow-hidden"><img src="{{ asset('img/merchandise/mockup-jacket-yali-papua.png') }}" alt="Kaos YALI Papua" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"></div>
+                    <div class="p-5 text-center">
+                        <h3 class="font-bold text-gray-900 mb-1">Jacket YALI Papua</h3>
+                        {{-- <p class="text-xs text-gray-500 mb-3">Jaket premium dengan logo YALI Papua</p> --}}
+                        <a href="{{ route('kontak') }}" class="inline-flex items-center px-5 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-full hover:bg-emerald-700 transition"><i class="fa-solid fa-envelope mr-1"></i> Pesan</a>
+                    </div>
+                </div>
+                <div class="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="aspect-[4/5] overflow-hidden"><img src="{{ asset('img/merchandise/mockup-tas-putih-yali-papua.png') }}" alt="Tote Bag YALI Papua" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"></div>
                     <div class="p-5 text-center">
                         <h3 class="font-bold text-gray-900 mb-1">Tote Bag YALI Papua</h3>
-                        <p class="text-xs text-gray-500 mb-3">Tote bag kanvas ramah lingkungan</p>
+                        {{-- <p class="text-xs text-gray-500 mb-3">Tote bag kanvas ramah lingkungan</p> --}}
                         <a href="{{ route('kontak') }}" class="inline-flex items-center px-5 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-full hover:bg-emerald-700 transition"><i class="fa-solid fa-envelope mr-1"></i> Pesan</a>
                     </div>
                 </div>
                 <div class="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                    <div class="h-48 overflow-hidden"><img src="{{ asset('img/merchandise/mockup-gelas-yali-papua.png') }}" alt="Gelas Mug YALI Papua" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"></div>
+                    <div class="aspect-[4/5] overflow-hidden"><img src="{{ asset('img/merchandise/mockup-gelas-yali-papua.png') }}" alt="Gelas Mug YALI Papua" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"></div>
                     <div class="p-5 text-center">
                         <h3 class="font-bold text-gray-900 mb-1">Gelas Mug YALI Papua</h3>
-                        <p class="text-xs text-gray-500 mb-3">Mug keramik dengan logo YALI Papua</p>
+                        {{-- <p class="text-xs text-gray-500 mb-3">Mug keramik dengan logo YALI Papua</p> --}}
                         <a href="{{ route('kontak') }}" class="inline-flex items-center px-5 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-full hover:bg-emerald-700 transition"><i class="fa-solid fa-envelope mr-1"></i> Pesan</a>
                     </div>
                 </div>
                 <div class="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                    <div class="h-48 overflow-hidden"><img src="{{ asset('img/merchandise/mockup-topi-bucket-yali-papua.png') }}" alt="Topi Bucket YALI Papua" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"></div>
+                    <div class="aspect-[4/5] overflow-hidden"><img src="{{ asset('img/merchandise/mockup-topi-bucket-yali-papua.png') }}" alt="Topi Bucket YALI Papua" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"></div>
                     <div class="p-5 text-center">
                         <h3 class="font-bold text-gray-900 mb-1">Topi Bucket YALI Papua</h3>
-                        <p class="text-xs text-gray-500 mb-3">Topi bucket untuk kegiatan outdoor</p>
+                        {{-- <p class="text-xs text-gray-500 mb-3">Topi bucket untuk kegiatan outdoor</p> --}}
                         <a href="{{ route('kontak') }}" class="inline-flex items-center px-5 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-full hover:bg-emerald-700 transition"><i class="fa-solid fa-envelope mr-1"></i> Pesan</a>
                     </div>
                 </div>
