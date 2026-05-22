@@ -94,8 +94,8 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
                 @forelse ($blogTerbaru as $b)
                     <article class="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                         <a href="{{ route('blog.detail', $b->slug) }}" class="block">
-                            <div class="h-48 overflow-hidden">
-                                <img src="{{ $b->gambar }}" alt="{{ $b->judul }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.onerror=null;this.src='https://placehold.co/600x400'">
+                            <div class="relative overflow-hidden bg-gray-100" style="aspect-ratio: 1720 / 1080;">
+                                <img src="{{ $b->gambar }}" alt="{{ $b->judul }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.onerror=null;this.src='https://placehold.co/1720x1080'">
                             </div>
                         </a>
                         <div class="p-6">

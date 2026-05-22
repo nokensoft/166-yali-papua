@@ -266,7 +266,7 @@
 @endsection
 
 @push('scripts')
-<script src="{{ asset('vendor/ckeditor5/ckeditor.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/tinymce@7/tinymce.min.js"></script>
 <script>
 function galeriItemsForm(initialItems, mediaOptions, initialCoverMediaId) {
     const createItemUid = () => `item-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -293,7 +293,7 @@ function galeriItemsForm(initialItems, mediaOptions, initialCoverMediaId) {
         activeCoverSelection: false,
         modalSelectedId: '',
         richTextEditors: {},
-        richTextToolbar: ['bold', 'italic', 'link', 'blockQuote', 'bulletedList', 'numberedList'],
+        richTextToolbar: 'bold italic | link blockquote | bullist numlist',
         init() {
             this.$nextTick(() => this.initializeRichTextEditors());
             this.$watch('items.length', () => {
@@ -495,25 +495,36 @@ function galeriItemsForm(initialItems, mediaOptions, initialCoverMediaId) {
             return selected ? selected.preview : '';
         },
         initializeRichTextEditors() {
-            if (typeof window.ClassicEditor === 'undefined') return;
+            if (typeof window.tinymce === 'undefined') return;
 
             this.cleanupRichTextEditors();
 
             this.$el.querySelectorAll('textarea[data-rich-editor="galeri"]').forEach((textarea) => {
                 const key = textarea.id || textarea.name;
                 if (!key || this.richTextEditors[key]) return;
-
-                ClassicEditor.create(textarea, {
+                tinymce.init({
+                    target: textarea,
+                    menubar: false,
+                    statusbar: false,
+                    branding: false,
+                    promotion: false,
+                    convert_urls: false,
+                    plugins: 'link lists',
                     toolbar: this.richTextToolbar,
-                    language: 'id',
-                })
-                    .then((editor) => {
-                        this.richTextEditors[key] = editor;
-                        editor.model.document.on('change:data', () => {
-                            textarea.value = editor.getData();
+                    height: textarea.id === 'galeri-deskripsi-editor' ? 220 : 180,
+                    placeholder: textarea.getAttribute('placeholder') || '',
+                    content_style: 'body { font-family: Lato, sans-serif; font-size: 14px; line-height: 1.6; }',
+                    setup: (editor) => {
+                        editor.on('init change input undo redo', () => {
+                            editor.save();
+                            textarea.dispatchEvent(new Event('input', { bubbles: true }));
                         });
-                    })
-                    .catch(() => {});
+                    },
+                    init_instance_callback: (editor) => {
+                        this.richTextEditors[key] = editor;
+                        editor.save();
+                    },
+                });
             });
         },
         cleanupRichTextEditors() {
@@ -525,17 +536,20 @@ function galeriItemsForm(initialItems, mediaOptions, initialCoverMediaId) {
 
             Object.entries(this.richTextEditors).forEach(([key, editor]) => {
                 if (!activeKeys.has(key)) {
-                    if (editor && typeof editor.destroy === 'function') {
-                        editor.destroy();
+                    if (editor && typeof editor.remove === 'function') {
+                        editor.remove();
                     }
                     delete this.richTextEditors[key];
                 }
             });
         },
         syncRichTextEditors() {
+            if (typeof window.tinymce !== 'undefined') {
+                window.tinymce.triggerSave();
+            }
             Object.values(this.richTextEditors).forEach((editor) => {
-                if (editor && typeof editor.updateSourceElement === 'function') {
-                    editor.updateSourceElement();
+                if (editor && typeof editor.save === 'function') {
+                    editor.save();
                 }
             });
         }

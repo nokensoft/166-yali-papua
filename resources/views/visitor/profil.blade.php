@@ -40,23 +40,8 @@
                     <p class="text-gray-600 leading-relaxed">Dengan jaringan yang tersebar di seluruh wilayah Papua, kami bekerja sama dengan masyarakat adat, pemerintah daerah, organisasi internasional, dan akademisi untuk mewujudkan Papua yang lestari dan berdaulat.</p>
                 </div>
                 <div class="bg-gradient-to-br from-primary-100 to-secondary-100 rounded-3xl p-8">
-                    <div class="bg-white rounded-2xl shadow-lg p-8 grid grid-cols-2 gap-6 text-center">
-                        <div>
-                            <div class="text-4xl font-extrabold text-primary-700">15+</div>
-                            <p class="text-sm text-gray-500 mt-1">Tahun Berdiri</p>
-                        </div>
-                        <div>
-                            <div class="text-4xl font-extrabold text-secondary-600">50+</div>
-                            <p class="text-sm text-gray-500 mt-1">Program Terlaksana</p>
-                        </div>
-                        <div>
-                            <div class="text-4xl font-extrabold text-primary-700">200+</div>
-                            <p class="text-sm text-gray-500 mt-1">Kampung Dampingan</p>
-                        </div>
-                        <div>
-                            <div class="text-4xl font-extrabold text-secondary-600">5.000+</div>
-                            <p class="text-sm text-gray-500 mt-1">Masyarakat Terbantu</p>
-                        </div>
+                    <div class="bg-white rounded-2xl shadow-lg p-8">
+                        <img src="{{ asset('img/logo-yali-papua.png') }}" class="w-full" />
                     </div>
                 </div>
             </div>
@@ -124,6 +109,7 @@
         </div>
     </section>
 
+    {{-- 
     <section class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-14">
@@ -153,5 +139,6 @@
             </div>
         </div>
     </section>
+     --}}
 
 @endsection

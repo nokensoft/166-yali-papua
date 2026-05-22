@@ -6,7 +6,7 @@
         'title' => 'Foto Bercerita',
         'createRoute' => route('penulis.foto-bercerita.create'),
         'trashedRoute' => route('penulis.foto-bercerita.index'),
-        'columns' => ['Cover', 'Judul Cerita', 'Jumlah Item Foto', 'Publik', 'Tanggal'],
+        'columns' => ['Cover', 'Judul Cerita', 'Jumlah Item Foto', 'Total Pembaca', 'Publik', 'Tanggal'],
         'paginator' => $galeri,
         'rows' => $galeri->map(function ($g) {
             $cover = $g->coverMedia ?: $g->media->first();
@@ -49,6 +49,7 @@
                     $preview,
                     $g->judul,
                     $g->media_count . ' item',
+                    number_format($g->jumlah_dibaca ?? 0) . ' dibaca',
                     $publikCell,
                     $g->created_at->format('d M Y'),
                 ],

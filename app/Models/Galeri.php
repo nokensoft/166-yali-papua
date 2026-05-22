@@ -16,6 +16,7 @@ class Galeri extends Model
         'judul',
         'slug',
         'deskripsi',
+        'jumlah_dibaca',
         'cover_media_id',
         'is_publik',
         'user_id',

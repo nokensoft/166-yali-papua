@@ -125,7 +125,7 @@
                     </div>
 
                     {{-- Pilih dari Media --}}
-                    <button type="button" @click="openMediaModal()"
+                    <button type="button" @click="openMediaModal('featured')"
                             class="w-full bg-dark text-white px-4 py-3 font-bold hover:bg-gray-800 transition uppercase text-lg tracking-wide no-round text-center">
                         <i class="fas fa-photo-video mr-1"></i> Pilih dari Media
                     </button>
@@ -150,7 +150,7 @@
             <div class="relative bg-white w-full max-w-3xl max-h-[85vh] flex flex-col shadow-xl no-round z-10">
                 {{-- Header --}}
                 <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-                    <h3 class="text-lg font-bold uppercase text-dark">Pilih Gambar dari Media</h3>
+                    <h3 class="text-lg font-bold uppercase text-dark" x-text="modalContext === 'editor' ? 'Sisipkan Gambar ke Konten Blog' : 'Pilih Gambar dari Media'"></h3>
                     <button type="button" @click="showModal = false" class="text-gray-400 hover:text-gray-700 text-xl"><i class="fas fa-times"></i></button>
                 </div>
 
@@ -229,7 +229,7 @@
                     <button type="button" @click="showModal = false" class="bg-gray-200 text-gray-700 px-6 py-3 font-bold hover:bg-gray-300 transition uppercase text-lg no-round">Batal</button>
                     <button type="button" @click="confirmSelection()" :disabled="!tempSelectedId"
                             class="bg-primary text-white px-6 py-3 font-bold hover:bg-red-700 transition uppercase text-lg no-round disabled:opacity-50">
-                        <i class="fas fa-check mr-1"></i> Pilih Gambar
+                        <i class="fas fa-check mr-1"></i> <span x-text="modalContext === 'editor' ? 'Sisipkan Gambar' : 'Pilih Gambar'"></span>
                     </button>
                 </div>
             </div>
@@ -238,44 +238,12 @@
 @endsection
 
 @push('scripts')
-<script src="{{ asset('vendor/ckeditor5/ckeditor.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/tinymce@7/tinymce.min.js"></script>
 <script>
-let editorInstance = null;
-
-ClassicEditor
-    .create(document.querySelector('#editor'), {
-        toolbar: [
-            'heading', '|',
-            'bold', 'italic', '|',
-            'link', 'blockQuote', '|',
-            'bulletedList', 'numberedList', '|',
-            'outdent', 'indent', '|',
-            'insertTable', 'mediaEmbed', '|',
-            'undo', 'redo'
-        ],
-        heading: {
-            options: [
-                { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
-                { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
-                { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' }
-            ]
-        },
-        placeholder: 'Tulis konten blog lengkap...',
-        language: 'id'
-    })
-    .then(editor => {
-        editorInstance = editor;
-        // Sync editor data to textarea on form submit
-        editor.model.document.on('change:data', () => {
-            document.querySelector('textarea[name="konten"]').value = editor.getData();
-        });
-    })
-    .catch(error => console.error(error));
-
 function blogForm() {
     return {
         showModal: false,
+        modalContext: 'featured',
         modalTab: 'gallery',
         mediaList: [],
         loadingMedia: false,
@@ -297,12 +265,63 @@ function blogForm() {
                 this.previewUrl = '{{ asset("storage/" . $blog->media->file_path) }}';
                 this.selectedMediaName = '{{ $blog->media->judul }}';
             @endif
+
+            this.initTinyMCE();
+            this.$el.addEventListener('submit', () => {
+                if (typeof tinymce !== 'undefined') {
+                    tinymce.triggerSave();
+                }
+            });
         },
 
-        openMediaModal() {
+        initTinyMCE() {
+            if (typeof tinymce === 'undefined') return;
+
+            const activeEditor = tinymce.get('editor');
+            if (activeEditor) {
+                activeEditor.remove();
+            }
+
+            tinymce.init({
+                selector: '#editor',
+                height: 420,
+                menubar: false,
+                branding: false,
+                promotion: false,
+                convert_urls: false,
+                plugins: 'autolink lists link image table code fullscreen autoresize',
+                toolbar: 'undo redo | blocks | bold italic underline | mediaLibraryImage image link blockquote | bullist numlist | alignleft aligncenter alignright alignjustify | table | removeformat | code fullscreen',
+                block_formats: 'Paragraph=p; Heading 2=h2; Heading 3=h3; Heading 4=h4',
+                content_style: `
+                    body { font-family: Lato, sans-serif; font-size: 16px; line-height: 1.75; color: #1A1A1A; }
+                    figure { margin: 1.5rem 0; }
+                    figure img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+                    figure figcaption { margin-top: 0.5rem; font-size: 0.875rem; line-height: 1.25rem; color: #6b7280; text-align: center; font-style: italic; }
+                `,
+                placeholder: 'Tulis konten blog lengkap...',
+                setup: (editor) => {
+                    editor.ui.registry.addButton('mediaLibraryImage', {
+                        text: 'Media',
+                        tooltip: 'Sisipkan gambar dari Media',
+                        onAction: () => this.openMediaModal('editor'),
+                    });
+                    editor.on('init SetContent', () => {
+                        this.syncEditorImageCaptions(editor);
+                        editor.save();
+                    });
+
+                    editor.on('change input undo redo', () => {
+                        editor.save();
+                    });
+                },
+            });
+        },
+
+        openMediaModal(context = 'featured') {
+            this.modalContext = context;
             this.showModal = true;
             this.modalTab = 'gallery';
-            this.tempSelectedId = this.selectedMediaId ? parseInt(this.selectedMediaId) : null;
+            this.tempSelectedId = context === 'featured' && this.selectedMediaId ? parseInt(this.selectedMediaId, 10) : null;
             this.tempSelectedItem = null;
             this.resetUpload();
             this.fetchMedia();
@@ -325,7 +344,13 @@ function blogForm() {
         },
 
         confirmSelection() {
-            if (this.tempSelectedItem) {
+            if (!this.tempSelectedItem) {
+                return;
+            }
+
+            if (this.modalContext === 'editor') {
+                this.insertImageToEditor(this.tempSelectedItem);
+            } else {
                 this.selectedMediaId = this.tempSelectedItem.id;
                 this.previewUrl = this.tempSelectedItem.file_path;
                 this.selectedMediaName = this.tempSelectedItem.judul;
@@ -387,17 +412,106 @@ function blogForm() {
                 }
 
                 const media = await res.json();
+                this.upsertMediaList(media);
 
-                // Auto-select the uploaded media
-                this.selectedMediaId = media.id;
-                this.previewUrl = media.file_path;
-                this.selectedMediaName = media.judul;
+                if (this.modalContext === 'editor') {
+                    this.insertImageToEditor(media);
+                } else {
+                    this.selectedMediaId = media.id;
+                    this.previewUrl = media.file_path;
+                    this.selectedMediaName = media.judul;
+                }
                 this.showModal = false;
                 this.resetUpload();
             } catch (e) {
                 this.uploadError = 'Terjadi kesalahan saat mengupload.';
             }
             this.uploading = false;
+        },
+
+        upsertMediaList(media) {
+            const mediaId = String(media.id);
+            const existingIndex = this.mediaList.findIndex(item => String(item.id) === mediaId);
+            if (existingIndex === -1) {
+                this.mediaList.unshift(media);
+                return;
+            }
+            this.mediaList[existingIndex] = media;
+        },
+
+        insertImageToEditor(media) {
+            if (typeof tinymce === 'undefined') return;
+            const editor = tinymce.get('editor');
+            if (!editor || !media?.file_path) return;
+
+            const imageSrc = this.escapeHtmlAttribute(media.file_path);
+            const imageAltRaw = media.judul || 'Gambar';
+            const imageAlt = this.escapeHtmlAttribute(imageAltRaw);
+            const imageCaption = this.escapeHtmlText(imageAltRaw);
+            editor.insertContent(`<figure><img src="${imageSrc}" alt="${imageAlt}" /><figcaption>${imageCaption}</figcaption></figure>`);
+            this.syncEditorImageCaptions(editor);
+            editor.focus();
+            editor.save();
+        },
+        syncEditorImageCaptions(editorInstance = null) {
+            if (typeof tinymce === 'undefined') return;
+
+            const editor = editorInstance || tinymce.get('editor');
+            if (!editor) return;
+
+            const body = editor.getBody();
+            const doc = editor.getDoc();
+            if (!body || !doc) return;
+
+            body.querySelectorAll('img').forEach((img) => {
+                const altText = (img.getAttribute('alt') || '').trim();
+                const figure = img.closest('figure');
+
+                if (figure) {
+                    let caption = figure.querySelector('figcaption');
+                    if (!altText) {
+                        if (caption) caption.remove();
+                        return;
+                    }
+
+                    if (!caption) {
+                        caption = doc.createElement('figcaption');
+                        figure.appendChild(caption);
+                    }
+
+                    if (caption.textContent !== altText) {
+                        caption.textContent = altText;
+                    }
+                    return;
+                }
+
+                if (!altText || !img.parentNode) return;
+
+                const wrapTarget = img.parentElement && img.parentElement.tagName === 'A' ? img.parentElement : img;
+                if (!wrapTarget.parentNode) return;
+
+                const newFigure = doc.createElement('figure');
+                wrapTarget.parentNode.insertBefore(newFigure, wrapTarget);
+                newFigure.appendChild(wrapTarget);
+
+                const newCaption = doc.createElement('figcaption');
+                newCaption.textContent = altText;
+                newFigure.appendChild(newCaption);
+            });
+        },
+
+        escapeHtmlAttribute(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        },
+        escapeHtmlText(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
         },
 
         resetUpload() {

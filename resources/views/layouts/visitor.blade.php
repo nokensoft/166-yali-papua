@@ -181,9 +181,33 @@
         .prose ol { list-style-type: decimal; }
         .prose li { margin-bottom: 0.375rem; }
         .prose img { margin: 1.5rem 0; max-width: 100%; height: auto; }
+        .prose figure figcaption { text-align: center; }
         .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
         .prose table td, .prose table th { border: 1px solid #d1d5db; padding: 0.625rem 0.875rem; }
         .prose table th { background: #f3f4f6; font-weight: 700; }
+        /* TinyMCE content compatibility (Blog + Foto Bercerita) */
+        .tinymce-content h1 { font-size: 2rem; font-weight: 800; margin-top: 2rem; margin-bottom: 0.75rem; color: #111827; line-height: 1.25; }
+        .tinymce-content h5 { font-size: 1rem; font-weight: 700; margin-top: 1.25rem; margin-bottom: 0.5rem; color: #374151; }
+        .tinymce-content h6 { font-size: 0.875rem; font-weight: 700; margin-top: 1.25rem; margin-bottom: 0.5rem; color: #4b5563; }
+        .tinymce-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; }
+        .tinymce-content ul ul { list-style-type: circle; margin-bottom: 0.5rem; }
+        .tinymce-content ul ul ul { list-style-type: square; }
+        .tinymce-content ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 1.25rem; }
+        .tinymce-content ol ol { list-style-type: lower-alpha; margin-bottom: 0.5rem; }
+        .tinymce-content ol ol ol { list-style-type: lower-roman; }
+        .tinymce-content li + li { margin-top: 0.25rem; }
+        .tinymce-content figure { margin: 1.5rem 0; }
+        .tinymce-content figure img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+        .tinymce-content figure figcaption { margin-top: 0.5rem; font-size: 0.875rem; line-height: 1.25rem; color: #6b7280; text-align: center; font-style: italic; }
+        .tinymce-content hr { border: 0; border-top: 1px solid #d1d5db; margin: 1.5rem 0; }
+        .tinymce-content pre { margin: 1.5rem 0; padding: 1rem; border-radius: 0.5rem; background: #111827; color: #f9fafb; overflow-x: auto; }
+        .tinymce-content code { background: #f3f4f6; color: #111827; padding: 0.125rem 0.375rem; border-radius: 0.25rem; font-size: 0.875em; }
+        .tinymce-content pre code { background: transparent; color: inherit; padding: 0; border-radius: 0; }
+        .tinymce-content iframe { max-width: 100%; }
+        .tinymce-content [style*="text-align: left"], .tinymce-content .text-left { text-align: left !important; }
+        .tinymce-content [style*="text-align: center"], .tinymce-content .text-center { text-align: center !important; }
+        .tinymce-content [style*="text-align: right"], .tinymce-content .text-right { text-align: right !important; }
+        .tinymce-content [style*="text-align: justify"], .tinymce-content .text-justify { text-align: justify !important; }
     </style>
 </head>
 <body class="bg-white text-gray-800 antialiased text-lg">

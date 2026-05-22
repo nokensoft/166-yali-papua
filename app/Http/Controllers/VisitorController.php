@@ -99,6 +99,7 @@ class VisitorController extends Controller
         $kategoriAktif = $blog->kategori;
 
         $blog->increment('jumlah_dibaca');
+        $blog->refresh();
         $kategoriList = KategoriBlog::whereHas('blog', fn ($q) => $q->where('status', 'terbit'))
             ->withCount(['blog' => fn ($q) => $q->where('status', 'terbit')])
             ->get();
@@ -161,6 +162,8 @@ class VisitorController extends Controller
     public function fotoBerceritaDetail(string $slug)
     {
         $galeri = Galeri::with(['media', 'coverMedia'])->where('slug', $slug)->where('is_publik', true)->firstOrFail();
+        $galeri->increment('jumlah_dibaca');
+        $galeri->refresh();
 
         return view('visitor.galeri-detail', compact('galeri'));
     }

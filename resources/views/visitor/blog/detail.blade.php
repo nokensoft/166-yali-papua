@@ -34,7 +34,8 @@
 @section('content')
     @include('partials.page-banner', [
         'title' => 'Detail Blog',
-        'breadcrumb' => '<a href="' . route('blog') . '" class="hover:text-white transition">Blog</a> <i class="fa-solid fa-chevron-right text-xs mx-1"></i> Detail',
+        'breadcrumb' => '<a href="' . route('blog') . '" class="hover:text-white transition">Blog</a> <i class="fa-solid fa-chevron-right text-xs mx-1"></i> ' . e($blog->judul),
+        'rightAction' => '<span class="inline-flex items-center text-sm text-gray-200"><i class="fa-regular fa-eye mr-1.5"></i> ' . e(number_format($blog->jumlah_dibaca ?? 0)) . ' dibaca</span>',
     ])
 
     <section class="py-12 bg-gray-50">
@@ -42,7 +43,7 @@
             <div class="grid lg:grid-cols-3 gap-10">
                 <article class="lg:col-span-2">
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                        <div class="h-64 sm:h-80 lg:h-96 relative overflow-hidden bg-gradient-to-br from-primary-100 to-secondary-100">
+                        <div class="relative overflow-hidden bg-gradient-to-br from-primary-100 to-secondary-100" style="aspect-ratio: 1720 / 1080;">
                             <img src="{{ $blog->gambar }}" alt="{{ $blog->judul }}" class="w-full h-full object-cover" />
                             @if ($blog->kategori)
                                 <div class="absolute top-4 left-4">
@@ -67,7 +68,7 @@
 
                             <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 mb-8 leading-tight">{{ $blog->judul }}</h1>
 
-                            <div class="prose prose-lg max-w-none text-gray-600 leading-relaxed space-y-5">
+                            <div class="prose prose-lg tinymce-content max-w-none text-gray-600 leading-relaxed space-y-5" data-blog-content>
                                 {!! $blog->konten !!}
                             </div>
 
@@ -111,7 +112,9 @@
                             <div class="grid sm:grid-cols-2 gap-4">
                                 @foreach ($blogTerkait as $item)
                                     <a href="{{ route('blog.detail', $item->slug) }}" class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg hover:border-primary-200 transition">
-                                        <img src="{{ $item->gambar }}" class="w-full h-40 object-cover" alt="{{ $item->judul }}">
+                                        <div class="relative overflow-hidden bg-gray-100" style="aspect-ratio: 1720 / 1080;">
+                                            <img src="{{ $item->gambar }}" class="w-full h-full object-cover" alt="{{ $item->judul }}">
+                                        </div>
                                         <div class="p-4">
                                             <h4 class="text-sm font-bold text-gray-900 group-hover:text-primary-700 transition line-clamp-2">{{ $item->judul }}</h4>
                                             {{-- <p class="text-xs text-gray-400 mt-2">{{ $item->tanggal_terbit?->translatedFormat('d M Y') ?? $item->created_at->translatedFormat('d M Y') }}</p> --}}
@@ -133,4 +136,54 @@
             </div>
         </div>
     </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const contentRoot = document.querySelector('[data-blog-content]');
+            if (!contentRoot) return;
+
+            const styleCaption = (caption) => {
+                caption.style.marginTop = '0.5rem';
+                caption.style.fontSize = '0.875rem';
+                caption.style.lineHeight = '1.25rem';
+                caption.style.color = '#6b7280';
+                caption.style.textAlign = 'center';
+                caption.style.fontStyle = 'italic';
+            };
+
+            contentRoot.querySelectorAll('img').forEach((img) => {
+                const altText = (img.getAttribute('alt') || '').trim();
+                if (!altText) return;
+
+                const existingFigure = img.closest('figure');
+                if (existingFigure) {
+                    let existingCaption = existingFigure.querySelector('figcaption');
+                    if (!existingCaption) {
+                        existingCaption = document.createElement('figcaption');
+                        existingFigure.appendChild(existingCaption);
+                    }
+                    if (!existingCaption.textContent.trim()) {
+                        existingCaption.textContent = altText;
+                    }
+                    styleCaption(existingCaption);
+                    return;
+                }
+
+                const wrapTarget = img.parentElement && img.parentElement.tagName === 'A' ? img.parentElement : img;
+                if (!wrapTarget.parentNode) return;
+
+                const figure = document.createElement('figure');
+                figure.style.margin = '1.5rem 0';
+                wrapTarget.parentNode.insertBefore(figure, wrapTarget);
+                figure.appendChild(wrapTarget);
+
+                img.style.margin = '0';
+
+                const caption = document.createElement('figcaption');
+                caption.textContent = altText;
+                styleCaption(caption);
+                figure.appendChild(caption);
+            });
+        });
+    </script>
 @endsection

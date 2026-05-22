@@ -79,7 +79,7 @@
                         <div class="flex justify-between items-center py-3 border-b border-gray-100">
                             <div class="min-w-0 flex-1 mr-3">
                                 <p class="text-lg font-medium truncate">{{ $b->judul }}</p>
-                                <p class="text-lg text-gray-400">{{ $b->kategori?->nama ?? '-' }} &middot; {{ $b->created_at->format('d M Y') }}</p>
+                                <p class="text-lg text-gray-400">{{ $b->kategori?->nama ?? '-' }} &middot; {{ $b->created_at->format('d M Y') }} &middot; {{ number_format($b->jumlah_dibaca ?? 0) }} dibaca</p>
                             </div>
                             <span class="text-lg font-bold px-3 py-1 shrink-0 {{ $b->status === 'terbit' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700' }}">{{ ucfirst($b->status) }}</span>
                         </div>

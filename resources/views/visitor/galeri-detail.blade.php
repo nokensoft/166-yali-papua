@@ -29,13 +29,18 @@ $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
             <div class="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
         </div>
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
-            <nav class="flex items-center gap-2 text-sm text-gray-300 mb-4">
-                <a href="{{ route('beranda') }}" class="hover:text-white transition">Beranda</a>
-                <i class="fa-solid fa-chevron-right text-xs"></i>
-                <a href="{{ route('foto-bercerita') }}" class="hover:text-white transition">Foto Bercerita</a>
-                <i class="fa-solid fa-chevron-right text-xs"></i>
-                <span class="text-white font-semibold">Album</span>
-            </nav>
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <nav class="flex items-center gap-2 text-sm text-gray-300">
+                    <a href="{{ route('beranda') }}" class="hover:text-white transition">Beranda</a>
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                    <a href="{{ route('foto-bercerita') }}" class="hover:text-white transition">Foto Bercerita</a>
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                    <span class="text-white font-semibold">{{ $galeri->judul }}</span>
+                </nav>
+                <div class="inline-flex items-center text-sm text-gray-200">
+                    <i class="fa-regular fa-eye mr-1.5"></i> {{ number_format($galeri->jumlah_dibaca ?? 0) }} dibaca
+                </div>
+            </div>
         </div>
     </section>
 
@@ -48,8 +53,8 @@ $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
                 $cover = $galeri->coverMedia ?: $galeri->media->first();
                 $defaultDeskripsi = '<p>Dokumentasi visual kegiatan pelestarian lingkungan dan pemberdayaan masyarakat di Papua.</p>';
             @endphp
-            @if ($cover)
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6">
+            <div id="foto-item-cover" data-foto-item class="scroll-mt-32 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">
+                @if ($cover)
                     <div class="relative overflow-hidden bg-gray-100" style="aspect-ratio: 1720 / 1080;">
                         @if ($cover->tipe === 'video')
                             <img src="https://img.youtube.com/vi/{{ $cover->file_name }}/hqdefault.jpg"
@@ -71,19 +76,45 @@ $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
                             Foto Cover
                         </div>
                     </div>
-                </div>
-            @endif
+                @endif
 
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 mb-8">
-                <div class="flex flex-wrap items-center gap-3 mb-3 text-sm text-gray-400">
-                    <span><i class="fa-solid fa-calendar mr-1"></i> {{ $tanggal }}</span>
-                    <span><i class="fa-solid fa-images mr-1"></i> {{ $totalCount }} Item Foto</span>
-                </div>
-                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 mb-4">{{ $galeri->judul }}</h1>
-                <div class="prose max-w-none text-gray-600 leading-relaxed">
-                    {!! $galeri->deskripsi ?: $defaultDeskripsi !!}
+                <div class="p-6 sm:p-8">
+                    <div class="flex flex-wrap items-center gap-3 mb-3 text-sm text-gray-400">
+                        <span><i class="fa-solid fa-calendar mr-1"></i> {{ $tanggal }}</span>
+                        <span><i class="fa-solid fa-images mr-1"></i> {{ $totalCount }} Item Foto</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 mb-4">{{ $galeri->judul }}</h1>
+                    <div class="prose tinymce-content max-w-none text-gray-600 leading-relaxed">
+                        {!! $galeri->deskripsi ?: $defaultDeskripsi !!}
+                    </div>
                 </div>
             </div>
+            @if ($totalCount > 0)
+                <nav aria-label="Navigasi item foto bercerita" class="fixed top-1/2 -translate-y-1/2 z-40" style="right: max(0.5rem, calc((100vw - 56rem) / 2 - 2.75rem));">
+                    <div class="bg-white/95 backdrop-blur-sm border border-gray-200 shadow-lg rounded-2xl p-2 max-h-[70vh] overflow-y-auto">
+                        <div class="flex flex-col gap-2">
+                            <a href="#foto-item-cover"
+                                data-foto-nav-link
+                                data-target="foto-item-cover"
+                                class="foto-nav-link w-8 h-8 sm:w-9 sm:h-9 rounded-full border text-xs font-bold flex items-center justify-center transition bg-primary-600 text-white border-primary-600 shadow-md hover:bg-primary-600 hover:text-white"
+                                aria-label="Lompat ke cover album"
+                                aria-current="true">
+                                0
+                            </a>
+                            @foreach ($mediaItems as $index => $navItem)
+                                <a href="#foto-item-{{ $index + 1 }}"
+                                    data-foto-nav-link
+                                    data-target="foto-item-{{ $index + 1 }}"
+                                    class="foto-nav-link w-8 h-8 sm:w-9 sm:h-9 rounded-full border text-xs font-bold flex items-center justify-center transition bg-white border-primary-200 text-primary-700 hover:bg-primary-600 hover:text-white"
+                                    aria-label="Lompat ke item foto {{ $index + 1 }}"
+                                    aria-current="false">
+                                    {{ $index + 1 }}
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                </nav>
+            @endif
 
             <div class="space-y-8">
                 @forelse ($mediaItems as $index => $m)
@@ -91,7 +122,7 @@ $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
                         $itemJudul = $m->pivot->judul_item ?: ('Foto ' . ($index + 1));
                         $itemKeterangan = $m->pivot->keterangan_singkat ?: ($m->judul ?: 'Dokumentasi kegiatan lapangan YALI Papua.');
                     @endphp
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div id="foto-item-{{ $index + 1 }}" data-foto-item class="scroll-mt-32 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="relative overflow-hidden bg-gray-100" style="aspect-ratio: 1720 / 1080;">
                             @if ($m->tipe === 'video')
                                 <img src="https://img.youtube.com/vi/{{ $m->file_name }}/hqdefault.jpg"
@@ -115,7 +146,7 @@ $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
                         </div>
                         <div class="p-6 sm:p-8">
                             <h3 class="text-lg font-bold text-gray-900 mb-3">{{ $itemJudul }}</h3>
-                            <div class="prose max-w-none text-gray-600 leading-relaxed">
+                            <div class="prose tinymce-content max-w-none text-gray-600 leading-relaxed">
                                 {!! $itemKeterangan !!}
                             </div>
                             @if ($m->tipe === 'video')
@@ -153,4 +184,88 @@ $_f = JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE;
             </div>
         </div>
     </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = Array.from(document.querySelectorAll('[data-foto-nav-link]'));
+            const mediaItems = Array.from(document.querySelectorAll('[data-foto-item]'));
+
+            if (!navLinks.length || !mediaItems.length) return;
+
+            let activeItemId = mediaItems[0].id;
+            const visibilityRatio = new Map(mediaItems.map((item) => [item.id, 0]));
+
+            const setActiveNav = (itemId) => {
+                navLinks.forEach((link) => {
+                    const isActive = link.dataset.target === itemId;
+
+                    link.classList.toggle('bg-primary-600', isActive);
+                    link.classList.toggle('text-white', isActive);
+                    link.classList.toggle('border-primary-600', isActive);
+                    link.classList.toggle('shadow-md', isActive);
+
+                    link.classList.toggle('bg-white', !isActive);
+                    link.classList.toggle('text-primary-700', !isActive);
+                    link.classList.toggle('border-primary-200', !isActive);
+
+                    link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                });
+            };
+
+            const updateActiveFromViewport = () => {
+                let bestId = activeItemId;
+                let bestRatio = -1;
+
+                visibilityRatio.forEach((ratio, itemId) => {
+                    if (ratio > bestRatio) {
+                        bestRatio = ratio;
+                        bestId = itemId;
+                    }
+                });
+
+                if (bestRatio <= 0) {
+                    const triggerLine = window.innerHeight * 0.35;
+                    let minDistance = Number.POSITIVE_INFINITY;
+
+                    mediaItems.forEach((item) => {
+                        const rect = item.getBoundingClientRect();
+                        if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+
+                        const distance = Math.abs(rect.top - triggerLine);
+                        if (distance < minDistance) {
+                            minDistance = distance;
+                            bestId = item.id;
+                        }
+                    });
+                }
+
+                if (bestId !== activeItemId) {
+                    activeItemId = bestId;
+                    setActiveNav(activeItemId);
+                }
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    visibilityRatio.set(entry.target.id, entry.intersectionRatio);
+                });
+                updateActiveFromViewport();
+            }, {
+                threshold: [0, 0.2, 0.4, 0.6, 0.8, 1],
+                rootMargin: '-12% 0px -55% 0px'
+            });
+
+            mediaItems.forEach((item) => observer.observe(item));
+
+            navLinks.forEach((link) => {
+                link.addEventListener('click', () => {
+                    const target = link.dataset.target;
+                    if (!target) return;
+                    activeItemId = target;
+                    setActiveNav(activeItemId);
+                });
+            });
+
+            setActiveNav(activeItemId);
+        });
+    </script>
 @endsection
