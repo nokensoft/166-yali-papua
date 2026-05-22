@@ -6,19 +6,14 @@ use App\Models\Blog;
 use App\Models\KunjunganSitus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class StatistikPengunjungController extends Controller
 {
     public function index(Request $request)
     {
-        $filter = $request->get('filter', 'harian');
-
-        $data = match ($filter) {
-            'mingguan' => $this->mingguan(),
-            'bulanan' => $this->bulanan(),
-            'tahunan' => $this->tahunan(),
-            default => $this->harian(),
-        };
+        $filter = $this->normalizeFilter($request->get('filter'));
+        $data = $this->getDataByFilter($filter);
 
         $ringkasan = [
             'hari_ini' => KunjunganSitus::where('tanggal', today())->count(),
@@ -35,6 +30,65 @@ class StatistikPengunjungController extends Controller
         ];
 
         return view('admin.statistik-pengunjung', compact('data', 'filter', 'ringkasan', 'chartData'));
+    }
+
+    public function download(Request $request): StreamedResponse
+    {
+        $filter = $this->normalizeFilter($request->get('filter'));
+        $data = $this->getDataByFilter($filter);
+        $filename = 'laporan-statistik-pengunjung-' . $filter . '-' . now()->format('Ymd-His') . '.csv';
+
+        return response()->streamDownload(function () use ($data) {
+            $handle = fopen('php://output', 'w');
+
+            if ($handle === false) {
+                return;
+            }
+
+            fwrite($handle, "\xEF\xBB\xBF");
+            fputcsv($handle, ['Laporan Statistik Pengunjung']);
+            fputcsv($handle, [$data['label']]);
+            fputcsv($handle, []);
+            fputcsv($handle, $data['kolom']);
+
+            foreach ($data['rows'] as $row) {
+                $baris = [$row['periode']];
+
+                if (isset($row['rentang'])) {
+                    $baris[] = $row['rentang'];
+                }
+
+                $baris[] = (int) ($row['jumlah'] ?? 0);
+                fputcsv($handle, $baris);
+            }
+
+            $total = array_sum(array_map(fn ($row) => (int) ($row['jumlah'] ?? 0), $data['rows']));
+
+            if (count($data['kolom']) > 2) {
+                fputcsv($handle, ['Total', '', $total]);
+            } else {
+                fputcsv($handle, ['Total', $total]);
+            }
+
+            fclose($handle);
+        }, $filename, [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+        ]);
+    }
+
+    private function normalizeFilter(?string $filter): string
+    {
+        return in_array($filter, ['harian', 'mingguan', 'bulanan', 'tahunan'], true) ? $filter : 'harian';
+    }
+
+    private function getDataByFilter(string $filter): array
+    {
+        return match ($filter) {
+            'mingguan' => $this->mingguan(),
+            'bulanan' => $this->bulanan(),
+            'tahunan' => $this->tahunan(),
+            default => $this->harian(),
+        };
     }
 
     /**

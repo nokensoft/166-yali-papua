@@ -3,6 +3,41 @@
 @section('page-title', 'Statistik Pengunjung')
 
 @section('content')
+    <style>
+        @media print {
+            body {
+                background: #fff !important;
+            }
+
+            body * {
+                visibility: hidden;
+            }
+
+            #print-statistik-content,
+            #print-statistik-content * {
+                visibility: visible;
+            }
+
+            #print-statistik-content {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            #print-statistik-content .print-hide {
+                display: none !important;
+            }
+
+            #print-statistik-content .shadow-sm {
+                box-shadow: none !important;
+            }
+        }
+    </style>
+
+    <div id="print-statistik-content">
     {{-- Ringkasan --}}
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         @foreach ([
@@ -27,18 +62,38 @@
 
     {{-- Filter --}}
     <div class="bg-white shadow-sm p-6">
-        <div class="flex flex-wrap gap-2 mb-6">
-            @foreach ([
+        @php
+            $filterLabels = [
                 'harian' => 'Harian',
                 'mingguan' => 'Mingguan',
                 'bulanan' => 'Bulanan',
                 'tahunan' => 'Tahunan',
-            ] as $key => $label)
-                <a href="?filter={{ $key }}"
-                   class="px-5 py-2 text-lg font-bold uppercase tracking-wide transition no-round {{ $filter === $key ? 'bg-primary text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
-                    {{ $label }}
+            ];
+            $routePrefix = request()->routeIs('admin.*') ? 'admin' : 'penulis';
+        @endphp
+
+        <div class="print-hide flex flex-col gap-3 mb-6 lg:flex-row lg:items-center lg:justify-between">
+            <div class="flex flex-wrap gap-2">
+                @foreach ($filterLabels as $key => $label)
+                    <a href="?filter={{ $key }}"
+                       class="px-5 py-2 text-lg font-bold uppercase tracking-wide transition no-round {{ $filter === $key ? 'bg-primary text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+                        {{ $label }}
+                    </a>
+                @endforeach
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+                <a href="{{ route($routePrefix . '.statistik-pengunjung.download', ['filter' => $filter]) }}"
+                   class="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-lg font-bold uppercase tracking-wide text-white bg-primary hover:bg-primary-700 transition no-round">
+                    <i class="fas fa-download"></i>
+                    Download CSV
                 </a>
-            @endforeach
+                <button type="button" onclick="printStatistikPengunjung()"
+                        class="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-lg font-bold uppercase tracking-wide text-white bg-dark hover:bg-gray-700 transition no-round">
+                    <i class="fas fa-print"></i>
+                    Cetak/PDF
+                </button>
+            </div>
         </div>
 
         <h3 class="text-lg font-extrabold text-dark uppercase mb-4">{{ $data['label'] }}</h3>
@@ -83,6 +138,7 @@
                 <p class="text-lg font-bold">Belum ada data pengunjung</p>
             </div>
         @endif
+    </div>
     </div>
 @endsection
 
@@ -144,5 +200,9 @@
                 }
             });
         });
+
+        function printStatistikPengunjung() {
+            window.print();
+        }
     </script>
 @endpush

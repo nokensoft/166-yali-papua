@@ -135,6 +135,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth.custom', 'role:admin_m
 
     // Statistik
     Route::get('/statistik-pengunjung', [StatistikPengunjungController::class, 'index'])->name('statistik-pengunjung');
+    Route::get('/statistik-pengunjung/download', [StatistikPengunjungController::class, 'download'])->name('statistik-pengunjung.download');
 
     // Profil
     Route::get('/profil', [ProfilController::class, 'edit'])->name('profil');
@@ -180,6 +181,7 @@ Route::prefix('penulis')->name('penulis.')->middleware(['auth.custom', 'role:pen
 
     // Statistik
     Route::get('/statistik-pengunjung', [StatistikPengunjungController::class, 'index'])->name('statistik-pengunjung');
+    Route::get('/statistik-pengunjung/download', [StatistikPengunjungController::class, 'download'])->name('statistik-pengunjung.download');
 
     // Aktivitas Login (hanya penulis)
     Route::get('/aktivitas-login', [PenulisAktivitasLoginController::class, 'index'])->name('aktivitas-login');
