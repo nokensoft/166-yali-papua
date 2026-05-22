@@ -27,8 +27,14 @@ class StatistikPengunjungController extends Controller
             'total' => KunjunganSitus::count(),
             'total_pembaca' => (int) Blog::sum('jumlah_dibaca'),
         ];
+        $chartData = [
+            'labels' => array_values(array_column($data['rows'], 'periode')),
+            'values' => array_values(array_map(fn ($row) => (int) ($row['jumlah'] ?? 0), $data['rows'])),
+            'filter' => $filter,
+            'dataset_label' => 'Jumlah Pengunjung',
+        ];
 
-        return view('admin.statistik-pengunjung', compact('data', 'filter', 'ringkasan'));
+        return view('admin.statistik-pengunjung', compact('data', 'filter', 'ringkasan', 'chartData'));
     }
 
     /**

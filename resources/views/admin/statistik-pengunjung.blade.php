@@ -44,6 +44,9 @@
         <h3 class="text-lg font-extrabold text-dark uppercase mb-4">{{ $data['label'] }}</h3>
 
         @if (count($data['rows']) > 0)
+            <div class="bg-gray-50 border border-gray-100 no-round p-4 mb-6 h-80">
+                <canvas id="statistikPengunjungChart"></canvas>
+            </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
                     <thead>
@@ -82,3 +85,64 @@
         @endif
     </div>
 @endsection
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const chartData = @json($chartData);
+            const chartCanvas = document.getElementById('statistikPengunjungChart');
+
+            if (!chartCanvas || !window.Chart || !Array.isArray(chartData.labels) || chartData.labels.length === 0) {
+                return;
+            }
+
+            const isLineChart = ['harian', 'mingguan'].includes(chartData.filter);
+            const chartType = isLineChart ? 'line' : 'bar';
+
+            new Chart(chartCanvas, {
+                type: chartType,
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        label: chartData.dataset_label,
+                        data: chartData.values,
+                        borderColor: '#2d8057',
+                        backgroundColor: isLineChart ? 'rgba(45, 128, 87, 0.15)' : 'rgba(45, 128, 87, 0.7)',
+                        borderWidth: 2,
+                        pointRadius: isLineChart ? 4 : 0,
+                        pointBackgroundColor: '#2d8057',
+                        tension: isLineChart ? 0.3 : 0,
+                        fill: isLineChart,
+                        borderRadius: isLineChart ? 0 : 6,
+                        maxBarThickness: 44,
+                    }],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 45,
+                                minRotation: 0
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+@endpush
