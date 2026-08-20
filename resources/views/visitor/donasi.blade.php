@@ -10,7 +10,8 @@
 @section('content')
     @php
         $rekeningBni = '1234xxxx';
-        $atasNama = $situs['nama_situs_en'] ?? 'Perkumpulan Terbatas untuk Pengkajian dan Pemberdayaan Masyarakat Adat Papua';
+        $rekeningMandiri = '154-00-7637607-2';
+        $atasNama = 'Yayasan Lingkungan Hidup Papua';
     @endphp
 
     @include('partials.page-banner', [
@@ -39,11 +40,11 @@
                         </div>
                         <div class="min-w-0">
                             <p class="text-lg font-semibold tracking-widest uppercase text-primary-700 mb-1">Rekening Donasi Resmi</p>
-                            <h3 class="text-xl font-display font-bold text-neutral-900 mb-3">Bank BNI</h3>
+                            <h3 class="text-xl font-display font-bold text-neutral-900 mb-3">Bank Mandiri</h3>
                             <div class="bg-neutral-50 border border-neutral-200 rounded-md p-4">
                                 <p class="text-lg text-neutral-500 mb-1">Nomor Rekening</p>
                                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                                    <p id="rekeningNumber" class="font-mono font-bold text-2xl text-neutral-900 tracking-wide">{{ $rekeningBni }}</p>
+                                    <p id="rekeningNumber" class="font-mono font-bold text-2xl text-neutral-900 tracking-wide">{{ $rekeningMandiri }}</p>
                                     <button type="button" id="copyRekeningButton"
                                             class="inline-flex items-center justify-center px-4 py-2 bg-primary-700 text-white text-sm font-semibold rounded-md hover:bg-primary-800 transition">
                                         <i class="fa-regular fa-copy mr-2"></i>
@@ -52,6 +53,7 @@
                                 </div>
                                 <p id="copyRekeningFeedback" class="text-sm text-emerald-700 mt-2 hidden"></p>
                                 <p class="text-lg text-neutral-500 mt-2">Atas Nama: <span class="font-semibold text-neutral-800">{{ $atasNama }}</span></p>
+                                <p class="text-lg text-neutral-500 mt-2">Swift Bank: : <span class="font-semibold text-neutral-800">BMRIIDJA</span></p>
                             </div>
                             <p class="text-lg text-neutral-500 mt-4">Jika sudah transfer, silakan simpan bukti transfer dan hubungi admin melalui halaman kontak untuk konfirmasi manual.</p>
                         </div>

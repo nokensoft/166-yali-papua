@@ -213,7 +213,7 @@
 <body class="bg-white text-gray-800 antialiased text-lg">
 
     {{-- Page Loading --}}
-    @include('partials.page-loading')
+    {{-- @include('partials.page-loading') --}}
 
     {{-- Topbar --}}
     @include('partials.topbar')
