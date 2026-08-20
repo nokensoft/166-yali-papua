@@ -14,70 +14,43 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
 @endsection
 
 @section('content')
-    {{-- HERO (Template Baru) --}}
-    <section id="beranda" class="relative bg-gradient-to-br from-emerald-900 via-emerald-800 to-sky-900 min-h-[85vh] flex items-center overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-20 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
-            <div class="absolute bottom-20 right-10 w-96 h-96 bg-sky-400 rounded-full blur-3xl"></div>
-        </div>
 
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="text-white">
-                    <span class="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-sm rounded-full text-sm font-medium mb-6 border border-white/20">
-                        <i class="fa-solid fa-seedling mr-1"></i> Menjaga Alam Papua
-                    </span>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
-                        Bersama Menjaga <span class="text-emerald-200">Hutan</span> &amp; <span class="text-sky-200">Laut</span> Papua
-                    </h1>
-                    <p class="text-lg text-gray-100 mb-8 max-w-lg leading-relaxed">
-                        {{ $situs['deskripsi_situs'] ?? 'YALI Papua berdedikasi untuk pelestarian lingkungan hidup dan pemberdayaan masyarakat adat di tanah Papua.' }}
-                    </p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="{{ route('profil') }}" class="inline-flex items-center px-8 py-3.5 bg-white text-emerald-800 font-bold rounded-full hover:bg-emerald-50 transition shadow-xl hover:shadow-2xl">
-                            Kenali Kami <i class="fa-solid fa-arrow-right ml-2"></i>
-                        </a>
-                        <a href="{{ route('donasi') }}" class="inline-flex items-center px-8 py-3.5 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-emerald-800 transition">
-                            <i class="fa-solid fa-heart mr-2"></i> Donasi Sekarang
-                        </a>
-                    </div>
-                </div>
-
-                <div class="hidden lg:flex justify-center">
-                    <div class="relative w-[34rem] h-[30rem] flex items-center justify-center">
-                        <div class="absolute w-80 h-80 bg-white rounded-[2rem] border border-white/80 shadow-2xl"></div>
-                        <div class="relative w-[32rem] z-10">
-                            <div class="rounded-[1.85rem] overflow-hidden" style="aspect-ratio: 1720 / 1080;">
-                                <img src="{{ asset('img/ilustrasi-model-yali-papua.png') }}" alt="Ilustrasi 2 orang YALI Papua" class="w-full h-full object-cover">
-                            </div>
-                        </div>
-                        <div class="absolute top-2 left-2 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 px-4 py-3 flex items-center gap-2.5 shadow-lg">
-                            <div class="w-9 h-9 bg-emerald-500/30 rounded-lg flex items-center justify-center"><i class="fa-solid fa-tree text-emerald-200"></i></div>
-                            <span class="text-white text-xs font-semibold tracking-wide whitespace-nowrap">Pelestarian Hutan</span>
-                        </div>
-                        <div class="absolute top-2 right-2 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 px-4 py-3 flex items-center gap-2.5 shadow-lg">
-                            <div class="w-9 h-9 bg-sky-500/30 rounded-lg flex items-center justify-center"><i class="fa-solid fa-fish text-sky-200"></i></div>
-                            <span class="text-white text-xs font-semibold tracking-wide whitespace-nowrap">Konservasi Laut</span>
-                        </div>
-                        <div class="absolute bottom-2 left-2 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 px-4 py-3 flex items-center gap-2.5 shadow-lg">
-                            <div class="w-9 h-9 bg-emerald-500/30 rounded-lg flex items-center justify-center"><i class="fa-solid fa-graduation-cap text-emerald-200"></i></div>
-                            <span class="text-white text-xs font-semibold tracking-wide whitespace-nowrap">Edukasi Lingkungan</span>
-                        </div>
-                        <div class="absolute bottom-2 right-2 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30 px-4 py-3 flex items-center gap-2.5 shadow-lg">
-                            <div class="w-9 h-9 bg-sky-500/30 rounded-lg flex items-center justify-center"><i class="fa-solid fa-people-group text-sky-200"></i></div>
-                            <span class="text-white text-xs font-semibold tracking-wide whitespace-nowrap">Pemberdayaan Masyarakat</span>
-                        </div>
-                    </div>
+{{-- HERO (Template Modifikasi) --}}
+<section id="beranda" class="relative min-h-[95vh] flex items-center overflow-hidden bg-cover bg-center" style="background-image: url('{{ asset('img/hero1.png') }}');">
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div class="text-white">
+                <span class="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-sm rounded-full text-sm font-medium mb-6 border border-white/20">
+                    <i class="fa-solid fa-seedling mr-1"></i> Menjaga Alam Papua
+                </span>
+                <h1 class="text-4xl sm:text-8xl lg:text-9xl font-extrabold leading-tight mb-6 drop-shadow-md">
+                    YALI Papua
+                </h1>
+                <p class="text-lg text-gray-50 mb-8 max-w-lg leading-relaxed drop-shadow-sm">
+                    {{ $situs['deskripsi_situs'] ?? 'YALI Papua berdedikasi untuk pelestarian lingkungan hidup dan pemberdayaan masyarakat adat di tanah Papua.' }}
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="{{ route('profil') }}" class="inline-flex items-center px-8 py-3.5 bg-emerald-600 text-white font-bold rounded-full hover:bg-emerald-700 transition shadow-xl">
+                        Tentang Kami <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </a>
+                    <a href="{{ route('program') }}" class="inline-flex items-center px-8 py-3.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold rounded-full hover:bg-white hover:text-emerald-800 transition">
+                        <i class="fa-solid fa-heart mr-2"></i> Yang Kami Lakukan
+                    </a>
                 </div>
             </div>
+            {{-- Bagian kanan kosong (sudah diganti teks mengambang) --}}
+            <div></div>
         </div>
+    </div>
 
-        <div class="absolute bottom-0 left-0 right-0">
-            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 120L48 105C96 90 192 60 288 50C384 40 480 50 576 55C672 60 768 60 864 55C960 50 1056 40 1152 45C1248 50 1344 70 1392 80L1440 90V120H0Z" fill="white"/>
-            </svg>
-        </div>
-    </section>
+    <div class="absolute bottom-0 left-0 right-0">
+        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 120L48 105C96 90 192 60 288 50C384 40 480 50 576 55C672 60 768 60 864 55C960 50 1056 40 1152 45C1248 50 1344 70 1392 80L1440 90V120H0Z" fill="white"/>
+        </svg>
+    </div>
+</section>
+
 
     {{-- BLOG TERBARU --}}
     <section id="blog" class="py-20 bg-white">
