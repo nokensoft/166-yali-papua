@@ -10,19 +10,10 @@
 @section('content')
     <section class="relative bg-cover bg-center min-h-[350px] lg:min-h-[350px] flex flex-col justify-center py-20 overflow-hidden" style="background-image: url('./img/hero2.jpg');">
         <!-- Overlay Gradasi Putih ke Atas dari Sisi Tengah -->
-        <div class="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-white via-white/10 to-transparent pointer-events-none"></div>
 
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white z-10">
-            {{-- <span class="inline-block px-4 py-1.5 bg-black/20 backdrop-blur-sm rounded-full text-sm font-medium mb-4 border border-white/20 drop-shadow-md">
-                <i class="fa-solid fa-users mr-1"></i> Tentang Kami
-            </span> --}}
-            <h1 class="text-4xl sm:text-5xl font-extrabold mb-4 text-white drop-shadow-lg">Mengenal YALI Papua</h1>
-            <p class="text-gray-100 max-w-2xl mx-auto drop-shadow-md">Berdedikasi untuk pelestarian lingkungan hidup dan pemberdayaan masyarakat adat di tanah Papua sejak 1994.</p>
-            <nav class="mt-6 flex items-center justify-center gap-2 text-sm text-gray-100 drop-shadow-md">
-                <a href="{{ route('beranda') }}" class="hover:text-white transition">Beranda</a>
-                <i class="fa-solid fa-chevron-right text-xs"></i>
-                <span class="text-white font-semibold">Tentang Kami</span>
-            </nav>
+            <h1 class="text-6xl sm:text-7xl font-extrabold mb-4 text-white drop-shadow-lg">Tentang Kami</h1>
         </div>
     </section>
 

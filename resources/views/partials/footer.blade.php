@@ -19,7 +19,7 @@
         <i class="fa-brands fa-whatsapp text-2xl"></i>
     </a>
 @endif
-<div class="fixed bottom-24 right-6 z-50 flex items-center gap-2">
+{{-- <div class="fixed bottom-24 right-6 z-50 flex items-center gap-2">
     <span class="px-3 py-1.5 bg-white text-primary-800 text-xs font-semibold rounded-full border border-primary-100 shadow-lg">
         Website dalam pengembangan
     </span>
@@ -29,7 +29,7 @@
             class="w-12 h-12 bg-primary-700 hover:bg-primary-800 text-white rounded-full shadow-lg flex items-center justify-center transition">
         <i class="fa-solid fa-circle-info text-xl"></i>
     </button>
-</div>
+</div> --}}
 
 <button id="btnTop"
         onclick="window.scrollTo({top:0,behavior:'smooth'})"

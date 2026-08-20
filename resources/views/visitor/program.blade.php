@@ -8,7 +8,16 @@
 @endsection
 
 @section('content')
-    <section class="relative bg-gradient-to-br from-primary-800 via-primary-900 to-secondary-900 py-20 overflow-hidden">
+    <section class="relative bg-cover bg-center min-h-[450px] lg:min-h-[450px] flex flex-col justify-center py-20 overflow-hidden" style="background-image: url('./img/hero4.jpg');">
+        <!-- Overlay Gradasi Putih ke Atas dari Sisi Tengah -->
+        <div class="absolute inset-0 bg-gradient-to-t from-white via-white/10 to-transparent pointer-events-none"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white z-10">
+            <h1 class="text-6xl sm:text-7xl font-extrabold mb-4 text-white drop-shadow-lg">Yang Kami Lakukan</h1>
+        </div>
+    </section>
+
+    {{-- <section class="relative bg-gradient-to-br from-primary-800 via-primary-900 to-secondary-900 py-20 overflow-hidden">
         <div class="absolute inset-0 opacity-10">
             <div class="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
             <div class="absolute bottom-10 right-10 w-80 h-80 bg-secondary-400 rounded-full blur-3xl"></div>
@@ -25,7 +34,7 @@
                 <span class="text-white font-semibold">Yang Kami Lakukan</span>
             </nav>
         </div>
-    </section>
+    </section> --}}
 
     <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

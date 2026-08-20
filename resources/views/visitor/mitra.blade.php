@@ -8,38 +8,36 @@
 @endsection
 
 @section('content')
-    <section class="relative bg-gradient-to-br from-primary-800 via-primary-900 to-secondary-900 py-20 overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
-            <div class="absolute bottom-10 right-10 w-80 h-80 bg-secondary-400 rounded-full blur-3xl"></div>
+<section class="relative bg-cover bg-center py-20 overflow-hidden" style="background-image: url('./img/hero5.jpg');">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+        <div class="text-center">
+            <span class="inline-block px-4 py-1.5 bg-black/30 backdrop-blur-sm rounded-full text-sm font-medium mb-4 border border-white/20">
+                <i class="fa-solid fa-handshake mr-1"></i> Kemitraan
+            </span>
+            <h1 class="text-4xl sm:text-5xl font-extrabold mb-4 drop-shadow-lg">Mitra Utama Kami</h1>
+            <p class="text-gray-100 max-w-2xl mx-auto drop-shadow-md">Bersama mitra, kami memperkuat gerakan pelestarian lingkungan dan pemberdayaan masyarakat adat Papua.</p>
         </div>
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
-            <div class="text-center">
-                <span class="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-sm rounded-full text-sm font-medium mb-4 border border-white/20">
-                    <i class="fa-solid fa-handshake mr-1"></i> Kemitraan
-                </span>
-                <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Mitra Utama Kami</h1>
-                <p class="text-gray-300 max-w-2xl mx-auto">Bersama mitra, kami memperkuat gerakan pelestarian lingkungan dan pemberdayaan masyarakat adat Papua.</p>
-            </div>
-            <div class="mt-10 max-w-5xl mx-auto bg-white/10 backdrop-blur-sm border border-white/20 rounded-3xl p-6 sm:p-8 shadow-2xl">
-                <div class="grid lg:grid-cols-[1.25fr_auto] gap-8 items-center">
-                    <div class="text-center lg:text-left">
-                        <p class="text-primary-200 uppercase tracking-[0.2em] text-xs font-semibold mb-3">Mitra Utama</p>
-                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-3">The David & Lucile Packard Foundation</h2>
-                        <p class="text-gray-200 leading-relaxed">Mitra utama YALI Papua dalam mendukung inisiatif pelestarian lingkungan, penguatan masyarakat adat, dan pembangunan berkelanjutan di Papua.</p>
-                    </div>
-                    <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-xl">
-                        <img src="{{ asset('img/mitra/David and Lucile Packard Foundation.png') }}" alt="The David & Lucile Packard Foundation" class="h-20 sm:h-24 w-auto mx-auto">
-                    </div>
+        
+        <div class="mt-10 max-w-5xl mx-auto bg-black/40 backdrop-blur-md border border-white/20 rounded-3xl p-6 sm:p-8 shadow-2xl">
+            <div class="grid lg:grid-cols-[1.25fr_auto] gap-8 items-center">
+                <div class="text-center lg:text-left">
+                    <p class="text-white/80 uppercase tracking-[0.2em] text-xs font-semibold mb-3">Mitra Utama</p>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-3">The David & Lucile Packard Foundation</h2>
+                    <p class="text-gray-100 leading-relaxed">Mitra utama YALI Papua dalam mendukung inisiatif pelestarian lingkungan, penguatan masyarakat adat, dan pembangunan berkelanjutan di Papua.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-xl">
+                    <img src="{{ asset('img/mitra/David and Lucile Packard Foundation.png') }}" alt="The David & Lucile Packard Foundation" class="h-20 sm:h-24 w-auto mx-auto">
                 </div>
             </div>
-            <nav class="mt-6 flex items-center justify-center gap-2 text-sm text-gray-300">
-                <a href="{{ route('beranda') }}" class="hover:text-white transition">Beranda</a>
-                <i class="fa-solid fa-chevron-right text-xs"></i>
-                <span class="text-white font-semibold">Mitra</span>
-            </nav>
         </div>
-    </section>
+
+        <nav class="mt-6 flex items-center justify-center gap-2 text-sm text-gray-100">
+            <a href="{{ route('beranda') }}" class="hover:text-white transition drop-shadow-md">Beranda</a>
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+            <span class="text-white font-semibold drop-shadow-md">Mitra</span>
+        </nav>
+    </div>
+</section>
 
     <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
