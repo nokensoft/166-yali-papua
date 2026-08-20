@@ -337,16 +337,19 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
                             </a>
                         </div>
                     </div>
-                    <div class="bg-gradient-to-br from-emerald-600 to-sky-700 p-10 lg:p-16 flex items-center justify-center">
-                        <div class="text-center text-white">
-                            <h3 class="text-2xl font-bold mb-3">Mitra Kami</h3>
-                            <p class="text-sm text-gray-200 mb-8">Organisasi yang telah bermitra dengan YALI Papua</p>
-                            <div class="bg-white rounded-2xl p-6">
-                                <img src="{{ asset('img/mitra/David and Lucile Packard Foundation.png') }}" alt="The David and Lucile Packard Foundation" class="h-24 w-auto mx-auto">
-                            </div>
-                            <p class="text-sm text-gray-200 mt-4">The David &amp; Lucile Packard Foundation</p>
-                        </div>
-                    </div>
+                    <div class="relative bg-cover bg-center p-10 lg:p-16 flex items-center justify-center" style="background-image: url('./img/hero1.png');">
+    <!-- Overlay Gelap Transparan agar Teks & Konten Lebih Kontras -->
+    <div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
+
+    <div class="relative text-center text-white z-10">
+        <h3 class="text-2xl font-bold mb-3 drop-shadow-md">Mitra Kami</h3>
+        <p class="text-sm text-gray-200 mb-8 drop-shadow">Organisasi yang telah bermitra dengan YALI Papua</p>
+        <div class="bg-white rounded-2xl p-6 shadow-xl">
+            <img src="{{ asset('img/mitra/David and Lucile Packard Foundation.png') }}" alt="The David and Lucile Packard Foundation" class="h-24 w-auto mx-auto">
+        </div>
+        <p class="text-sm text-gray-100 mt-4 font-medium drop-shadow">The David &amp; Lucile Packard Foundation</p>
+    </div>
+</div>
                 </div>
             </div>
         </div>
