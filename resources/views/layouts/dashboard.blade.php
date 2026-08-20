@@ -74,7 +74,7 @@
 <body class="bg-gray-100 text-gray-800 font-sans text-lg" x-data="{ sidebarOpen: true, mobileSidebar: false }">
 
     {{-- Page Loading --}}
-    @include('partials.page-loading')
+    {{-- @include('partials.page-loading') --}}
 
     <div class="flex min-h-screen">
 
