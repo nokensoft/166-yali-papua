@@ -17,10 +17,22 @@
 @endsection
 
 @section('content')
-    @include('partials.page-banner', [
+    {{-- @include('partials.page-banner', [
         'title' => ($kategoriAktif ? 'Blog: ' . $kategoriAktif->nama : 'Blog'),
         'breadcrumb' => ($kategoriAktif ? '<a href="' . route('blog') . '" class="hover:text-white transition">Blog</a> <i class="fa-solid fa-chevron-right text-xs mx-1"></i> ' . e($kategoriAktif->nama) : 'Blog'),
-    ])
+    ]) --}}
+
+    
+
+<section class="relative bg-gradient-to-br from-primary-800 via-primary-900 to-secondary-900 h-[150px] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 right-10 w-80 h-80 bg-secondary-400 rounded-full blur-3xl"></div>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+        <h1 class="text-5xl sm:text-6xl font-extrabold mb-4">Blog</h1>
+    </div>
+</section>
 
     <section class="py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

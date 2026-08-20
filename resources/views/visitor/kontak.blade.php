@@ -8,10 +8,17 @@
 @endsection
 
 @section('content')
-    @include('partials.page-banner', [
-        'title' => 'Hubungi Kami',
-        'breadcrumb' => 'Kontak',
-    ])
+    
+
+<section class="relative bg-gradient-to-br from-primary-800 via-primary-900 to-secondary-900 h-[150px] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 right-10 w-80 h-80 bg-secondary-400 rounded-full blur-3xl"></div>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+        <h1 class="text-5xl sm:text-6xl font-extrabold mb-4">Kontak</h1>
+    </div>
+</section>
 
     <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-6">
