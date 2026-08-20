@@ -8,24 +8,16 @@
 @endsection
 
 @section('content')
-    <section class="relative bg-gradient-to-br from-primary-800 via-primary-900 to-secondary-900 py-20 overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
-            <div class="absolute bottom-10 right-10 w-80 h-80 bg-secondary-400 rounded-full blur-3xl"></div>
-        </div>
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-            <span class="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-sm rounded-full text-sm font-medium mb-4 border border-white/20">
-                <i class="fa-solid fa-camera mr-1"></i> Foto Bercerita
-            </span>
-            <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Foto Bercerita</h1>
-            <p class="text-gray-300 max-w-2xl mx-auto">Kisah visual dari lapangan — dokumentasi perjalanan, aksi, dan dampak pelestarian lingkungan di Papua.</p>
-            <nav class="mt-6 flex items-center justify-center gap-2 text-sm text-gray-300">
-                <a href="{{ route('beranda') }}" class="hover:text-white transition">Beranda</a>
-                <i class="fa-solid fa-chevron-right text-xs"></i>
-                <span class="text-white font-semibold">Foto Bercerita</span>
-            </nav>
-        </div>
-    </section>
+
+<section class="relative bg-gradient-to-br from-primary-800 via-primary-900 to-secondary-900 h-[150px] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 right-10 w-80 h-80 bg-secondary-400 rounded-full blur-3xl"></div>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+        <h1 class="text-5xl sm:text-6xl font-extrabold mb-4">Foto Bercerita</h1>
+    </div>
+</section>
 
     <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
