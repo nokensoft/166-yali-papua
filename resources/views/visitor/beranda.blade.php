@@ -189,10 +189,8 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
                 </div>
 
                 <div class="relative">
-                    <div class="bg-gradient-to-br from-emerald-100 to-sky-100 rounded-3xl p-8">
-                        <div class="bg-white rounded-2xl shadow-lg p-8">
-                            <img src="{{ asset('img/logo-yali-papua.png') }}" class="w-full" />
-                        </div>
+                    <div class="bg-white rounded-2xl shadow-lg">
+                        <img src="{{ asset('img/yali-papua-ilustrasi-logo.jpg') }}" class="w-full" />
                     </div>
                 </div>
             </div>
@@ -353,27 +351,6 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
             </div>
         </div>
     </section>
-
-    {{-- DONASI
-    <section id="donasi" class="py-20 bg-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <span class="inline-block px-4 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold mb-4">
-                <i class="fa-solid fa-heart mr-1"></i> Donasi
-            </span>
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Bantu Kami Menjaga Papua</h2>
-            <p class="text-gray-500 max-w-2xl mx-auto mb-10">
-                Setiap kontribusi Anda sangat berarti untuk keberlangsungan program pelestarian lingkungan dan pemberdayaan masyarakat adat Papua.
-            </p>
-
-            <x-visitor.donation-options class="mb-10" />
-
-            <a href="{{ route('donasi') }}" class="inline-flex items-center px-10 py-4 bg-emerald-600 text-white text-lg font-bold rounded-full hover:bg-emerald-700 transition shadow-lg hover:shadow-xl">
-                <i class="fa-solid fa-heart mr-2"></i> Donasi Sekarang
-            </a>
-            <p class="text-xs text-gray-400 mt-4">Donasi Anda akan dikelola secara transparan dan akuntabel.</p>
-        </div>
-    </section>
-     --}}
 
     {{-- CENDERA MATA --}}
     <section id="cendera-mata" class="py-20 bg-gray-100">

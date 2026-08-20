@@ -86,6 +86,7 @@
                     @endif
 
                     {{-- Email --}}
+                    
                     @if (!empty($situs['email']) || !empty($situs['email_direktur']) || !empty($situs['email_ketua']))
                     <div class="flex gap-4 p-5 bg-neutral-50 border-l-4 border-primary-700 rounded-lg">
                         <div class="w-11 h-11 bg-primary-700 text-white flex items-center justify-center shrink-0">
@@ -105,12 +106,6 @@
                                     <span class="text-neutral-400">(Email Direktur)</span>
                                 </p>
                             @endif
-                            {{-- @if (!empty($situs['email_ketua']))
-                                <p class="text-neutral-500 text-lg">
-                                    <a href="mailto:{{ $situs['email_ketua'] }}" class="hover:text-primary-700 transition">{{ $situs['email_ketua'] }}</a>
-                                    <span class="text-neutral-400">(Email 2)</span>
-                                </p>
-                            @endif --}}
                         </div>
                     </div>
                     @endif

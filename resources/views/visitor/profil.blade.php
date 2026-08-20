@@ -8,18 +8,17 @@
 @endsection
 
 @section('content')
-    <section class="relative bg-gradient-to-br from-primary-800 via-primary-900 to-secondary-900 py-20 overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
-            <div class="absolute bottom-10 right-10 w-80 h-80 bg-secondary-400 rounded-full blur-3xl"></div>
-        </div>
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-            <span class="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-sm rounded-full text-sm font-medium mb-4 border border-white/20">
+    <section class="relative bg-cover bg-center min-h-[350px] lg:min-h-[350px] flex flex-col justify-center py-20 overflow-hidden" style="background-image: url('./img/hero2.jpg');">
+        <!-- Overlay Gradasi Putih ke Atas dari Sisi Tengah -->
+        <div class="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent pointer-events-none"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white z-10">
+            {{-- <span class="inline-block px-4 py-1.5 bg-black/20 backdrop-blur-sm rounded-full text-sm font-medium mb-4 border border-white/20 drop-shadow-md">
                 <i class="fa-solid fa-users mr-1"></i> Tentang Kami
-            </span>
-            <h1 class="text-4xl sm:text-5xl font-extrabold mb-4">Mengenal YALI Papua</h1>
-            <p class="text-gray-300 max-w-2xl mx-auto">Berdedikasi untuk pelestarian lingkungan hidup dan pemberdayaan masyarakat adat di tanah Papua sejak 1994.</p>
-            <nav class="mt-6 flex items-center justify-center gap-2 text-sm text-gray-300">
+            </span> --}}
+            <h1 class="text-4xl sm:text-5xl font-extrabold mb-4 text-white drop-shadow-lg">Mengenal YALI Papua</h1>
+            <p class="text-gray-100 max-w-2xl mx-auto drop-shadow-md">Berdedikasi untuk pelestarian lingkungan hidup dan pemberdayaan masyarakat adat di tanah Papua sejak 1994.</p>
+            <nav class="mt-6 flex items-center justify-center gap-2 text-sm text-gray-100 drop-shadow-md">
                 <a href="{{ route('beranda') }}" class="hover:text-white transition">Beranda</a>
                 <i class="fa-solid fa-chevron-right text-xs"></i>
                 <span class="text-white font-semibold">Tentang Kami</span>
@@ -34,7 +33,7 @@
                     <span class="inline-block px-4 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold mb-4">
                         <i class="fa-solid fa-building mr-1"></i> Profil
                     </span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-6">Yayasan Lingkungan Hidup Papua</h2>
+                    <h2 class="text-5xl sm:text-6xl font-extrabold text-gray-900 mb-6">Yayasan Lingkungan Hidup Papua</h2>
                     <p class="text-gray-600 mb-5 leading-relaxed"><strong>YALI Papua</strong> didirikan pada 26 Oktober 1994 oleh sekelompok aktivis lingkungan dan tokoh masyarakat adat Papua yang memiliki keprihatinan mendalam terhadap degradasi lingkungan dan marginalisasi masyarakat adat di tanah Papua.</p>
                     <p class="text-gray-600 mb-5 leading-relaxed">Kami bergerak di bidang advokasi lingkungan, pendampingan masyarakat adat, riset keanekaragaman hayati, dan edukasi lingkungan untuk generasi muda Papua.</p>
                     <p class="text-gray-600 leading-relaxed">Dengan jaringan yang tersebar di seluruh wilayah Papua, kami bekerja sama dengan masyarakat adat, pemerintah daerah, organisasi internasional, dan akademisi untuk mewujudkan Papua yang lestari dan berdaulat.</p>
@@ -54,7 +53,7 @@
                 <span class="inline-block px-4 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold mb-4">
                     <i class="fa-solid fa-compass mr-1"></i> Arah Kami
                 </span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Visi & Misi</h2>
+                <h2 class="text-5xl sm:text-6xl font-extrabold text-gray-900 mb-4">Visi & Misi</h2>
             </div>
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
@@ -86,7 +85,7 @@
                 <span class="inline-block px-4 py-1 bg-secondary-100 text-secondary-700 rounded-full text-sm font-semibold mb-4">
                     <i class="fa-solid fa-heart mr-1"></i> Prinsip Kami
                 </span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Nilai-Nilai Kami</h2>
+                <h2 class="text-5xl sm:text-6xl font-extrabold text-gray-900 mb-4">Nilai-Nilai Kami</h2>
             </div>
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" x-data="{
                 values: [
