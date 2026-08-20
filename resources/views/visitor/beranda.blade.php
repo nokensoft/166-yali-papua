@@ -56,11 +56,8 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
     <section id="blog" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-14">
-                <span class="inline-block px-4 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold mb-4">
-                    <i class="fa-solid fa-newspaper mr-1"></i> Blog
-                </span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Blog Terbaru</h2>
-                <p class="text-gray-500 max-w-2xl mx-auto">Edukasi, konservasi, dan cerita dampak dari program pelestarian lingkungan di Papua.</p>
+                <h2 class="text-5xl sm:text-6xl font-extrabold text-gray-900 mb-4">Postingan Terbaru</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">Berbagai tulisan, artikel, dan publikasi kegiatan berkaitan dari media YALI Papua.</p>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -83,9 +80,6 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
                             <p class="text-sm text-gray-500 mb-4 line-clamp-3">
                                 {{ \Illuminate\Support\Str::limit(strip_tags($b->ringkasan ?: $b->konten), 130) }}
                             </p>
-                            <a href="{{ route('blog.detail', $b->slug) }}" class="inline-flex items-center text-sm font-semibold text-emerald-600 hover:text-emerald-800 transition">
-                                Baca selengkapnya <i class="fa-solid fa-arrow-right ml-1 text-xs"></i>
-                            </a>
                         </div>
                     </article>
                 @empty
@@ -107,10 +101,7 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
     <section class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-14">
-                <span class="inline-block px-4 py-1 bg-sky-100 text-sky-700 rounded-full text-sm font-semibold mb-4">
-                    <i class="fa-solid fa-camera mr-1"></i> Foto Bercerita
-                </span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Foto Bercerita</h2>
+                <h2 class="text-5xl sm:text-6xl font-extrabold text-gray-900 mb-4">Foto Bercerita</h2>
                 <p class="text-gray-500 max-w-2xl mx-auto">Kisah visual dari lapangan — dokumentasi perjalanan, aksi, dan dampak pelestarian lingkungan di Papua.</p>
             </div>
 
@@ -215,7 +206,7 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
                 <span class="inline-block px-4 py-1 bg-sky-100 text-sky-700 rounded-full text-sm font-semibold mb-4">
                     <i class="fa-solid fa-hand-holding-heart mr-1"></i> Yang Kami Lakukan
                 </span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Program Unggulan</h2>
+                <h2 class="text-5xl sm:text-6xl font-extrabold text-gray-900 mb-4">Program Unggulan</h2>
                 <p class="text-gray-500 max-w-2xl mx-auto">Berbagai program strategis untuk menjaga kelestarian alam dan memberdayakan masyarakat adat Papua.</p>
             </div>
 
@@ -385,14 +376,14 @@ $_f = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
      --}}
 
     {{-- CENDERA MATA --}}
-    <section id="cendera-mata" class="py-20 bg-gray-50">
+    <section id="cendera-mata" class="py-20 bg-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-14">
-                <span class="inline-block px-4 py-1 bg-sky-100 text-sky-700 rounded-full text-sm font-semibold mb-4">
+                {{-- <span class="inline-block px-4 py-1 bg-sky-100 text-sky-700 rounded-full text-sm font-semibold mb-4">
                     <i class="fa-solid fa-gift mr-1"></i> Cendera Mata
-                </span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Cendera Mata YALI Papua</h2>
-                <p class="text-gray-500 max-w-2xl mx-auto">Produk eksklusif YALI Papua. Setiap pembelian ikut mendukung program pelestarian lingkungan.</p>
+                </span> --}}
+                {{-- <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">Cendera Mata YALI Papua</h2> --}}
+                <p class="text-gray-500 max-w-2xl mx-auto">Produk dan cenderamata YALI Papua. Setiap pembelian ikut mendukung program pelestarian lingkungan.</p>
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
